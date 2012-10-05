@@ -1,0 +1,61 @@
+#summary Guideline to use exceptions in our project
+#labels Phase-Requirements
+
+Exceptions are mechanism for handling exceptional situations. They are more powerful than traditional C error codes and at the same time can improve code readability and the whole program logic.
+
+=Why to use exceptions=
+
+ * Easy exception propagation. Exceptions in C++ can be easily propagated through the call stack until proper handler that could deal with it appears. While go through the stack it also eliminates all variables in the passed function scope through theirs destructors. This mechanism is known as "stack unwinding".
+ * Exception is an object. Unlike error codes exceptions are C++ objects, so they can store almost any information about the exception. Also that means that exceptions are caught by type, which makes handling of different error situations more logical.
+ * Exceptions are hard to ignore. Error codes could be very easily ignored, unlike exceptions. When exception occurs it is guarantied that it will be caught and processed or the program will crash.
+ * More logical program structure. Exceptions effectively separate error handling code from normal program flow. Error handling is hidden in exception mechanism and appears only in places when it actually occurs.
+
+=Any problems?=
+
+So why many well established projects do not use exceptions? The answer is legacy problem. Exceptions are very hard to introduce in already written conventional code. But in mint projects exceptions can be used with no problems if you write code with them in mind. Here is some strict rules to write exceptions-safe code:
+ * Watch for your dynamic resources. Stack unwinding mechanism is not capable to deallocate dynamic objects created in heap. The best way to deal with this problem is to use scoped pointers(technique is called RAII, Resource Acquisition Is Initialization). Scoped pointers are wraparound objects for dynamic allocated resources which is responsible for memory allocation. Being an object within functions scope it is guarantied to be destructed when stack unwinding  mechanism runs. The trick is that its destructor deallocates all obtained resources in proper way.
+
+And the best thing is that you don't have to implement them by hand: Boost library already contains scoped_ptr.
+ * Exceptions specifications. Just do not use them. They are prohibited in C++11 standard. Problems that could appear by mistake after writing some exceptions specification outweighs all supposed pluses.
+ * Exceptions are for error situations only. Never use them for normal program flow. Exceptions create hard to see path for data, so once introduced in regular program flow they would produce an headache for future debug. Also exceptions cost a lot of resources and using them in normal conditions would produce performance problems.
+
+=Writing exceptions=
+
+Below are guideline to write exceptions in our project. They complement mandatory rules written above.
+
+==Exception hierarchy==
+
+The main class for all derivative exceptions is std::exception. This allows to catch almost everything with this type, avoiding the usage of catch(...). Also it produces nice logic of hierarchy.
+In general structure of all exception classes in our project should look like:
+ * std::exception
+  * (Optional) !ProjectException
+   * !FirstModuleException
+    * !FirstModuleException_Tyoe1
+    * !FirstModuleException_Type2
+   * !SecondModuleException
+   * ...
+
+Some thoughts: This structure is chosen to better resemble compiler structure and provide better modularity. This approach is slightly different from per-meaning exceptions derivative from std::exceptions, which have two main subclasses: logic_error and runtime_error.
+
+==Exception throw==
+
+In general you should write a throw just where some exception situation could appear. But remember about cost of exception: if you think that you can deal with this situation in some clean manner and continue execution isn't it better to do it right there?
+
+==Exception catch==
+
+"Catch me if you can". The function that could actually do something with exception should really catch it. No need to catch everything and rethrow it further. According to this logic the topmost level of program(actually "main" function) must catch all types of exceptions(actually the topmost class in hierarchy).
+
+Exceptions should be thrown by value and caught by reference. This ensures proper exception object deletion and absence of copying at catch side
+
+==Exceptions in constructors and destructors==
+
+Writing exceptions in constructors is very handy, it is probably the only good way to report problems from there. Remember, that you should not deallocate memory produced be "new" operator which throws an exception.
+
+Using exceptions in destructor is prohibited. Firstly it is pointless, you can do very little when error in destructor appears. And secondly there are problems with destructor of static objects.
+
+=Further reading=
+
+ * [http://www.boost.org/community/error_handling.html Boost error handling]
+ * [http://www.codeproject.com/Articles/38449/C-Exceptions-Pros-and-Cons?display=Print C++ exceptions Pros and Cons]
+ * [http://4thmouse.com/mystuff/articles/UsingExceptionsEffectively.html Using C++ exceptions effectively]
+ * [http://en.wikibooks.org/wiki/C%2B%2B_Programming/Exception_Handling C++ Programming/Exception Handling - Wikibook]
