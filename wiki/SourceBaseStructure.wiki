@@ -11,3 +11,7 @@ To simplify project structure the following layout of source files is used.
   * {{{<project_prefix>}}}`_`dep.hpp for explicit listing of external dependencies
   * {{{<project_prefix>}}}`_`iface.hpp for external interfaces
   * {{{<project_prefix>}}}`_`impl.hpp for internal declarations
+
+= Namespaces =
+
+Each component must be in it's own namespace. If component consists of several sub-systems each one must be in an own nested namespace
