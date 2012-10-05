@@ -1,0 +1,13 @@
+#summary Source Base Structure
+#labels Phase-Requirements
+
+To simplify project structure the following layout of source files is used.
+
+= General Rules =
+ * All source files should be grouped into modules/projects
+ * A module/project lives in its own folder named trunk/sources/{{{<projectname>}}}
+  * Example: IR project folder is trunk/sources/ir
+ * Every project has the following mandatory headers:
+  * {{{<project_prefix>}}}`_`dep.hpp for explicit listing of external dependencies
+  * {{{<project_prefix>}}}`_`iface.hpp for external interfaces
+  * {{{<project_prefix>}}}`_`impl.hpp for internal declarations
