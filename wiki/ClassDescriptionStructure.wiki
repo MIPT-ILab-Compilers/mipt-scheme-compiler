@@ -1,0 +1,55 @@
+#summary Class description structure
+#labels Phase-Requirements
+
+= Class header =
+
+Class description should be in the _{{{<class_name>}}}.hpp_ file, and should have the following format:
+
+{{{
+/*
+ *comment, as described in the [[Source Base Structure]] 
+ */
+
+#pragma once
+
+
+include for all types, involved in the class definition.
+
+
+namespace usedNamespace
+{
+    prototypes of classes, mentioned below only by pointers or references.
+}
+...
+
+namespace <nameOfComponent>
+{
+
+nessesary using directives
+
+support functions prototypes
+
+class className :parents
+{
+public:
+    public constructors, destructor and interface methods
+private:
+    private members
+
+
+};
+}
+}}}
+
+= Inline functions =
+
+If a member function has a one-line body, and that line won't break the 80-char limit, it can be (but strongly *not recommended*) defined inside the class description in two ways:
+
+{{{
+int fooFun (int arg1, int arg2) const { return arg1 - arg2; }
+}}}
+
+{{{
+int fooFun (int arg1, int arg2) const
+{ return divideTwoNumbersSafely( arg1, arg2); }
+}}}
