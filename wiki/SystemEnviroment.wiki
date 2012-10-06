@@ -1,0 +1,14 @@
+#summary System Enviroment
+
+=Linux distro=
+
+Ubuntu 12.04.1 ([http://mirror.yandex.ru/ubuntu-releases/12.04.1/ubuntu-12.04.1-desktop-amd64.iso download])
+
+You can install it native or under virtual machine.
+
+=Build, Libs, Tools=
+
+{{{
+G++ 4.6.3, libboost 1.48.0, svn 1.6.17, flex 2.5.37
+    sudo apt-get install libboost-all-dev g++ subversion flex make
+}}}
