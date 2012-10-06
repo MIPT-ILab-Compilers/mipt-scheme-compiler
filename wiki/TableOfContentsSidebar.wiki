@@ -1,0 +1,11 @@
+#summary Default Sidebar
+
+ * Coding Guidelines
+  * [SourceBaseStructure Source Base Structure]
+  * [SourceFileConventions Source File Conventions]
+  * [ClassDescriptionStructure Class description structure]
+  * [NamingConventions Naming Conventions]
+  * [StatementConventions Statement Conventions]
+  * [SyntaxUsage Syntax Usage]
+  * [CommentingConventions Commenting Conventions]
+  * [Exceptions	Exceptions]
