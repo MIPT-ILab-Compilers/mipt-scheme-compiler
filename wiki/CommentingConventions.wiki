@@ -1,0 +1,73 @@
+#summary Commenting Suggestions
+#labels Phase-Requirements
+
+=General=
+
+Comments are generally more than welcome. Every routine, class member and ideally every variable should be commented. However you can omit comments in sitialtion like:
+ * Access routine for private class members. One comment for group is enough.
+ * If a variable name is specific enough.  Example:`int node_id; // Node id <--Redundant comment`
+
+In project we use both K&R C-style comments like `/** */` and `/* */` and C99/C++ comments `//` for comments.
+
+=Comment types=
+
+There are several comment types that should be used in project sources. 
+
+Here's example of various comments usage:
+
+{{{
+/**
+ * Function description (Significant comment)
+ */
+void f( int my_first_parameter,   // Trailing comment
+        void *my_second_parameter)// Trailing comment
+{
+    int counter = 0; // Trailing comment
+    int acc = 0;
+
+    /* Code comment */
+    for ( counter = my_first_parameter;
+          counter < MAX;
+          counter++ )
+    {
+        acc += ( ( int *) my_second_parameter)[ counter]; 
+    }
+}
+}}}
+
+=Significant comments=
+
+These are comments for routines, classes, files and text about algorithms put into sources. They generally can be seen as description of somewhat that is concept-level or implementation-independent. They also can be used to make specification by tool like doxygen and the code might not be available for reader. So they should be understandable without code at hand. Their syntax is:
+
+{{{
+/**
+ * Class or routine description
+ */
+/** Enum, structure, class member or union field description */
+/** One-line significant comment */
+}}}
+
+=Code comments=
+
+Code comments are applied to clarify the code and imply that code is in front of the reader. In general code should be as clear that only difficult algorithms demand these comments. However if you feel your code can be somewhat hard to understand put comment with no hesitation. Or rewrite your code :) Keep it simple and comment everything that is complex by nature. Syntax:
+
+{{{
+/* Simple code comment */
+// Simple code comment
+/* 
+ * Long and comprehensive code description, telling you what is done by strange 
+ * expressions below. Maybe explaining optimizations and control structure.
+ */
+// 
+// Long and comprehensive code description, telling you what is done by strange 
+// expressions below. Maybe explaining optimizations and control structure.
+//
+}}}
+
+*DO NOT COMMENT CODE*. Do not use comment syntax to temporary disable some code execution. use `#if 0` preproccessor directive instead. Exception is one-line comment in debug process. However try to use it as less as possible. Debug prints should look like:
+
+{{{
+#if DEBUG
+    debugPrint( "At this point value is %u\n", value);
+#endif
+}}}
