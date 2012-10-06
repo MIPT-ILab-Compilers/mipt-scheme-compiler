@@ -1,0 +1,46 @@
+#summary Naming Conventions
+#labels Phase-Requirements
+
+=General Rules=
+Mostly we would like to adopt [http://doc.trolltech.com/qq/qq13-apis.html QT Style API Design] and inherit naming system for it.
+More rules will be given here explicitly. Read Qt Documentation for now
+
+=Types and Classes=
+Type names should reflect entities they represents. A name should begin with an uppercase letter. To distinct parts of name use uppercase letter at the beginning of every part.
+
+Examples: `NameOfTheClass`, `SomeMysteriousEntity`
+
+=Function names=
+Class methods and function names should begin with a lowercase letter and highlight parts by uppercase letters. Exception for this rule is the Constructor and Destructor for classes - they aliased to the class names.
+
+Examples: `tryNotToGetWorried();``tryNotToTurnOnTo();``troublesThatUpsetYou();`
+
+Not all of the source code comply with that BUT it should. It mostly applies to Get/Set routines so if you see `my_object->GetSmth()` feel free to turn it into `my_object->smth()` and change the declaration for routine.
+
+=Variables and Class Members=
+
+Variables and class members should be all lowercase. Parts of name should be separated by '_'.
+
+Example:`very_important_var`
+
+In order to use shorter name for getter routines the private class members should have some suffix ( like `_priv` or just `_`) after it.
+
+Example:
+
+{{{
+class MyClass
+{
+    int num_priv;
+public:
+    inline int num() const
+    {
+        return num_priv;
+    }
+}
+
+void f()
+{
+    MyClass my;
+    int a = my.num();
+}
+}}}
