@@ -1,0 +1,141 @@
+#summary Statement Conventions
+#labels Phase-Requirements
+
+=General Rules=
+
+The statements generally inherit rules that are applied for syntax. One important exception is that function calls are written without space between function name and opening brace for parameters. For clarification purposes refer to
+
+=Examples=
+
+Examples show recommended style and point out what we'd like to avoid.
+
+==If-related statements==
+
+{{{
+/* Prefer */
+if ( a == b)
+{
+    c++;
+}
+/* Avoid */
+if( a == b) //No space after 'if'
+{
+    c++;
+}
+/* Avoid */
+if (a == b) //No space after brace
+{
+    c++;
+}
+
+
+/* Prefer */
+if ( condition_one)
+{
+    ...
+} else if ( condition_two)
+{
+    ...
+} else
+{
+    ...
+}
+/* Avoid */
+if ( condition_one)
+{
+    ...
+} 
+else if ( condition_two) // redundant line
+{
+    ...
+} else { // BUT needed newline for this curly brace
+    ...
+}
+}}}
+
+==Loop operators==
+
+{{{
+/* Prefer */
+for ( i = 0; i < MAX; i++)
+{
+    while ( condition)
+    {
+    
+    } 
+}
+/* Prefer */
+for ( i = getFirstIndex();
+      !isTraversalComplete();
+      i = updateIndexByTraversalStep())
+{
+     do
+     {
+         ...
+     } while ( condition);
+}
+
+/* Avoid */
+for ( i = 0; i < MAX; i++, a--) // Nested loops - put curly braces to ephasize
+    while ( condition) a++; // Need newline here
+
+/* Avoid */
+for ( i = getFirstIndex(); !isTraversalComplete(); i = updateIndexByTraversalStep()) // too long
+{
+     do
+     {
+         ...
+     } 
+     while ( condition); // redundant line
+}
+}}}
+
+==Ternary conditional statement==
+
+{{{
+/* Prefer */
+a = ( b > c)? d : e;
+/* Prefer */
+next_element = ( current_element == null)
+               ? firstElement()
+               : current_element->next();
+/* Avoid */
+ a = ( b > c)?
+      d : e; // Redundant line
+/* Avoid */
+next_element = (current_element == null)?getFirstElement():current_element->getNext();
+// Too long and no spaces
+}}}
+
+==Function calls and parameters===
+
+No space between function name and parameter list. Space after opening brace. If parameter list is empty put braces together.
+
+{{{
+/* Prefer */
+newElem( curr_elem, data->temporaryDataP());
+/* Avoid */
+newElem (curr_elem, data->temporaryDataP( ));
+}}}
+
+Indent ending of long parameter list to align with first parameter. Alternatively you can place each parameter on separate line since it encourages commenting them.
+
+{{{
+/* Prefer */
+initializeField( getFirstFieldDefault(), getSecondFieldDefault(),
+                 getThirdFieldDefault(), lastParameter());
+/* Prefer */
+initializeField( getFirstFieldDefault(),
+                 getSecondFieldDefault(),
+                 getThirdFieldDefault(),
+                 lastParameter());
+/* Avoid */
+initializeField( getFirstFieldDefault(), getSecondFieldDefault(),
+                                         getThirdFieldDefault(), lastParameter());
+/* Avoid */
+initializeField( getFirstFieldDefault(),
+                 getSecondFieldDefault(), getThirdFieldDefault(), lastParameter());
+/* Avoid */
+initializeField( getFirstFieldDefault(), getSecondFieldDefault(),
+    getThirdFieldDefault(), lastParameter());
+}}}
