@@ -1,0 +1,58 @@
+#summary Source File Conventions
+#labels Phase-Requirements
+
+=File Naming=
+
+All file names should be lowercase. Header files have extension .h for C or .hpp for C++, pure C files have .c and C++ or mixed files have .cpp. File names should reflect the functionality defined/implemented in it. File names can have prefixes for reflection of their grouping. It is preferred that we have different names for different files, i.e. files from different project can have same name technically, but this is bad from style point of view.
+
+=File Structure=
+
+A file should consist of several section desribed below. Each section should be separated by blank line. Some sections should have identifying comment.
+Structure:
+ * Beginning comment
+ * multiple inclusion protection ( for headers)
+ * includes
+ * defines
+ * local data types definitions
+ * local functions prototypes ( if needed)
+ * local data
+ * externally visible functions implementation
+ * local functions implementation
+
+=Beginning comment=
+
+All source files MUST begin with comments that consists of:
+ * File name
+ * Brief Description
+ * Relation to project
+ * Copyright Notice
+
+The long description is highly recommended to be added in comments after these. Especially for files with a lot of code or non-trivial functionality/internal structure.
+
+Example:
+
+{{{
+/**
+ * @file:graph.cpp 
+ * Implementation of graph
+ * Core component of Graph representation
+ */
+/**
+ * Copyright 2011 MIPT-COMPILER team
+ */
+}}}
+
+=Multiple inclusion protection=
+
+_Open question: #pragma once_
+
+All header files should have #ifdef protecting headers from multiple inclusion. Define should be header's file name in uppercase.
+
+Example:
+
+{{{
+#ifndef HEADER_NAME
+#define HEADER_NAME
+...
+#endif /* HEADER_NAME */
+}}}
