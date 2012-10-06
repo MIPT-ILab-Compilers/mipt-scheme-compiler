@@ -1,5 +1,6 @@
 #summary Default Sidebar
 
+ * [About About]
  * Coding Guidelines
   * [SourceBaseStructure Source Base Structure]
   * [SourceFileConventions Source File Conventions]
