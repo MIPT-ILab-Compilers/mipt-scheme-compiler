@@ -1,6 +1,7 @@
 #summary Default Sidebar
 
  * [About About]
+ * [SchemeLanguage Scheme Features]
  * Coding Guidelines
   * [SourceBaseStructure Source Base Structure]
   * [SourceFileConventions Source File Conventions]
