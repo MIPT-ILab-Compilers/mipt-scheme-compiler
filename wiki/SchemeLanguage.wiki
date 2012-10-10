@@ -1,0 +1,36 @@
+#summary Overview of the Scheme features.
+#labels Phase-Design
+
+= Scheme features =
+
+The following features of Scheme are not so hard in implementation: 
+ * Lexical scoped variables (with runtime context records creation for functions supporting shared data )
+ * First class functions (via function pointers)
+ * First class lists (with the very basic structure, called "cons-cell")
+ * Powerful macro-system (through compile-time simulator)
+ * Tail-recursion optimization (by the means of compiler analisys)
+ * Shared namespace for procedures and variables
+ * Garbage collection 
+ * Minimalism :) (with laziness)
+ * Simple syntax (with no effort)
+
+Also it would be grate, if we can implement garbage collection. 
+
+Such features as delayed evaluation and dynamical scoped variables (by means of runtime stack for each dynamic variable) are likely to be able to be implemented by means of previous ones.
+
+The following features are harder to implement:
+
+ * Continuatins (I barely understand what it is)
+ * Run time  interpretation or compilation ( requires whole compiler system available to a program during execution, that's why they are unlikely to be implemented this year.)
+ * Syntax macroses (requires an alternative lexing approach)
+
+Using cross compilation to mips, we will implement in C the following necessary components:
+
+ * IO
+ * vectors
+ * strings
+ * structures
+
+= How to start =
+
+You can find very nice tutorial with exercises  [http://www.shido.info/lisp/idx_scm_e.html here]
