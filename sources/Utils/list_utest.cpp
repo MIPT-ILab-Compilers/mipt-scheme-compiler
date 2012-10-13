@@ -9,79 +9,10 @@
 
 #include <boost/test/unit_test.hpp>
 
-static const int LIST_TEST_NUM_NODES = 10000000;
-
-
-/** Define the  lists we use */
-enum TestListType
-{
-    LIST_ONE,
-    LIST_TWO,
-    LIST_THREE,
-    LISTS_NUM
-};
-
-static const TestListType TEST_LIST_ID = LIST_THREE; 
-
-/** Derive class of linked objects */
-class ClassAList: public MListIface< ClassAList, LISTS_NUM>
-{
-
-};
-
-/** Derive class from A */
-class B: public ClassAList
-{
-
-};
+static const int LIST_TEST_NUM_NODES = 10000;
+using boost::array;
 
 BOOST_AUTO_TEST_SUITE( lists)
-/**
- * Test simple singleton
- */
-BOOST_AUTO_TEST_CASE( multi_list)
-/** MList testing */
-//static bool uTestMList()
-{
-    B *obj1 = new B();
-    B *obj2 = new B();
-    B *obj3 = new B();
-    obj1->attach( LIST_ONE, obj2);
-    obj1->attach( LIST_TWO, obj3);
-    BOOST_CHECK( areEqP( obj1->next( LIST_ONE), obj2));
-    BOOST_CHECK( areEqP( obj1->next( LIST_TWO), obj3));
-    BOOST_CHECK( isNullP( obj1->prev( LIST_ONE)));
-    BOOST_CHECK( isNullP( obj1->prev( LIST_TWO)));
-    BOOST_CHECK( areEqP( obj2->prev( LIST_ONE), obj1));
-    BOOST_CHECK( areEqP( obj3->prev( LIST_TWO), obj1));
-    BOOST_CHECK( isNullP( obj3->prev( LIST_ONE)));
-    BOOST_CHECK( isNullP( obj2->prev( LIST_TWO)));
-    BOOST_CHECK( isNullP( obj2->next( LIST_ONE)));
-    BOOST_CHECK( isNullP( obj3->next( LIST_TWO)));
-    obj2->detachAll();
-    delete obj2;
-    delete obj1;
-    delete obj3;
-//    return true;
-}
-
-
-struct MyMListDummy: public MListIface<MyMListDummy, LISTS_NUM>
-{
-public:
-    long long i;
-    long long j;
-    MyMListDummy( MyMListDummy* ptr): MListIface<MyMListDummy, LISTS_NUM>( TEST_LIST_ID, ptr){};
-};
-
-struct MySListDummy: public SListIface<MySListDummy>
-{
-public:
-    long long i;
-    long long j;
-    MySListDummy( MySListDummy* ptr): SListIface<MySListDummy>( ptr){};
-};
-
 
 struct StdListDummy
 {
@@ -120,53 +51,63 @@ TIMED_AUTO_TEST_CASE( std_list_perf)
     }
 }
 
-TIMED_AUTO_TEST_CASE( my_mlist_one_perf)
-{
-    MyMListDummy *list = NULL;
-    MyMListDummy *list_temp = NULL;
-    /* Create */
-    for ( int i = 0; i < LIST_TEST_NUM_NODES; i++)
-    {
-        list = new MyMListDummy( list);
-    }
-    /* Iterate and access data */
-    list_temp = list;
-    while ( isNotNullP( list_temp))
-    {
-        list_temp->i = 10;
-        list_temp = list_temp->next( TEST_LIST_ID);
-    }
-    /* Iterate and access data */
-    list_temp = list;
-    while ( isNotNullP( list_temp))
-    {
-        MyMListDummy *next = list_temp->next( TEST_LIST_ID);
-        delete list_temp;
-        list_temp = next;
-    }
-}
+class ListAList{};
+class ListBList1{};
+class ListBList2{};
 
-TIMED_AUTO_TEST_CASE( my_slist_perf)
+class ListA: public ListItem< ListA, ListAList>
 {
-    MySListDummy *list = NULL;
-    MySListDummy *list_temp = NULL;
+    int a;
+};
+
+class ListB: public ListA, public ListItem< ListB, ListBList1>, public ListItem< ListB, ListBList2>
+{
+    typedef ListItem< ListB, ListBList1> List1;
+	typedef ListItem< ListB, ListBList2> List2;
+public:
+    int i;
+
+    ListB( ListB* ptr): ListItem< ListB, ListBList1>( ptr){};
+
+    ListB *nextB(){ return static_cast< ListB *>( List1::next() );}
+    ListB *prevB(){ return static_cast< ListB *>( List1::prev() );}
+
+	ListB *nextBInList2(){ return static_cast< ListB *>( List2::next() );}
+    ListB *prevBInList2(){ return static_cast< ListB *>( List2::prev() );}
+
+	void attachInList2( ListB *peer)
+	{
+		List2::attach( peer);
+	}
+};
+
+TIMED_AUTO_TEST_CASE( my_list_perf)
+{
+    ListB *list = NULL;
+    ListB *list_temp = NULL;
+	boost::array< ListB *, LIST_TEST_NUM_NODES> items;
     /* Create */
     for ( int i = 0; i < LIST_TEST_NUM_NODES; i++)
     {
-        list = new MySListDummy( list);
+        list = new ListB( list);
+		items[ i] = list;
+		if ( i % 100 == 0 && i > 100)
+		{
+			list->attachInList2( items[i - 100]);
+		}
     }
     /* Iterate and access data */
     list_temp = list;
     while ( isNotNullP( list_temp))
     {
         list_temp->i = 10;
-        list_temp = list_temp->next();
+        list_temp = list_temp->nextB();
     }
     /* Iterate and access data */
     list_temp = list;
     while ( isNotNullP( list_temp))
     {
-        MySListDummy *next = list_temp->next();
+        ListB *next = list_temp->nextB();
         delete list_temp;
         list_temp = next;
     }
