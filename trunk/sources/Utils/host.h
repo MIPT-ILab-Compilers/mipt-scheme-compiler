@@ -25,6 +25,7 @@
 #include <cstdio>
 #include <cstdarg>
 #include <numeric>
+#include <boost/array.hpp>
 #include <boost/timer.hpp>
 #define BOOST_TEST_DYN_LINK
 
