@@ -1,19 +1,22 @@
 /**
  * @file:operation.cpp
  * Implementation of operation
- * Templarary component of Operations and Objects
+ * Temporary component of Operations and Objects
  */
 /**
- * Copyright (C) 2012 MIPT Sheme Compiler team
+ * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
 #include "operation.hpp"
 
-Operation::Operation( UInt16 id_oper, OperName name,
+Operation::Operation( UInt64 id_oper, OperName name,
                       Operand *arguments, Operand *result)
 {
     this->id_oper = id_oper;
     this->name = name;
+    this->arguments = new Operand[ ARGUMENTS_NUM];
+    this->result = new Operand[ RESULTS_NUM];
+
     
     for ( UInt8 i = 0; i < ARGUMENTS_NUM; i++)
     {
@@ -26,8 +29,13 @@ Operation::Operation( UInt16 id_oper, OperName name,
     }
 }
 
+Operation::~Operation()
+{
+    delete this->result;
+    delete this->arguments;
+}
 
-inline UInt16 Operation::GetId() const
+inline UInt64 Operation::GetId() const
 {
     return this->id_oper;
 }
@@ -37,20 +45,32 @@ inline OperName Operation::GetName() const
     return this->name;
 }
 
-void Operation::setOperand( Direction dir, UInt8 num, Operand operand)
+inline Operand Operation::getResult() const
 {
-    if ( dir == ARGUMENT)
-    {
-        this->arguments[ num] = operand;
-    } else
-    {
-        this->result[ num] = operand;
-    }
+    return this->result[ 0];
 }
 
-inline Operand Operation::getOperand( Direction dir, UInt8 num) const
+inline Operand Operation::getResult( UInt8 num) const
 {
-    return ( dir == ARGUMENT)
-            ? this->arguments[ num] 
-            : this->result[ num];
+    return this->result[ num];
+}
+
+inline void Operation::setResult( Operand operand)
+{
+    result[ 0] = operand;
+}
+
+inline void Operation::setResult( Operand operand, UInt8 num)
+{
+    result[ 0] = operand;
+}
+
+inline Operand Operation::getArgument( UInt8 num) const
+{
+    return this->arguments[ num];
+}
+
+inline void Operation::setArgument (Operand operand, UInt8 num)
+{
+    this->arguments[ num] = operand;
 }

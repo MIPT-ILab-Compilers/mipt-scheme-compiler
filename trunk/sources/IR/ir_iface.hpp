@@ -21,4 +21,11 @@
 #    define IR_ASSERTXD(cond, what) ASSERT_XD(cond, "IR", what)
 #endif
 
+/**
+ * Declaration classes
+ */
 
+class Operation;
+class Operand;
+class DataFlowEdge;
+class Object;

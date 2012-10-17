@@ -1,20 +1,18 @@
 /**
  * @file:operation.hpp
  * Interface of operation
- * Templarary component of Operations and Objects
+ * Temporary component of Operations and Objects
  */
 /**
  * Copyright (C) 2012  MIPT Scheme Compiler team
  */
 
-#ifndef OPERATION_HPP
-#define OPERATION_HPP
-
 #pragma once
 
 #include "../Utils/types.h"
+#include "ir_iface.hpp"
 #include "operand.hpp"
-
+#include "dataflowedge.hpp"
 
 #define RESULTS_NUM 1
 #define ARGUMENTS_NUM 2
@@ -22,44 +20,36 @@
 
 enum OperName
 {
-    ADD, SUB,
-    DIV, MUL,
+    OPER_ADD, OPER_SUB,
+    OPER_DIV, OPER_MUL,
     OPER_NUM
 };
 
-enum Direction
-{
-    ARGUMENT,
-    RESULT,
-    DIR_NUM
-};
 
 class Operation
 {
 
 public:
-    Operation( UInt16 id_oper, OperName name, 
+    Operation( UInt64 id_oper, OperName name, 
                Operand  *arguments, Operand *result);
-    //~Operation();
+    ~Operation();
     
-    inline UInt16 GetId() const;
+    inline UInt64 GetId() const;
 
     inline OperName GetName() const;
 
-    void setOperand( Direction dir, UInt8 num, Operand operand);
+    inline Operand getResult() const; // returns result[ 0]
+    inline Operand getResult( UInt8 num) const; // returns result[ num]
+    inline void setResult( Operand operand); // result[ 0] = operand 
+    inline void setResult( Operand operand, UInt8 num); // result[ num] = operand
     
-    inline Operand getOperand( Direction dir, UInt8 num) const;
+    inline Operand getArgument( UInt8 num) const;
+    inline void setArgument( Operand operand, UInt8 num);
 
 
 private:
     OperName name;
-    Operand arguments[ ARGUMENTS_NUM];
-    Operand result[ RESULTS_NUM];
-    UInt16 id_oper;
-
+    Operand *arguments;
+    Operand *result;
+    UInt64 id_oper;
 };
-
-
-
-
-#endif /* OPERATION_HPP */
