@@ -1,49 +1,49 @@
 /**
  * @file:dataflowedge_inline.cpp
  * Implemention of DataFlowEdge
- * Templarary component
+ * Temporary component
  */
 /**
- * Copyright (C) 2012 MIPT Sheme Compiler team
+ * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
 #include "dataflowedge.hpp"
 
-DataFlowEdge::DataFlowEdge( UInt16 pred_oper,
-                            UInt16 succ_oper,
-                            UInt16 succ_operand)
+DataFlowEdge::DataFlowEdge( Operation *pred_oper,
+                            Operation *succ_oper,
+                            Operand *succ_operand)
 {
     this->pred_oper = pred_oper;
     this->succ_oper = succ_oper;
     this->succ_operand = succ_operand;
 }
 
-inline void DataFlowEdge::setPredOper( UInt16 pred_oper)
+inline void DataFlowEdge::setPredOper( Operation *pred_oper)
 {
     this->pred_oper = pred_oper;
 }
 
-inline UInt16 DataFlowEdge::getPredOper() const
+inline Operation* DataFlowEdge::getPredOper() const
 {
     return this->pred_oper;
 }
 
-inline void DataFlowEdge::setSuccOper( UInt16 succ_oper)
+inline void DataFlowEdge::setSuccOper( Operation *succ_oper)
 {
     this->succ_oper = succ_oper;
 }
 
-inline UInt16 DataFlowEdge::getSuccOper() const
+inline Operation* DataFlowEdge::getSuccOper() const
 {
     return this->succ_oper;
 }
 
-inline void DataFlowEdge::setSuccOperand( UInt16 succ_operand)
+inline void DataFlowEdge::setSuccOperand( Operand *succ_operand)
 {
     this->succ_operand = succ_operand;
 }
 
-inline UInt16 DataFlowEdge::getSuccOperand() const
+inline Operand* DataFlowEdge::getSuccOperand() const
 {
     return this->succ_operand;
 }

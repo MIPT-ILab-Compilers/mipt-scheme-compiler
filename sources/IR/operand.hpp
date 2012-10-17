@@ -1,25 +1,25 @@
 /**
  * @file:operand.hpp
  * Interface of operand
- * Temporary file. Class Operand has to be updated
+ * Core component of Operations and Objects
  */
 /**
  * Copyright (C) 2012  MIPT Scheme Compiler team
  */
 
-#ifndef OPERAND_HPP
-#define OPERAND_HPP
-
 #pragma once
 
+#include "operation.hpp"
 #include "object.hpp"
-#include "dataflowedge.hpp"
 #include "../Utils/types.h"
+#include <assert.h>
+#include <stddef.h>
 
 enum TypeOfOperand
 {
-    IMMEDIATE,
-    OBJECT,
+    OPERAND_IMMEDIATE,
+    OPERAND_OBJECT,
+    OPERAND_TARGET,
     TYPE_OPERAND_NUM
 };
 
@@ -27,19 +27,38 @@ enum TypeOfOperand
 class Operand
 {
 
-/*public:
-    Operand( Double value, DataFlowEdge *df, bool is_arg);
-    Operand( Object *obj, DataFlowEdge *df, bool is_arg);
+public:
+    Operand();
+    Operand( Int64 value, DataFlowEdge *df);
+    Operand( Object *obj, DataFlowEdge *df);
+    Operand( Operation *target, DataFlowEdge *df);
     
+    inline bool isImmediate() const;
+    inline bool isObject() const;
+    inline bool isTarget() const;
+    
+    inline TypeOfOperand getType() const;
+    
+    inline Int64 getImmediate() const;
+    inline Object* getObject() const;
+    inline Operation* getOperation() const;
+    
+    inline void setImmediate( Int64 immediate);
+    inline void setObject( Object *obj);
+    inline void setTarget( Operation *target);
 
+    inline DataFlowEdge* getDF() const;
+    inline void setDF( DataFlowEdge *df);
 
 private:
-    Double immediate;
+    union OperandData
+    {
+    Int64 immediate;
     Object *obj;
+    Operation *target;
+    } data;
+
+    TypeOfOperand current;
+    
     DataFlowEdge *df;
-    bool is_argument;
-*/
-}; 
-
-
-#endif /* OPERAND_HPP */
+};

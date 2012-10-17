@@ -4,34 +4,34 @@
  * Core component of Operations and Objects  
  */
 /**
- * Copyright (C) 2012 MIPT Sheme Compiler team
+ * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
 #include "object.hpp"
 
-Object::Object( UInt16 id_object, TypeOfObject type, bool is_virtual)
+Object::Object( UInt64 id_object, TypeOfObject type, bool is_virtual)
 {
     this->id_object = id_object;
     this->type = type;
     this->is_virtual = is_virtual;
 }
 
-inline UInt16 Object::getId() const
+inline UInt64 Object::getId() const
 {
     return this->id_object;
 }
 
-inline void Object::setId( UInt16 id_object)
+inline void Object::setId( UInt64 id_object)
 {
     this->id_object = id_object;
 }
 
-inline bool Object::isPseudo() const
+inline bool Object::isVirtual() const
 {
     return this->is_virtual;
 }
 
-inline void Object::setPseudo( bool is_virtual)
+inline void Object::setVirtual( bool is_virtual)
 {
     this->is_virtual = is_virtual;
 }
