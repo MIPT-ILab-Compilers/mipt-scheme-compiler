@@ -44,15 +44,12 @@ Example:
 
 =Multiple inclusion protection=
 
-_Open question: #pragma once_
-
-All header files should have #ifdef protecting headers from multiple inclusion. Define should be header's file name in uppercase.
-
-Example:
+Instead of dated #ifndef include guards, we will use #pragma once. Place it after a blank line right below header comment:
 
 {{{
-#ifndef HEADER_NAME
-#define HEADER_NAME
-...
-#endif /* HEADER_NAME */
+/*
+ * lorem ipsum
+ */
+
+#pragma once
 }}}
