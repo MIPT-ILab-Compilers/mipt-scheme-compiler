@@ -44,7 +44,7 @@ Example:
 
 =Multiple inclusion protection=
 
-Instead of dated #ifndef include guards, we will use #pragma once. Place it after a blank line right below header comment:
+Instead of dated #ifndef include guards, we will use #pragma once. Place it after a blank line right below the beginning comment:
 
 {{{
 /*
