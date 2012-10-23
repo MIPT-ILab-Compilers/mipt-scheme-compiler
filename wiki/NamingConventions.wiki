@@ -44,3 +44,9 @@ void f()
     int a = my.num();
 }
 }}}
+
+=Constants=
+All constants should be in UPPER_CASE with underscores substituting spaces.
+
+=Namespaces=
+All namespaces should seek one-word named, and all letters (even in acronyms) must be lowercased.
