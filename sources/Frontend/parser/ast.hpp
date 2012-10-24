@@ -45,8 +45,8 @@ namespace parser
 			Nodep _car;
 			Nodep _cdr;
 		public:
-			Cons(const Cons& src);
-			Cons(Nodep car_value, Nodep cdr_value);
+			Cons( const Cons& src);
+			Cons( Nodep car_value, Nodep cdr_value);
 
 			virtual Type type() const;
 			static Type static_type();
@@ -56,8 +56,8 @@ namespace parser
 			virtual const Node* car() const;
 			virtual Nodep cdr();
 			virtual const Node* cdr() const;
-			virtual void setCar(Nodep car_value);
-			virtual void setCdr(Nodep cdr_value);
+			virtual void setCar( Nodep car_value);
+			virtual void setCdr( Nodep cdr_value);
 			
 			virtual ~Cons();
 		};
@@ -66,14 +66,14 @@ namespace parser
 		{
 			long double _value;
 		public:
-			Number(const Number& src);
-			Number(long double src);
+			Number( const Number& src);
+			Number( long double src);
 
 			virtual Type type() const;
 			static Type static_type();
 
 			virtual long double value() const;
-			virtual void setValue(long double number_value);
+			virtual void setValue( long double number_value);
 
 		virtual ~Number();
 		};
@@ -82,8 +82,8 @@ namespace parser
 		{
 			std::string _value;
 		public:
-			String(const String& src);
-			String(const std::string& src);
+			String( const String& src);
+			String( const std::string& src);
 
 			virtual Type type() const;
 			static Type static_type();
@@ -91,7 +91,7 @@ namespace parser
 			/* You can change the value by this getter */
 			virtual std::string& value();
 			virtual const std::string& value() const;
-			virtual void setValue(const std::string& string_value);
+			virtual void setValue( const std::string& string_value);
 
 			virtual ~String();
 		};
@@ -100,14 +100,14 @@ namespace parser
 		{
 			char _value;
 		public:
-			Char(const Char& src);
-			Char(char src);
+			Char( const Char& src);
+			Char( char src);
 
 			virtual Type type() const;
 			static Type static_type();
 
 			virtual char value() const;
-			virtual void setValue(char char_value);
+			virtual void setValue( char char_value);
 
 			virtual ~Char();
 		};
@@ -116,26 +116,26 @@ namespace parser
 		{
 			std::vector<Nodep> _value;
 		public:
-			Vector(const Vector& src);
-			Vector(const std::vector<Nodep>& vector_value);
+			Vector( const Vector& src);
+			Vector( const std::vector<Nodep>& vector_value);
 			
 			virtual Type type() const;
 			static Type static_type();
 
 			virtual std::vector<Nodep>& value();
 			virtual const std::vector<Nodep>& value() const;
-			virtual void setValue(const std::vector<Nodep>& vector_value);
+			virtual void setValue( const std::vector<Nodep>& vector_value);
 
 			virtual ~Vector();
 		};
 
 		template <typename T>
-		T* as(Nodep ptr) /* Throws exception */
+		T* as( Nodep ptr) /* Throws exception */
 		{
-			if (ptr->type() == T::static_type())
-				return dynamic_cast<T*>(ptr.get());
+			if ( ptr->type() == T::static_type())
+				return dynamic_cast<T*>( ptr.get());
 			else
-				throw std::bad_cast("Wrong type!");
+				throw std::bad_cast( "Wrong type!");
 		}
 	}
 }
