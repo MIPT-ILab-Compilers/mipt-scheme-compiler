@@ -11,231 +11,231 @@
 
 namespace parser
 {
-	namespace ast
-	{
-		Nil::Nil()
-		{
-		
-		}
+    namespace ast
+    {
+        Nil::Nil()
+        {
+        
+        }
 
-		Nil::~Nil()
-		{
-		
-		}
+        Nil::~Nil()
+        {
+        
+        }
 
-		Type Nil::type() const
-		{
-			return NIL;
-		}
+        Type Nil::type() const
+        {
+            return NIL;
+        }
 
-		Type Nil::static_type()
-		{
-			return NIL;
-		}
+        Type Nil::static_type()
+        {
+            return NIL;
+        }
 
-		Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
-		{
-		
-		}
+        Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
+        {
+        
+        }
 
-		Cons::Cons( Nodep car_value, Nodep cdr_value) : _car(car_value), _cdr(cdr_value)
-		{
-		
-		}
+        Cons::Cons( Nodep car_value, Nodep cdr_value) : _car(car_value), _cdr(cdr_value)
+        {
+        
+        }
 
-		Cons::~Cons()
-		{
-		
-		}
+        Cons::~Cons()
+        {
+        
+        }
 
-		Type Cons::type() const
-		{
-			return CONS;
-		}
+        Type Cons::type() const
+        {
+            return CONS;
+        }
 
-		Type Cons::static_type()
-		{
-			return CONS;
-		}
+        Type Cons::static_type()
+        {
+            return CONS;
+        }
 
-		Nodep Cons::car()
-		{
-			return _car;
-		}
+        Nodep Cons::car()
+        {
+            return _car;
+        }
 
-		const Node* Cons::car() const
-		{
-			return _car.get();
-		}
+        const Node* Cons::car() const
+        {
+            return _car.get();
+        }
 
-		Nodep Cons::cdr()
-		{
-			return _cdr;
-		}
-		
-		const Node* Cons::cdr() const
-		{
-			return _cdr.get();
-		}
+        Nodep Cons::cdr()
+        {
+            return _cdr;
+        }
 
-		void Cons::setCar( Nodep car_value)
-		{
-			_car = car_value;
-		}
+        const Node* Cons::cdr() const
+        {
+            return _cdr.get();
+        }
 
-		void Cons::setCdr( Nodep cdr_value)
-		{
-			_cdr = cdr_value;
-		}
+        void Cons::setCar( Nodep car_value)
+        {
+            _car = car_value;
+        }
 
-		Number::Number( const Number& src) : _value(src._value)
-		{
-		
-		}
+        void Cons::setCdr( Nodep cdr_value)
+        {
+            _cdr = cdr_value;
+        }
 
-		Number::Number( long double src) : _value(src)
-		{
-		
-		}
+        Number::Number( const Number& src) : _value(src._value)
+        {
+        
+        }
 
-		long double Number::value() const
-		{
-			return _value;
-		}
+        Number::Number( long double src) : _value(src)
+        {
+        
+        }
 
-		void Number::setValue( long double number_value)
-		{
-			_value = number_value;
-		}
+        long double Number::value() const
+        {
+            return _value;
+        }
 
-		Number::~Number()
-		{
-		
-		}
+        void Number::setValue( long double number_value)
+        {
+            _value = number_value;
+        }
 
-		Type Number::type() const
-		{
-			return NUMBER;
-		}
+        Number::~Number()
+        {
+        
+        }
 
-		Type Number::static_type()
-		{
-			return NUMBER;
-		}
+        Type Number::type() const
+        {
+            return NUMBER;
+        }
 
-		String::String( const String& src) : _value(src._value)
-		{
-		
-		}
+        Type Number::static_type()
+        {
+            return NUMBER;
+        }
 
-		String::String( const std::string& src) : _value(src)
-		{
-		
-		}
+        String::String( const String& src) : _value(src._value)
+        {
+        
+        }
 
-		String::~String()
-		{
-		
-		}
+        String::String( const std::string& src) : _value(src)
+        {
+        
+        }
 
-		Type String::type() const
-		{
-			return STRING;
-		}
+        String::~String()
+        {
+        
+        }
 
-		Type String::static_type()
-		{
-			return STRING;
-		}
+        Type String::type() const
+        {
+            return STRING;
+        }
 
-		std::string& String::value()
-		{
-			return _value;
-		}
+        Type String::static_type()
+        {
+            return STRING;
+        }
 
-		const std::string& String::value() const
-		{
-			return _value;
-		}
+        std::string& String::value()
+        {
+            return _value;
+        }
 
-		void String::setValue( const std::string& string_value)
-		{
-			_value = string_value;
-		}
+        const std::string& String::value() const
+        {
+            return _value;
+        }
 
-		Char::Char( const Char& src) : _value(src._value)
-		{
-		
-		}
+        void String::setValue( const std::string& string_value)
+        {
+            _value = string_value;
+        }
 
-		Char::Char( char src) : _value(src)
-		{
-		
-		}
+        Char::Char( const Char& src) : _value(src._value)
+        {
+        
+        }
 
-		Char::~Char()
-		{
-		
-		}
+        Char::Char( char src) : _value(src)
+        {
+        
+        }
 
-		Type Char::type() const
-		{
-			return CHAR;
-		}
+        Char::~Char()
+        {
+        
+        }
 
-		Type Char::static_type()
-		{
-			return CHAR;
-		}
+        Type Char::type() const
+        {
+            return CHAR;
+        }
 
-		char Char::value() const
-		{
-			return _value;
-		}
+        Type Char::static_type()
+        {
+            return CHAR;
+        }
 
-		void Char::setValue( char char_value)
-		{
-			_value = char_value;
-		}
+        char Char::value() const
+        {
+            return _value;
+        }
 
-		Vector::Vector( const Vector& src) : _value(src._value)
-		{
-		
-		}
+        void Char::setValue( char char_value)
+        {
+            _value = char_value;
+        }
 
-		Vector::Vector( const std::vector<Nodep>& vector_value) : _value(vector_value)
-		{
-		
-		}
+        Vector::Vector( const Vector& src) : _value(src._value)
+        {
+        
+        }
 
-		Vector::~Vector()
-		{
-		
-		}
+        Vector::Vector( const std::vector<Nodep>& vector_value) : _value(vector_value)
+        {
+        
+        }
 
-		Type Vector::type() const
-		{
-			return VECTOR;
-		}
+        Vector::~Vector()
+        {
+        
+        }
 
-		Type Vector::static_type()
-		{
-			return VECTOR;
-		}
+        Type Vector::type() const
+        {
+            return VECTOR;
+        }
 
-		std::vector<Nodep>& Vector::value()
-		{
-			return _value;
-		}
+        Type Vector::static_type()
+        {
+            return VECTOR;
+        }
 
-		const std::vector<Nodep>& Vector::value() const
-		{
-			return _value;
-		}
+        std::vector<Nodep>& Vector::value()
+        {
+            return _value;
+        }
 
-		void Vector::setValue( const std::vector<Nodep>& vector_value)
-		{
-			_value = vector_value;
-		}
-	}
+        const std::vector<Nodep>& Vector::value() const
+        {
+            return _value;
+        }
+
+        void Vector::setValue( const std::vector<Nodep>& vector_value)
+        {
+            _value = vector_value;
+        }
+    }
 }
