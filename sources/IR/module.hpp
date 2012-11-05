@@ -1,67 +1,62 @@
-
+ 
 #pragma once
 
 #include <vector>
 #include <string> 
+#include <map>
 #include "object.hpp"
-
-enum SymbolType 
-{
-	OBJECT,
-	FUNCTION
-};
 
 class Function
 {
 	public:
-		Function(std::string &function_name, std::vector<Object> &local_objects, std::vector<Object> &arguments);
-		~Function();
+		Function(std::string &name);
+		~Function() {};
+		
+		// add one object at the end of apropriate vector.
+		void addLocalObject(Object *); 
+		void addArgument(Object *); 
 
-		inline bool addArgument();
-		inline bool addLocalVar();
-
-		inline std::vector<Object> &getLocalObjects();
-		inline std::vector<Object> &getArguments();
-		inline std::string &getFunctionName();
+		const std::string &getFunctionName();
+		const std::vector<Object *> &getLocalObjects();
+		const std::vector<Object *> &getArguments();
 
 	private:
 		std::string function_name;
-		std::vector<Object> local_objects;
-		std::vector<Object> arguments;
+		std::vector<Object *> local_objects;
+		std::vector<Object *> arguments;
 };
 
-class Symbol
+class SymbolTable
 {
-	public:
-		Symbol(std::string name, SymbolType type, Object *object = NULL, Function *function = NULL);
-		~Symbol();
+	friend class Module;	
 
-		inline SymbolType getType();
-		inline std::string getName();
-		inline Object *getObject();
-		inline Function *getFunction();
+	SymbolTable() {};
+	~SymbolTable() {};
 
-		inline void setType(SymbolType);
-		inline void setObject(Object *);
-		inline void setFunction(Function *);
-
-	private:
-		std::string name;
-		SymbolType type;
-		Object *object;
-		Function *function;
+	std::map<std::string, Object *> object_table;
+	std::map<std::string, Function *> function_table;
 };
 
 class Module 
 {
 	public:
-		Module(std::vector<Symbol> &Symbols);
-		~Module();
+		Module() {};
+		~Module() {};
 
-		inline void addSymbol();
+		// add data to appropriate map in symbol_table and add it at the end of appropriate vector (all_functions or all_global_objects).
+		// If such symbol already exists it will be changed.
+		void addSymbol(std::string symbol_name, Object &data);
+		void addSymbol(std::string symbol_name, Function &data);
 
-		inline std::vector<Symbol> &getSymbolTable();
+		// store data related to symbol_name at pointer dep 
+		void getSymbolData(std::string symbol_name, Object &dep); 
+		void getSymbolData(std::string symbol_name, Function &dep);
+
+		const std::vector<Function *> &getAllFunctions();
+		const std::vector<Object *> &getAllGlobalObjects();
 
 	private:
-		std::vector<Symbol> SymbolTable;
+		SymbolTable table;
+		std::vector<Object *> all_global_objects;
+		std::vector<Function *> all_functions;
 };
