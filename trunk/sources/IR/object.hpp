@@ -11,7 +11,6 @@
 
 #include "../Utils/types.h"
 
-
 enum TypeOfObject
 {
     OBJ_REGISTER,

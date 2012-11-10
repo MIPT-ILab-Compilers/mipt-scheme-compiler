@@ -9,13 +9,8 @@
 
 #pragma once
 
-#include "../Utils/types.h"
-#include "ir_iface.hpp"
-#include "operand.hpp"
-#include "dataflowedge.hpp"
-
-#define RESULTS_NUM 1
-#define ARGUMENTS_NUM 2
+const UInt8 RESULTS_NUM = 1;
+const UInt8 ARGUMENTS_NUM = 2;
 
 
 enum OperName
@@ -31,25 +26,27 @@ class Operation
 
 public:
     Operation( UInt64 id_oper, OperName name, 
-               Operand  *arguments, Operand *result);
-    ~Operation();
+               const Operand *arguments, 
+               const Operand *result);
+    virtual ~Operation();
     
     inline UInt64 GetId() const;
 
     inline OperName GetName() const;
 
-    inline Operand getResult() const; // returns result[ 0]
-    inline Operand getResult( UInt8 num) const; // returns result[ num]
-    inline void setResult( Operand operand); // result[ 0] = operand 
-    inline void setResult( Operand operand, UInt8 num); // result[ num] = operand
+    inline const Operand& getResult() const; // returns result[ 0]
+    inline const Operand& getResult( UInt8 num) const; // returns result[ num]
+    inline void setResult( const Operand& operand); // result[ 0] = operand 
+    inline void setResult( const Operand& operand, UInt8 num); // result[ num] = operand
     
-    inline Operand getArgument( UInt8 num) const;
-    inline void setArgument( Operand operand, UInt8 num);
+    inline const Operand& getArgument( UInt8 num) const;
+    inline void setArgument(const Operand& operand, UInt8 num);
 
 
 private:
     OperName name;
-    Operand *arguments;
-    Operand *result;
+    Operand arguments[ ARGUMENTS_NUM];
+    Operand result[ RESULTS_NUM];
     UInt64 id_oper;
 };
+

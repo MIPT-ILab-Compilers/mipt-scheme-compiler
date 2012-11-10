@@ -25,7 +25,12 @@
  * Declaration classes
  */
 
-class Operation;
 class Operand;
+class Operation;
 class DataFlowEdge;
 class Object;
+
+#include "operand.hpp"
+#include "operation.hpp"
+#include "dataflowedge.hpp"
+#include "object.hpp"
