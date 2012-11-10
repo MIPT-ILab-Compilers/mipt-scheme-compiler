@@ -7,14 +7,8 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "object.hpp"
+#include "ir_impl.hpp"
 
-Object::Object( UInt64 id_object, TypeOfObject type, bool is_virtual)
-{
-    this->id_object = id_object;
-    this->type = type;
-    this->is_virtual = is_virtual;
-}
 
 inline UInt64 Object::getId() const
 {
