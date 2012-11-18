@@ -135,7 +135,7 @@ namespace parser
             if ( ptr->type() == T::static_type())
                 return dynamic_cast<T*>( ptr.get());
             else
-                throw std::bad_cast( "Wrong type!");
+                throw std::bad_cast();
         }
     }
 }
