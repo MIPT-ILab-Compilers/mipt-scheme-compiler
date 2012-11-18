@@ -40,12 +40,14 @@ export LEX_TARGET_DIR = $(BUILD_DIR)/lex_targets
 EXCLUDED_CPP= Interpreter/spirit-parser.cpp
 
 #Macros for fitering, example $(call FILTER_OUT,g, seven eight nine ten)
+FIND_SOURCES = $(shell find $(SOURCES) $(1) | grep -v "\#")
 FILTER = $(foreach filter,$(1),$(foreach substr,$(2),$(if $(findstring $(filter),$(substr)),$(substr),)))
 FILTER_OUT = $(filter-out $(call FILTER,$(1),$(2)),$(2))
 
 #Includes
-RELEASE_INCLUDE_FLAGS = 
-DEBUG_INCLUDE_FLAGS = 
+DEFAULT_INCLUDE_DIRS := -I. -I.. -I../..
+RELEASE_INCLUDE_FLAGS = $(DEFAULT_INCLUDE_DIRS)
+DEBUG_INCLUDE_FLAGS = $(DEFAULT_INCLUDE_DIRS)
 
 # Final debug and release flags
 DEBUG_OPT_FLAGS = -g -O0 -D_DEBUG -MMD -MP
@@ -70,21 +72,21 @@ RELEASE_LIBS = $(addprefix -l, $(RELEASE_LIB_NAMES))
 RELEASE_LIB_FLAGS =
 
 # Contains all names of .lex files
-LEX_FILES:=$(wildcard $(SOURCES)/*/*.lex)
+LEX_FILES:=$(wildcard $(SOURCES)/**/*.lex)
 # Change suffix .lex to _lex.cpp, this creates .cpp targets so flex-generated
 # sources could be updated once we modify .lex files
 LEX_TARGETS=$(LEX_FILES:.lex=_lex.cpp)
 
 # Uses wildecard to create a string containing all the project headers with their relative paths	
-HEADERS:= $(wildcard $(SOURCES)/*/*.h wildcard $(SOURCES)/*/*.hpp)
+HEADERS:= $(call FIND_SOURCES,-name *.hpp -or -name *.h)
 
 # Obtain string with all the *.cpp/*.c source files in project
-SOURCES_CPP_ALL:= $(wildcard $(SOURCES)/*/*.cpp $(SOURCES)/*/*.c) 
+SOURCES_CPP_ALL:= $(call FIND_SOURCES,-name *.cpp -or -name *.c)
 SOURCES_CPP_WO_LEX:=$(call FILTER_OUT,$(LEX_TARGETS),$(SOURCES_CPP_ALL))
 SOURCES_CPP:= $(call FILTER_OUT,$(EXCLUDED_CPP),$(SOURCES_CPP_WO_LEX)) $(LEX_TARGETS)
 
 # Target directories
-TARGET_DIRS:= UnitTest Interpreter
+TARGET_DIRS:= UnitTest interpreter
 
 DEBUG_SRC_NAMES= $(patsubst $(SOURCES)/%,$(DEBUG_OBJECTS_DIR)/%,$(SOURCES_CPP))
 DEBUG_OBJS = $(DEBUG_SRC_NAMES:.cpp=.o)
@@ -97,7 +99,7 @@ RELEASE_DEPS = $(RELEASE_SRC_NAMES:.cpp=.d)
 RELEASE_LIB_OBJS = $(call FILTER_OUT,$(TARGET_DIRS),$(RELEASE_OBJS))
 
 # All build targets
-all: release debug
+all: debug release
 
 # Run interpreter in debug mode
 #run: interpreterd
@@ -110,7 +112,7 @@ all: release debug
 
 clean: clean_lex clean_bin clean_objs
 clean_lex:
-	$(eval EXISTING_LEX_CPP = $(wildcard $(SOURCES)/*/*_lex.cpp))
+	$(eval EXISTING_LEX_CPP = $(call FIND_SOURCES, -name *_lex.cpp))
 	-$(RM) -f $(EXISTING_LEX_CPP)
 clean_bin:
 	-$(RM) -rf $(BIN_DIR)
@@ -118,16 +120,18 @@ clean_objs:
 	-$(RM) -rf $(OBJECT_DIR)
 
 # Debug targets
-debug: utestd 
+debug: utestd interpreterd
 utestd: gen utestd_link
+interpreterd: gen interpreterd_link
 
 # Additional generation target (if ever needed)
 gen: lex
 
 # Release targets
-release: utest 
+release: utest interpreter
 
 utest: gen utest_link
+interpreter: gen interpreter_link
 
 #
 # Linking targets for debug and release modes
@@ -142,6 +146,16 @@ utest_link: $(RELEASE_LIB_OBJS) $(call FILTER,UnitTest,$(RELEASE_OBJS))
 	@$(MKDIR) -p $(BIN_DIR)
 	@$(CXX) $(RELEASE_LIB_FLAGS) -o $(BIN_DIR)/utest  $(RELEASE_LIB_OBJS) $(call FILTER,UnitTest,$(RELEASE_OBJS)) $(RELEASE_LIB_DIRS) $(RELEASE_LIBS) $(BOOST_UTF_LIB)
 
+
+interpreterd_link: $(call FILTER,interpreter,$(DEBUG_OBJS)) $(DEBUG_LIB_OBJS)
+	@echo [linking] $(BIN_DIR)/interpreterd
+	@$(MKDIR) -p $(BIN_DIR)
+	@$(CXX) $(DEBUG_LIB_FLAGS) -o $(BIN_DIR)/interpreterd $^ $(DEBUG_LIB_DIRS) $(DEBUG_LIBS) $(BOOST_UTF_LIB)
+
+interpreter_link: $(call FILTER,interpreter,$(RELEASE_OBJS)) $(RELEASE_LIB_OBJS)
+	@echo [linking] $(BIN_DIR)/interpreter
+	@$(MKDIR) -p $(BIN_DIR)
+	@$(CXX) $(DEBUG_LIB_FLAGS) -o $(BIN_DIR)/interpreter $^ $(RELEASE_LIB_DIRS) $(RELEASE_LIBS) $(BOOST_UTF_LIB)
 
 #
 # Generation of cpp files with flex
