@@ -20,23 +20,31 @@ namespace parser
     {
         enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR };
 
+        class Visitor;
+        class Nodep;
+
         /* General abstract class */
         class Node
         {
         public:
             virtual Type type() const = 0;
+            virtual void accept(Visitor *visitor, Nodep me) = 0;
         };
 
-        typedef boost::shared_ptr<Node> Nodep;
-        
+        class Nodep : public boost::shared_ptr<Node>
+        {
+        public:
+            void accept(Visitor *visitor);
+        };
+
         class Nil : public Node
         {
         public:
             Nil();
-
+            void accept(Visitor *visitor, Nodep me);
             virtual Type type() const;
             static Type static_type();
-            
+
             virtual ~Nil();
         };
 
@@ -58,10 +66,10 @@ namespace parser
             virtual const Node* cdr() const;
             virtual void setCar( Nodep car_value);
             virtual void setCdr( Nodep cdr_value);
-            
+            void accept(Visitor *visitor, Nodep me);
             virtual ~Cons();
         };
-        
+
         class Number : public Node
         {
             long double _value;
@@ -74,14 +82,96 @@ namespace parser
 
             virtual long double value() const;
             virtual void setValue( long double number_value);
-
+            void accept(Visitor *visitor, Nodep me);
             virtual ~Number();
         };
-        
+
         class String : public Node
         {
             std::string _value;
         public:
+            String( const String& src);
+            String( const std::string& src);
+
+            virtual Type type() const;
+            static Type static_type();
+
+            /* You can change the value by this getter */
+            virtual std::string& value();
+            virtual const std::string& value() const;
+            virtual void setValue( const std::string& string_value);
+            void accept(Visitor *visitor, Nodep me);
+
+            virtual ~String();
+        };
+
+        class Char : public Node
+        {
+            char _value;
+        public:
+            Char( const Char& src);
+            Char( char src);
+
+            virtual Type type() const;
+            static Type static_type();
+
+            virtual char value() const;
+            virtual void setValue( char char_value);
+            void accept(Visitor *visitor, Nodep me);
+            virtual ~Char();
+        };
+
+        class Vector : public Node
+        {
+            std::vector<Nodep> _value;
+        public:
+            Vector( const Vector& src);
+            Vector( const std::vector<Nodep>& vector_value);
+
+            virtual Type type() const;
+            static Type static_type();
+
+            virtual std::vector<Nodep>& value();
+            virtual const std::vector<Nodep>& value() const;
+            virtual void setValue( const std::vector<Nodep>& vector_value);
+            void accept(Visitor *visitor, Nodep me);
+
+            virtual ~Vector();
+        };
+
+        class Visitor
+        {
+        public:
+            virtual void visitNil(Nodep _nil) = 0;
+            virtual void visitCons(Nodep _cons) = 0;
+            virtual void visitNumber(Nodep _number) = 0;
+            virtual void visitString(Nodep _string) = 0;
+            virtual void visitChar(Nodep _char) = 0;
+            virtual void visitVector(Nodep _vector) = 0;
+        };
+
+        class VisitorDoingSomething : public Visitor
+        {
+        public:
+<<<<<<< .mine
+            void visitNil(Nodep _nil) {}
+            void visitCons(Nodep _cons) {}
+            void visitNumber(Nodep _number) {}
+            void visitString(Nodep _string) {}
+            void visitChar(Nodep _char) {}
+            void visitVector(Nodep _vector) {}
+        };
+
+        template <typename T>
+        T* as( Nodep ptr) /* Throws exception */
+        {
+            if ( ptr->type() == T::static_type())
+                return dynamic_cast<T*>( ptr.get());
+            else
+                throw std::bad_cast( "Wrong type!");
+        }
+    }
+=======
             String( const String& src);
             String( const std::string& src);
 
@@ -138,4 +228,5 @@ namespace parser
                 throw std::bad_cast();
         }
     }
+>>>>>>> .r38
 }
