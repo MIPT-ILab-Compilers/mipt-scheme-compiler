@@ -13,14 +13,19 @@ namespace parser
 {
     namespace ast
     {
+        void Nodep::accept(Visitor *visitor)
+        {
+            (this->get())->accept(visitor, *this);
+        }
+
         Nil::Nil()
         {
-        
+
         }
 
         Nil::~Nil()
         {
-        
+
         }
 
         Type Nil::type() const
@@ -33,19 +38,24 @@ namespace parser
             return NIL;
         }
 
+        void Nil::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitNil(me);
+        }
+
         Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
         {
-        
+
         }
 
         Cons::Cons( Nodep car_value, Nodep cdr_value) : _car(car_value), _cdr(cdr_value)
         {
-        
+
         }
 
         Cons::~Cons()
         {
-        
+
         }
 
         Type Cons::type() const
@@ -88,14 +98,19 @@ namespace parser
             _cdr = cdr_value;
         }
 
+        void Cons::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitCons(me);
+        }
+
         Number::Number( const Number& src) : _value(src._value)
         {
-        
+
         }
 
         Number::Number( long double src) : _value(src)
         {
-        
+
         }
 
         long double Number::value() const
@@ -110,7 +125,7 @@ namespace parser
 
         Number::~Number()
         {
-        
+
         }
 
         Type Number::type() const
@@ -123,19 +138,24 @@ namespace parser
             return NUMBER;
         }
 
+        void Number::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitNumber(me);
+        }
+
         String::String( const String& src) : _value(src._value)
         {
-        
+
         }
 
         String::String( const std::string& src) : _value(src)
         {
-        
+
         }
 
         String::~String()
         {
-        
+
         }
 
         Type String::type() const
@@ -163,19 +183,24 @@ namespace parser
             _value = string_value;
         }
 
+        void String::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitString(me);
+        }
+
         Char::Char( const Char& src) : _value(src._value)
         {
-        
+
         }
 
         Char::Char( char src) : _value(src)
         {
-        
+
         }
 
         Char::~Char()
         {
-        
+
         }
 
         Type Char::type() const
@@ -198,19 +223,24 @@ namespace parser
             _value = char_value;
         }
 
+        void Char::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitChar(me);
+        }
+
         Vector::Vector( const Vector& src) : _value(src._value)
         {
-        
+
         }
 
         Vector::Vector( const std::vector<Nodep>& vector_value) : _value(vector_value)
         {
-        
+
         }
 
         Vector::~Vector()
         {
-        
+
         }
 
         Type Vector::type() const
@@ -237,5 +267,11 @@ namespace parser
         {
             _value = vector_value;
         }
+
+        void Vector::accept(Visitor *visitor, Nodep me)
+        {
+            visitor->visitVector(me);
+        }
     }
 }
+
