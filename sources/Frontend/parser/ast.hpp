@@ -153,7 +153,6 @@ namespace parser
         class VisitorDoingSomething : public Visitor
         {
         public:
-<<<<<<< .mine
             void visitNil(Nodep _nil) {}
             void visitCons(Nodep _cons) {}
             void visitNumber(Nodep _number) {}
@@ -168,65 +167,7 @@ namespace parser
             if ( ptr->type() == T::static_type())
                 return dynamic_cast<T*>( ptr.get());
             else
-                throw std::bad_cast( "Wrong type!");
-        }
-    }
-=======
-            String( const String& src);
-            String( const std::string& src);
-
-            virtual Type type() const;
-            static Type static_type();
-
-            /* You can change the value by this getter */
-            virtual std::string& value();
-            virtual const std::string& value() const;
-            virtual void setValue( const std::string& string_value);
-
-            virtual ~String();
-        };
-
-        class Char : public Node
-        {
-            char _value;
-        public:
-            Char( const Char& src);
-            Char( char src);
-
-            virtual Type type() const;
-            static Type static_type();
-
-            virtual char value() const;
-            virtual void setValue( char char_value);
-
-            virtual ~Char();
-        };
-        
-        class Vector : public Node
-        {
-            std::vector<Nodep> _value;
-        public:
-            Vector( const Vector& src);
-            Vector( const std::vector<Nodep>& vector_value);
-            
-            virtual Type type() const;
-            static Type static_type();
-
-            virtual std::vector<Nodep>& value();
-            virtual const std::vector<Nodep>& value() const;
-            virtual void setValue( const std::vector<Nodep>& vector_value);
-
-            virtual ~Vector();
-        };
-
-        template <typename T>
-        T* as( Nodep ptr) /* Throws exception */
-        {
-            if ( ptr->type() == T::static_type())
-                return dynamic_cast<T*>( ptr.get());
-            else
                 throw std::bad_cast();
         }
     }
->>>>>>> .r38
 }
