@@ -28,20 +28,20 @@ namespace parser
         {
         public:
             virtual Type type() const = 0;
-            virtual void accept(Visitor *visitor, Nodep me) = 0;
+            virtual void accept( Visitor *visitor, Nodep me) = 0;
         };
 
         class Nodep : public boost::shared_ptr<Node>
         {
         public:
-            void accept(Visitor *visitor);
+            void accept( Visitor *visitor);
         };
 
         class Nil : public Node
         {
         public:
             Nil();
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
             virtual Type type() const;
             static Type static_type();
 
@@ -66,7 +66,7 @@ namespace parser
             virtual const Node* cdr() const;
             virtual void setCar( Nodep car_value);
             virtual void setCdr( Nodep cdr_value);
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
             virtual ~Cons();
         };
 
@@ -82,7 +82,7 @@ namespace parser
 
             virtual long double value() const;
             virtual void setValue( long double number_value);
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
             virtual ~Number();
         };
 
@@ -100,7 +100,7 @@ namespace parser
             virtual std::string& value();
             virtual const std::string& value() const;
             virtual void setValue( const std::string& string_value);
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
 
             virtual ~String();
         };
@@ -117,7 +117,7 @@ namespace parser
 
             virtual char value() const;
             virtual void setValue( char char_value);
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
             virtual ~Char();
         };
 
@@ -134,7 +134,7 @@ namespace parser
             virtual std::vector<Nodep>& value();
             virtual const std::vector<Nodep>& value() const;
             virtual void setValue( const std::vector<Nodep>& vector_value);
-            void accept(Visitor *visitor, Nodep me);
+            void accept( Visitor *visitor, Nodep me);
 
             virtual ~Vector();
         };
@@ -142,23 +142,12 @@ namespace parser
         class Visitor
         {
         public:
-            virtual void visitNil(Nodep _nil) = 0;
-            virtual void visitCons(Nodep _cons) = 0;
-            virtual void visitNumber(Nodep _number) = 0;
-            virtual void visitString(Nodep _string) = 0;
-            virtual void visitChar(Nodep _char) = 0;
-            virtual void visitVector(Nodep _vector) = 0;
-        };
-
-        class VisitorDoingSomething : public Visitor
-        {
-        public:
-            void visitNil(Nodep _nil) {}
-            void visitCons(Nodep _cons) {}
-            void visitNumber(Nodep _number) {}
-            void visitString(Nodep _string) {}
-            void visitChar(Nodep _char) {}
-            void visitVector(Nodep _vector) {}
+            virtual void visitNil( Nodep _nil) = 0;
+            virtual void visitCons( Nodep _cons) = 0;
+            virtual void visitNumber( Nodep _number) = 0;
+            virtual void visitString( Nodep _string) = 0;
+            virtual void visitChar( Nodep _char) = 0;
+            virtual void visitVector( Nodep _vector) = 0;
         };
 
         template <typename T>

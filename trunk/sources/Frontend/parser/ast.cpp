@@ -13,9 +13,9 @@ namespace parser
 {
     namespace ast
     {
-        void Nodep::accept(Visitor *visitor)
+        void Nodep::accept( Visitor *visitor)
         {
-            (this->get())->accept(visitor, *this);
+            ( this->get())->accept( visitor, *this);
         }
 
         Nil::Nil()
@@ -38,9 +38,9 @@ namespace parser
             return NIL;
         }
 
-        void Nil::accept(Visitor *visitor, Nodep me)
+        void Nil::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitNil(me);
+            visitor->visitNil( me);
         }
 
         Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
@@ -98,9 +98,9 @@ namespace parser
             _cdr = cdr_value;
         }
 
-        void Cons::accept(Visitor *visitor, Nodep me)
+        void Cons::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitCons(me);
+            visitor->visitCons( me);
         }
 
         Number::Number( const Number& src) : _value(src._value)
@@ -138,9 +138,9 @@ namespace parser
             return NUMBER;
         }
 
-        void Number::accept(Visitor *visitor, Nodep me)
+        void Number::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitNumber(me);
+            visitor->visitNumber( me);
         }
 
         String::String( const String& src) : _value(src._value)
@@ -183,9 +183,9 @@ namespace parser
             _value = string_value;
         }
 
-        void String::accept(Visitor *visitor, Nodep me)
+        void String::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitString(me);
+            visitor->visitString( me);
         }
 
         Char::Char( const Char& src) : _value(src._value)
@@ -223,9 +223,9 @@ namespace parser
             _value = char_value;
         }
 
-        void Char::accept(Visitor *visitor, Nodep me)
+        void Char::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitChar(me);
+            visitor->visitChar( me);
         }
 
         Vector::Vector( const Vector& src) : _value(src._value)
@@ -268,9 +268,9 @@ namespace parser
             _value = vector_value;
         }
 
-        void Vector::accept(Visitor *visitor, Nodep me)
+        void Vector::accept( Visitor *visitor, Nodep me)
         {
-            visitor->visitVector(me);
+            visitor->visitVector( me);
         }
     }
 }
