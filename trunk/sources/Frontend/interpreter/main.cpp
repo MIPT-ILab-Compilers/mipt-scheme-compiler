@@ -1,3 +1,12 @@
+/**
+* @file:main.cpp
+* The main precedure for interpreter component. It utilizes alle interpreter,
+* parser, lexer facilities, builds up interpreter object, tunes it and launches.
+*/
+/**
+* Copyright 2012 MIPT-COMPILER team
+*/
+
 #include <iostream>
 
 using std::cout;
