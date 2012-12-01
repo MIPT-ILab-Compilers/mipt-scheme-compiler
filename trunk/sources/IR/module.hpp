@@ -1,4 +1,11 @@
- 
+ /**
+* @file:module.hpp
+* Header of classes Module and Function.
+*/
+/**
+* Copyright 2012 MIPT-COMPILER team
+*/
+
 #pragma once
 
 #include <vector>
@@ -9,8 +16,8 @@
 class Function
 {
 	public:
-		Function(std::string &name);
-		~Function() {};
+		Function(const std::string &name) : function_name(name) {};
+		~Function();
 		
 		// add one object at the end of apropriate vector.
 		void addLocalObject(Object *); 
@@ -30,8 +37,7 @@ class SymbolTable
 {
 	friend class Module;	
 
-	SymbolTable() {};
-	~SymbolTable() {};
+	~SymbolTable();
 
 	std::map<std::string, Object *> object_table;
 	std::map<std::string, Function *> function_table;
@@ -40,17 +46,16 @@ class SymbolTable
 class Module 
 {
 	public:
-		Module() {};
-		~Module() {};
+		~Module();
 
 		// add data to appropriate map in symbol_table and add it at the end of appropriate vector (all_functions or all_global_objects).
 		// If such symbol already exists it will be changed.
-		void addSymbol(std::string symbol_name, Object &data);
-		void addSymbol(std::string symbol_name, Function &data);
+		void addSymbol(const std::string &symbol_name, Object *data);
+		void addSymbol(const std::string &symbol_name, Function *data);
 
-		// store data related to symbol_name at pointer dep 
-		void getSymbolData(std::string symbol_name, Object &dep); 
-		void getSymbolData(std::string symbol_name, Function &dep);
+		// getters
+		Object *getSymbolObject(const std::string &symbol_name); 
+		Function *getSymbolFunction(const std::string &symbol_name);
 
 		const std::vector<Function *> &getAllFunctions();
 		const std::vector<Object *> &getAllGlobalObjects();
