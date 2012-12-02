@@ -20,9 +20,9 @@
 class Constant
 {
 	public:
-		Constant(const std::string &str) {value = str;}
-		Constant(int val) {value = val;}
-		Constant(double val) {value = val;}
+		Constant(const std::string &str) : value(str) {}
+		Constant(int val) : value(val) {}
+		Constant(double val) : value(val) {}
 
 		bool isDouble();
 		bool isInt();

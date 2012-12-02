@@ -11,7 +11,7 @@
 
 bool Constant::isInt()
 {
-	if (value.which() == 1)
+	if (value.which() == 2)
 		return true;
 	else 
 		return false;
@@ -19,7 +19,7 @@ bool Constant::isInt()
 
 bool Constant::isDouble()
 {
-	if (value.which() == 0)
+	if (value.which() == 0 or value.which() == 1)
 		return true;
 	else 
 		return false;
@@ -27,7 +27,7 @@ bool Constant::isDouble()
 
 bool Constant::isString()
 {
-	if (value.which() == 2)
+	if (value.which() == 3)
 		return true;
 	else 
 		return false;
