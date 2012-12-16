@@ -1,6 +1,6 @@
 /**
 * @file:ast.cpp
-* Difinition of methods (AST Nodes)
+* Definition of methods (AST Nodes)
 * Source code of AST (parser)
 */
 /**
@@ -28,12 +28,12 @@ namespace parser
 
         }
 
-        Type Nil::type() const
+        int Nil::type() const
         {
             return NIL;
         }
 
-        Type Nil::static_type()
+        int Nil::static_type()
         {
             return NIL;
         }
@@ -58,12 +58,12 @@ namespace parser
 
         }
 
-        Type Cons::type() const
+        int Cons::type() const
         {
             return CONS;
         }
 
-        Type Cons::static_type()
+        int Cons::static_type()
         {
             return CONS;
         }
@@ -128,12 +128,12 @@ namespace parser
 
         }
 
-        Type Number::type() const
+        int Number::type() const
         {
             return NUMBER;
         }
 
-        Type Number::static_type()
+        int Number::static_type()
         {
             return NUMBER;
         }
@@ -158,12 +158,12 @@ namespace parser
 
         }
 
-        Type String::type() const
+        int String::type() const
         {
             return STRING;
         }
 
-        Type String::static_type()
+        int String::static_type()
         {
             return STRING;
         }
@@ -203,12 +203,12 @@ namespace parser
 
         }
 
-        Type Char::type() const
+        int Char::type() const
         {
             return CHAR;
         }
 
-        Type Char::static_type()
+        int Char::static_type()
         {
             return CHAR;
         }
@@ -243,12 +243,12 @@ namespace parser
 
         }
 
-        Type Vector::type() const
+        int Vector::type() const
         {
             return VECTOR;
         }
 
-        Type Vector::static_type()
+        int Vector::static_type()
         {
             return VECTOR;
         }

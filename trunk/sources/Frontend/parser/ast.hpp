@@ -18,7 +18,8 @@ namespace parser
 {
     namespace ast
     {
-        enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR };
+
+       enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, NEXT };
 
         class Visitor;
         class Nodep;
@@ -27,7 +28,7 @@ namespace parser
         class Node
         {
         public:
-            virtual Type type() const = 0;
+            virtual int type() const = 0;
             virtual void accept( Visitor *visitor, Nodep me) = 0;
         };
 
@@ -42,8 +43,8 @@ namespace parser
         public:
             Nil();
             void accept( Visitor *visitor, Nodep me);
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             virtual ~Nil();
         };
@@ -56,8 +57,8 @@ namespace parser
             Cons( const Cons& src);
             Cons( Nodep car_value, Nodep cdr_value);
 
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             /* Getters and setters */
             virtual Nodep car();
@@ -77,8 +78,8 @@ namespace parser
             Number( const Number& src);
             Number( long double src);
 
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             virtual long double value() const;
             virtual void setValue( long double number_value);
@@ -93,8 +94,8 @@ namespace parser
             String( const String& src);
             String( const std::string& src);
 
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             /* You can change the value by this getter */
             virtual std::string& value();
@@ -112,8 +113,8 @@ namespace parser
             Char( const Char& src);
             Char( char src);
 
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             virtual char value() const;
             virtual void setValue( char char_value);
@@ -128,8 +129,8 @@ namespace parser
             Vector( const Vector& src);
             Vector( const std::vector<Nodep>& vector_value);
 
-            virtual Type type() const;
-            static Type static_type();
+            virtual int type() const;
+            static int static_type();
 
             virtual std::vector<Nodep>& value();
             virtual const std::vector<Nodep>& value() const;
@@ -138,7 +139,7 @@ namespace parser
 
             virtual ~Vector();
         };
-
+    
         class Visitor
         {
         public:
@@ -147,8 +148,9 @@ namespace parser
             virtual void visitNumber( Nodep _number) = 0;
             virtual void visitString( Nodep _string) = 0;
             virtual void visitChar( Nodep _char) = 0;
-            virtual void visitVector( Nodep _vector) = 0;
+            virtual void visitVector( Nodep _vector) = 0; 
         };
+        
 
         template <typename T>
         T* as( Nodep ptr) /* Throws exception */
