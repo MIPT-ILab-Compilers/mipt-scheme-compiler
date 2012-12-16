@@ -1,57 +1,101 @@
+/**
+ * @file:est.hpp
+ * Header file of EST nodes
+ * Header of EST (interpretator)
+ */
+/**
+ * Copyright 2012 MIPT-COMPILER team
+ */
+
 #pragma once
+
+#include "../parser/ast.hpp"
+#include <boost/function.hpp>
+#include <iostream>
+#include <fstream>
+using parser::ast::Nodep;
 
 namespace interpreter
 {
-	namespace est
-	{
-		enum Type2 { FUNCTION = NEXT_TYPE_ID, MACROS, SPECIAL_FORM, PORT }; //NEXT_TYPE_ID is supposed to be added at the end of Type
+    namespace est
+    {
+        enum Type { FUNCTION = parser::ast::NEXT, MACROS, SPECIAL_FORM, PORT };
 
-		class Function: public Node
-		{
-		public:
-			Function( const Function& src);	
-			Function();
+        class Visitor;
 
-			virtual Type2 type() const;
-			static Type2 static_type();
-	
-			virtual ~Function();
-		};
+        class estNode : parser::ast::Node
+        {
+        public:
+            virtual void accept( parser::ast::Visitor * visitor, Nodep me );
+            virtual void accept( Visitor * visitor, Nodep me) = 0;
+        };
 
-		class Macros: public Node
-		{
-		public:
-			Macros( const Macros& src);	
-			Macros();
+        class Function : public estNode
+        {
+            boost::function<Nodep (Nodep args)> _value;
+        public:
+            virtual int type() const;
+            static int staticType();
 
-			virtual Type2 type() const;
-			static Type2 static_type();
-	
-			virtual ~Macros();
-		};
+            void accept( Visitor * visitor, Nodep me);
+ 
+            virtual ~Function();
+        };
 
-		class Special_form: public Node
-		{
-		public:
-			Special_form( const Special_form& src);	
-			Special_form();
+        class Macros : public estNode
+        {
+        public:
+            virtual int type() const;
+            static int staticType();
 
-			virtual Type2 type() const;
-			static Type2 static_type();
-	
-			virtual ~Special_form();
-		};
+            void accept( Visitor * visitor, Nodep me);
 
-		class Port: public Port
-		{
-		public:
-			Port( const Port& src);	
-			Port();
+            virtual ~Macros();
+        };
 
-			virtual Type2 type() const;
-			static Type2 static_type();
-	
-			virtual ~Port();
-		};
-	}
+        class SpecialForm : public estNode
+        {
+        public:
+            virtual int type() const;
+            static int staticType();
+
+            void accept( Visitor * visitor, Nodep me);
+
+            virtual ~SpecialForm();
+        };
+
+        class Port : public estNode
+        {
+            std::iostream _value;
+            std::filebuf fb;
+            bool input;
+            bool output;
+        public:
+            Port( std::ostream & os);
+            Port( std::istream & is);
+            Port( bool in, bool out, const char * filename );
+
+            virtual int type() const;
+            static int staticType();
+
+            char readChar();
+            void writeChar( char c );
+
+            void closePort();
+            bool eof() const;
+
+            void accept( Visitor * visitor, Nodep me);
+
+            virtual ~Port();
+        };
+
+        class Visitor : parser::ast::Visitor
+        {
+        public:
+            virtual void visitMacros( Nodep _macros) = 0;
+            virtual void visitFunction( Nodep _function) = 0;
+            virtual void visitSpecialForm( Nodep _spacialForm) = 0;
+            virtual void visitPort( Nodep _port) = 0;
+        };
+    }
 }
