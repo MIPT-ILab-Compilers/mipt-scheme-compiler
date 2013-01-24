@@ -1,0 +1,8 @@
+#summary Books and online materials, recommended for participants to get met with.
+
+= Recommended reading =
+ * [http://www.cs.indiana.edu/~dyb/pubs/tr356.pdf Writing hygienic macros in Scheme with syntax-case] -- overview of low level macro facilities in Scheme.
+
+= Classical books =
+ * [http://books.google.ru/books/about/Compilers.html?id=dIU_AQAAIAAJ&redir_esc=y Dragon book]
+ * [http://mitpress.mit.edu/sicp/full-text/book/book.html Structure and interpretation of computer programs] (SICP)
