@@ -18,6 +18,36 @@ namespace parser
             ( this->get())->accept( visitor, *this);
         }
 
+        Ident::Ident(unsigned id)
+        {
+            _id = id;
+        }
+
+        void Ident::putId(unsigned id)
+        {
+            _id = id;
+        }
+
+        unsigned Ident::getId()
+        {
+            return _id;
+        }
+
+        Ident::~Ident()
+        {
+
+        }
+
+        void Ident::accept( Visitor *visitor, Nodep me)
+        {
+            visitor->visitNil( me);
+        }
+
+        int Ident::type() const
+        {
+            return IDENT;
+        }
+
         Nil::Nil()
         {
 
