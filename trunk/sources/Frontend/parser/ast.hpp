@@ -19,7 +19,7 @@ namespace parser
     namespace ast
     {
 
-       enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, NEXT };
+       enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, IDENT, NEXT };
 
         class Visitor;
         class Nodep;
@@ -36,6 +36,18 @@ namespace parser
         {
         public:
             void accept( Visitor *visitor);
+        };
+
+        class Ident : public Node
+        {
+            unsigned _id;
+        public:
+            Ident(unsigned id);
+            void putId(unsigned id);
+            unsigned getId();
+            void accept( Visitor *visitor, Nodep me);
+            virtual int type() const;
+            virtual ~Ident();
         };
 
         class Nil : public Node
@@ -139,7 +151,7 @@ namespace parser
 
             virtual ~Vector();
         };
-    
+
         class Visitor
         {
         public:
@@ -148,9 +160,10 @@ namespace parser
             virtual void visitNumber( Nodep _number) = 0;
             virtual void visitString( Nodep _string) = 0;
             virtual void visitChar( Nodep _char) = 0;
-            virtual void visitVector( Nodep _vector) = 0; 
+            virtual void visitVector( Nodep _vector) = 0;
+            virtual void visitIdent( Nodep _ident) = 0;
         };
-        
+
 
         template <typename T>
         T* as( Nodep ptr) /* Throws exception */
