@@ -2,7 +2,7 @@
 
  * [About About]
  * [SchemeLanguage Scheme Features]
- * Coding Guidelines
+ * [CodingGuidelines Coding Guidelines]
   * [SourceBaseStructure Source Base Structure]
   * [SourceFileConventions Source File Conventions]
   * [ClassDescriptionStructure Class description structure]
