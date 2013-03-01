@@ -29,6 +29,11 @@ namespace interpreter
             }
         }
 
+        Function::Function ( Nodep ( *ptr) ( Nodep args))
+        {
+            _value = ptr;
+        }
+
         Function::~Function()
         {
 
@@ -44,9 +49,19 @@ namespace interpreter
             return FUNCTION;
         }
 
+        Nodep Function::call ( Nodep args)
+        {
+            return _value ( args);
+        }
+
         void Function::accept(Visitor * visitor, Nodep me)
         {
             visitor->visitFunction( me );
+        }
+
+        Macros::Macros ( Nodep ( *ptr) ( Nodep args))
+        {
+            _value = ptr;
         }
 
         Macros::~Macros()
@@ -64,9 +79,19 @@ namespace interpreter
             return MACROS;
         }
 
+        Nodep Macros::apply ( Nodep args)
+        {
+            return _value ( args);
+        }
+
         void Macros::accept(Visitor * visitor, Nodep me)
         {
             visitor->visitMacros( me );
+        }
+
+        SpecialForm::SpecialForm ( Nodep ( *ptr) ( Nodep args))
+        {
+            _value = ptr;
         }
 
         SpecialForm::~SpecialForm()
@@ -82,6 +107,11 @@ namespace interpreter
         int SpecialForm::staticType()
         {
             return SPECIAL_FORM;
+        }
+
+        Nodep SpecialForm::apply ( Nodep args)
+        {
+            return _value ( args);
         }
 
         void SpecialForm::accept(Visitor * visitor, Nodep me)
@@ -189,6 +219,31 @@ namespace interpreter
         bool Port::eof() const
         {
             return _value.eof();
+        }
+
+        EOFobject::EOFobject()
+        {
+            
+        }
+
+        int EOFobject::type() const
+        {
+            return EOF_OBJECT;
+        }
+
+        int EOFobject::staticType()
+        {
+            return EOF_OBJECT;
+        }
+
+        void EOFobject::accept( Visitor * visitor, Nodep me)
+        {
+            visitor->visitEOFobject( me);
+        }
+
+        EOFobject::~EOFobject()
+        {
+
         }
     }
 }
