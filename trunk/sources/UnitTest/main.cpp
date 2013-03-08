@@ -24,9 +24,7 @@ GlobalFixture::GlobalFixture()
 
 /* Deinitializations of globals/singletons */
 GlobalFixture::~GlobalFixture()
-{
-
-    
+{  
     cout.flush();
     cerr.flush();
 }
