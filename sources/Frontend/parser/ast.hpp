@@ -35,6 +35,8 @@ namespace parser
         class Nodep : public boost::shared_ptr<Node>
         {
         public:
+            Nodep( Node* ptr) : boost::shared_ptr<Node>(ptr) {};
+            Nodep() : boost::shared_ptr<Node>() {};
             void accept( Visitor *visitor);
         };
 
