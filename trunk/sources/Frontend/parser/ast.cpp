@@ -18,17 +18,17 @@ namespace parser
             ( this->get())->accept( visitor, *this);
         }
 
-        Ident::Ident(unsigned id)
+        Ident::Ident(string id)
         {
             _id = id;
         }
 
-        void Ident::putId(unsigned id)
+        void Ident::putId(string id)
         {
             _id = id;
         }
 
-        unsigned Ident::getId()
+        string Ident::getId()
         {
             return _id;
         }
