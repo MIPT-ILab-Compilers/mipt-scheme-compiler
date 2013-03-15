@@ -59,9 +59,10 @@ namespace parser
             return Nodep( (Node*)(new String(str)));
         }
 
-        Nodep sym_constr( int val)
+        Nodep id_constr( std::vector<char> val)
         {
-            return Nodep( (Node*)(new Ident(val)));
+            std::string str( val.begin(), val.end());
+            return Nodep( (Node*)(new Ident(str)));
         }
         
         Nodep nil_constr( )
@@ -112,9 +113,9 @@ namespace parser
                       _val = phx::bind( &str_constr, _1)
                       ];
                         
-                symbol = ( "sym[" >> long_ >> ']' )
+                ident = ( "id[" >> +(char_ -']') >> ']' )
                          [
-                         _val = phx::bind( &sym_constr, _1)
+                         _val = phx::bind( &id_constr, _1)
                          ];
                 
                 nil = "()" >> qi::eps
@@ -122,7 +123,7 @@ namespace parser
                         _val = phx::bind( &nil_constr)
                         ];
 
-                atom = ( number | str | symbol | nil );
+                atom = ( number | str | ident | nil );
                 
                 cons = ( '(' >> expr >> '.' >> expr >> ')' )
                         [
@@ -139,7 +140,7 @@ namespace parser
              *  2) return type
              *  3) space skipper
              */
-            qi::rule<Iterator, Nodep(), ascii::space_type> expr, cons, number, str, symbol, nil, atom;
+            qi::rule<Iterator, Nodep(), ascii::space_type> expr, cons, number, str, ident, nil, atom;
         };
     };
     

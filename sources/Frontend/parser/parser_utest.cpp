@@ -14,7 +14,7 @@ BOOST_AUTO_TEST_CASE( dump_reader)
     /**
      * Just check that it can read without crash.
      */
-    std::string str("( sym[0]. ( ( n[1]. ( n[2]. ( \"abcd\". ()))). ()))");
+    std::string str("( id[add]. ( ( n[1]. ( n[2]. ( \"abcd\". ()))). ()))");
     
     BOOST_TEST_MESSAGE( "Testing DumpReader with string" + str);
     

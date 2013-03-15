@@ -23,9 +23,9 @@ namespace parser
      * AST dump must be in following format:
      *   DUMP -> EXPR
      *   EXPR -> ( EXPR. EXPR) | ATOM
-     *   ATOM -> n[<value>] | "<string>" | sym[<id>] | ()
+     *   ATOM -> n[<value>] | "<string>" | id[<id>] | ()
      * Example:
-     *   ( sym[0]. ( ( n[1]. ( n[2]. ( "abcd". ()))). ()))
+     *   ( id[add]. ( ( n[1]. ( n[2]. ( "abcd". ()))). ()))
      */
     class DumpReader
     {

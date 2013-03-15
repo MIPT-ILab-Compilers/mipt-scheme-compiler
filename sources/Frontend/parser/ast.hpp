@@ -18,8 +18,9 @@ namespace parser
 {
     namespace ast
     {
-
-       enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, IDENT, NEXT };
+        using std::string;
+        
+        enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, IDENT, NEXT };
 
         class Visitor;
         class Nodep;
@@ -42,11 +43,11 @@ namespace parser
 
         class Ident : public Node
         {
-            unsigned _id;
+            string _id;
         public:
-            Ident(unsigned id);
-            void putId(unsigned id);
-            unsigned getId();
+            Ident(string id);
+            void putId(string id);
+            string getId();
             void accept( Visitor *visitor, Nodep me);
             virtual int type() const;
             virtual ~Ident();
