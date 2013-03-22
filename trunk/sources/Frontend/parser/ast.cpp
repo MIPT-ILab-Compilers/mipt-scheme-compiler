@@ -8,11 +8,13 @@
 */
 
 #include "ast.hpp"
+#include <iostream>
 
 namespace parser
 {
     namespace ast
     {
+
         void Nodep::accept( Visitor *visitor)
         {
             ( this->get())->accept( visitor, *this);
@@ -321,6 +323,56 @@ namespace parser
         void Vector::accept( Visitor *visitor, Nodep me)
         {
             visitor->visitVector( me);
+        }
+
+        void DumpVisitor::visitNil( Nodep _nil)
+        {
+            std::cout << "()";
+        }
+
+        void DumpVisitor::visitCons( Nodep _cons)
+        {
+            Cons *a = as<Cons>(_cons);
+            std::cout << '(';
+            a->car().accept(this);
+            if (a->cdr().get()->type() != NIL) {
+                std::cout << " . ";
+                a->cdr().accept(this);
+            }
+            std::cout << ')';
+        }
+
+        void DumpVisitor::visitNumber( Nodep _number)
+        {   
+            Number *a = as<Number>(_number);
+            std::cout << a->value();
+        }
+
+        void DumpVisitor::visitString( Nodep _string)
+        {   
+            String *a = as<String>(_string);
+            std::cout << '\"' << a->value() << '\"';
+        }
+
+        void DumpVisitor::visitChar( Nodep _char)
+        {
+            Char *a = as<Char>(_char);
+            std::cout << '\'' <<  a->value() << '\'';
+        }
+
+        void DumpVisitor::visitVector( Nodep _vector)
+        {
+            Vector *a = as<Vector>(_vector);
+            std::cout << '[';
+            std::vector<Nodep> v = a->value();
+            std::vector<Nodep>::iterator it = v.begin();
+            it->accept(this);
+            it++;
+            for ( ; it < v.end(); it++) {
+                std::cout << ", ";
+                it->accept(this);
+            }
+            std::cout << ']';
         }
     }
 }
