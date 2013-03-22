@@ -18,8 +18,11 @@ namespace parser
 {
     namespace ast
     {
+
+        typedef std::string SymbolIdType;
+
         using std::string;
-        
+
         enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, IDENT, NEXT };
 
         class Visitor;
@@ -39,6 +42,17 @@ namespace parser
             Nodep( Node* ptr) : boost::shared_ptr<Node>(ptr) {};
             Nodep() : boost::shared_ptr<Node>() {};
             void accept( Visitor *visitor);
+        };
+
+        class Symbol
+        {
+            SymbolIdType symbol_id;
+            Nodep _value;
+        public:
+            Symbol( SymbolIdType id, Nodep ptr);
+            SymbolIdType getId();
+            Nodep getNodep();
+            ~Symbol();
         };
 
         class Ident : public Node

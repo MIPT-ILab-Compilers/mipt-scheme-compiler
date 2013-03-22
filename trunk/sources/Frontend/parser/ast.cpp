@@ -18,6 +18,26 @@ namespace parser
             ( this->get())->accept( visitor, *this);
         }
 
+        Symbol::Symbol( SymbolIdType id, Nodep ptr) : _value( ptr)
+        {
+            symbol_id = id;
+        };
+
+        SymbolIdType Symbol::getId()
+        {
+            return symbol_id;
+        }
+
+        Nodep Symbol::getNodep()
+        {
+            return _value;
+        }
+
+        Symbol::~Symbol()
+        {
+
+        }
+
         Ident::Ident(string id)
         {
             _id = id;
