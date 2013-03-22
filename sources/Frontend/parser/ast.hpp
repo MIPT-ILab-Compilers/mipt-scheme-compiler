@@ -181,6 +181,17 @@ namespace parser
             virtual void visitIdent( Nodep _ident) = 0;
         };
 
+        class DumpVisitor : public Visitor
+        {
+        public:
+            virtual void visitNil( Nodep _nil);
+            virtual void visitCons( Nodep _cons);
+            virtual void visitNumber( Nodep _number);
+            virtual void visitString( Nodep _string);
+            virtual void visitChar( Nodep _char);
+            virtual void visitVector( Nodep _vector);
+            virtual void visitIdent( Nodep _ident) {};
+        };
 
         template <typename T>
         T* as( Nodep ptr) /* Throws exception */
