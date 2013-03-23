@@ -47,11 +47,9 @@ namespace parser
         class Symbol
         {
             SymbolIdType symbol_id;
-            Nodep _value;
         public:
-            Symbol( SymbolIdType id, Nodep ptr);
+            Symbol( SymbolIdType id);
             SymbolIdType getId();
-            Nodep getNodep();
             ~Symbol();
         };
 

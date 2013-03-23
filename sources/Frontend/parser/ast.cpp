@@ -20,7 +20,7 @@ namespace parser
             ( this->get())->accept( visitor, *this);
         }
 
-        Symbol::Symbol( SymbolIdType id, Nodep ptr) : _value( ptr)
+        Symbol::Symbol( SymbolIdType id)
         {
             symbol_id = id;
         };
@@ -28,11 +28,6 @@ namespace parser
         SymbolIdType Symbol::getId()
         {
             return symbol_id;
-        }
-
-        Nodep Symbol::getNodep()
-        {
-            return _value;
         }
 
         Symbol::~Symbol()
