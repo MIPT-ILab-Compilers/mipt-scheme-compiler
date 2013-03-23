@@ -20,9 +20,9 @@ namespace interpreter
         return ( *this)[symbol_id];
     }
 
-    void Activation::add( Symbol& symbol)
+    void Activation::add( Symbol& symbol, Nodep& ptr)
     {
-        ( *this)[symbol.getId()] = symbol.getNodep();
+        ( *this)[symbol.getId()] = ptr;
     }
 
     Activation* Activation::getParentPtr()

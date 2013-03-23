@@ -23,7 +23,7 @@ namespace interpreter
     public:
         Activation( Activation* parent);
         Nodep get( SymbolIdType symbol_id);
-        void add( Symbol& symbol);
+        void add( Symbol& symbol, Nodep& ptr);
         Activation* getParentPtr();
         
         ~Activation();
