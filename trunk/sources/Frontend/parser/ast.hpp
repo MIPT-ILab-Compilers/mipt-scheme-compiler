@@ -19,7 +19,7 @@ namespace parser
     namespace ast
     {
 
-        typedef std::string SymbolIdType;
+        typedef std::string IdentIdType;
 
         using std::string;
 
@@ -44,22 +44,13 @@ namespace parser
             void accept( Visitor *visitor);
         };
 
-        class Symbol
-        {
-            SymbolIdType symbol_id;
-        public:
-            Symbol( SymbolIdType id);
-            SymbolIdType getId();
-            ~Symbol();
-        };
-
         class Ident : public Node
         {
-            string _id;
+            IdentIdType _id;
         public:
-            Ident(string id);
-            void putId(string id);
-            string getId();
+            Ident( IdentIdType id);
+            void putId( IdentIdType id);
+            IdentIdType getId();
             void accept( Visitor *visitor, Nodep me);
             virtual int type() const;
             virtual ~Ident();

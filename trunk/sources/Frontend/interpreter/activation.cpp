@@ -15,14 +15,14 @@ namespace interpreter
 
     }
 
-    Nodep Activation::get( SymbolIdType symbol_id)
+    Nodep Activation::get( IdentIdType _id)
     {
-        return ( *this)[symbol_id];
+        return ( *this)[_id];
     }
 
-    void Activation::add( Symbol& symbol, Nodep& ptr)
+    void Activation::add( Ident& ident, Nodep& ptr)
     {
-        ( *this)[symbol.getId()] = ptr;
+        ( *this)[ident.getId()] = ptr;
     }
 
     Activation* Activation::getParentPtr()
