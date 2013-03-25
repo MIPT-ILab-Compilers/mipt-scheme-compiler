@@ -20,32 +20,17 @@ namespace parser
             ( this->get())->accept( visitor, *this);
         }
 
-        Symbol::Symbol( SymbolIdType id)
-        {
-            symbol_id = id;
-        };
-
-        SymbolIdType Symbol::getId()
-        {
-            return symbol_id;
-        }
-
-        Symbol::~Symbol()
-        {
-
-        }
-
-        Ident::Ident(string id)
+        Ident::Ident( IdentIdType id)
         {
             _id = id;
         }
 
-        void Ident::putId(string id)
+        void Ident::putId( IdentIdType id)
         {
             _id = id;
         }
 
-        string Ident::getId()
+        IdentIdType Ident::getId()
         {
             return _id;
         }

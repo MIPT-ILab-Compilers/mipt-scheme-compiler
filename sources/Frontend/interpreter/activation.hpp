@@ -15,15 +15,15 @@
 namespace interpreter
 {
     using parser::ast::Nodep;
-    using parser::ast::Symbol;
-    using parser::ast::SymbolIdType;
+    using parser::ast::Ident;
+    using parser::ast::IdentIdType;
 
-    class Activation : public std::map<SymbolIdType, Nodep>
+    class Activation : public std::map<IdentIdType, Nodep>
     {
     public:
         Activation( Activation* parent);
-        Nodep get( SymbolIdType symbol_id);
-        void add( Symbol& symbol, Nodep& ptr);
+        Nodep get( IdentIdType _id);
+        void add( Ident& ident, Nodep& ptr);
         Activation* getParentPtr();
         
         ~Activation();
