@@ -10,7 +10,12 @@
 
 namespace interpreter
 {
-    Activation::Activation( Activation* parent) : parent_activation_ptr( parent)
+    Activation::Activation() : parent_activation_ptr()
+    {
+
+    }
+
+    Activation::Activation( ActPtr parent) : parent_activation_ptr( parent)
     {
 
     }
@@ -25,9 +30,14 @@ namespace interpreter
         ( *this)[ident.getId()] = ptr;
     }
 
-    Activation* Activation::getParentPtr()
+    ActPtr Activation::getParentPtr()
     {
-        return parent_activation_ptr.get();
+        return parent_activation_ptr;
+    }
+
+    bool Activation::hasParent()
+    {
+        return parent_activation_ptr.use_count();
     }
 
     Activation::~Activation()

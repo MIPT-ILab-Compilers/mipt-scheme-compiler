@@ -15,9 +15,14 @@ namespace parser
     namespace ast
     {
 
-        void Nodep::accept( Visitor *visitor)
+        void Nodep::acceptVoid( Visitor<void> *visitor)
         {
-            ( this->get())->accept( visitor, *this);
+             ( this->get())->acceptVoid( visitor, *this);
+        }
+
+        Nodep Nodep::acceptNodep( Visitor<Nodep> *visitor)
+        {
+            return ( this->get())->acceptNodep( visitor, *this);
         }
 
         Ident::Ident( IdentIdType id)
@@ -40,12 +45,22 @@ namespace parser
 
         }
 
-        void Ident::accept( Visitor *visitor, Nodep me)
+        void Ident::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
-            visitor->visitNil( me);
+            visitor->visitIdent( me);
         }
 
-        int Ident::type() const
+        Nodep Ident::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitIdent( me);
+        }
+
+       int Ident::type() const
+        {
+            return IDENT;
+        }
+
+        int Ident::staticType()
         {
             return IDENT;
         }
@@ -65,17 +80,22 @@ namespace parser
             return NIL;
         }
 
-        int Nil::static_type()
+        int Nil::staticType()
         {
             return NIL;
         }
 
-        void Nil::accept( Visitor *visitor, Nodep me)
+        void Nil::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitNil( me);
         }
 
-        Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
+        Nodep Nil::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitNil( me);
+        }
+
+       Cons::Cons( const Cons& src) : _car(src._car), _cdr(src._cdr)
         {
 
         }
@@ -95,7 +115,7 @@ namespace parser
             return CONS;
         }
 
-        int Cons::static_type()
+        int Cons::staticType()
         {
             return CONS;
         }
@@ -130,9 +150,14 @@ namespace parser
             _cdr = cdr_value;
         }
 
-        void Cons::accept( Visitor *visitor, Nodep me)
+        void Cons::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitCons( me);
+        }
+
+        Nodep Cons::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitCons( me);
         }
 
         Number::Number( const Number& src) : _value(src._value)
@@ -165,14 +190,19 @@ namespace parser
             return NUMBER;
         }
 
-        int Number::static_type()
+        int Number::staticType()
         {
             return NUMBER;
         }
 
-        void Number::accept( Visitor *visitor, Nodep me)
+        void Number::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitNumber( me);
+        }
+
+        Nodep Number::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitNumber( me);
         }
 
         String::String( const String& src) : _value(src._value)
@@ -195,7 +225,7 @@ namespace parser
             return STRING;
         }
 
-        int String::static_type()
+        int String::staticType()
         {
             return STRING;
         }
@@ -215,9 +245,14 @@ namespace parser
             _value = string_value;
         }
 
-        void String::accept( Visitor *visitor, Nodep me)
+        void String::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitString( me);
+        }
+
+        Nodep String::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitString( me);
         }
 
         Char::Char( const Char& src) : _value(src._value)
@@ -240,7 +275,7 @@ namespace parser
             return CHAR;
         }
 
-        int Char::static_type()
+        int Char::staticType()
         {
             return CHAR;
         }
@@ -255,12 +290,17 @@ namespace parser
             _value = char_value;
         }
 
-        void Char::accept( Visitor *visitor, Nodep me)
+        void Char::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitChar( me);
         }
 
-        Vector::Vector( const Vector& src) : _value(src._value)
+        Nodep Char::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitChar( me);
+        }
+
+       Vector::Vector( const Vector& src) : _value(src._value)
         {
 
         }
@@ -280,7 +320,7 @@ namespace parser
             return VECTOR;
         }
 
-        int Vector::static_type()
+        int Vector::staticType()
         {
             return VECTOR;
         }
@@ -300,9 +340,14 @@ namespace parser
             _value = vector_value;
         }
 
-        void Vector::accept( Visitor *visitor, Nodep me)
+        void Vector::acceptVoid( Visitor<void> *visitor, Nodep me)
         {
             visitor->visitVector( me);
+        }
+
+        Nodep Vector::acceptNodep( Visitor<Nodep> *visitor, Nodep me)
+        {
+            return visitor->visitVector( me);
         }
 
         void DumpVisitor::visitNil( Nodep _nil)
@@ -314,10 +359,10 @@ namespace parser
         {
             Cons *a = as<Cons>(_cons);
             std::cout << '(';
-            a->car().accept(this);
+            a->car().acceptVoid(this);
             if (a->cdr().get()->type() != NIL) {
                 std::cout << " . ";
-                a->cdr().accept(this);
+                a->cdr().acceptVoid(this);
             }
             std::cout << ')';
         }
@@ -346,11 +391,11 @@ namespace parser
             std::cout << '[';
             std::vector<Nodep> v = a->value();
             std::vector<Nodep>::iterator it = v.begin();
-            it->accept(this);
+            it->acceptVoid(this);
             it++;
             for ( ; it < v.end(); it++) {
                 std::cout << ", ";
-                it->accept(this);
+                it->acceptVoid(this);
             }
             std::cout << ']';
         }
