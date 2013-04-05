@@ -16,7 +16,7 @@ namespace interpreter
     namespace est
     {
 
-        void estNode::accept( parser::ast::Visitor * visitor, Nodep me )
+        Nodep estNode::acceptNodep( parser::ast::Visitor<Nodep> * visitor, Nodep me )
         {
             Visitor * vptr;
             if( !(vptr = dynamic_cast<Visitor *>( visitor) ) )
@@ -25,7 +25,7 @@ namespace interpreter
             }
             else
             {
-                this->accept( vptr, me );
+                return this->acceptNodep( vptr, me );
             }
         }
 
@@ -54,9 +54,9 @@ namespace interpreter
             return _value ( args);
         }
 
-        void Function::accept(Visitor * visitor, Nodep me)
+        Nodep Function::acceptNodep(Visitor * visitor, Nodep me)
         {
-            visitor->visitFunction( me );
+            return visitor->visitFunction( me );
         }
 
         Macros::Macros ( Nodep ( *ptr) ( Nodep args))
@@ -84,9 +84,9 @@ namespace interpreter
             return _value ( args);
         }
 
-        void Macros::accept(Visitor * visitor, Nodep me)
+        Nodep Macros::acceptNodep(Visitor * visitor, Nodep me)
         {
-            visitor->visitMacros( me );
+            return visitor->visitMacros( me );
         }
 
         SpecialForm::SpecialForm ( Nodep ( *ptr) ( Nodep args))
@@ -114,9 +114,9 @@ namespace interpreter
             return _value ( args);
         }
 
-        void SpecialForm::accept(Visitor * visitor, Nodep me)
+        Nodep SpecialForm::acceptNodep(Visitor * visitor, Nodep me)
         {
-            visitor->visitSpecialForm( me );
+            return visitor->visitSpecialForm( me );
         }
 
         std::streambuf * stdi = std::cin.rdbuf();
@@ -157,9 +157,9 @@ namespace interpreter
             _value.rdbuf( &fb );
         }
 
-        void Port::accept(Visitor * visitor, Nodep me)
+        Nodep Port::acceptNodep(Visitor * visitor, Nodep me)
         {
-            visitor->visitPort( me );
+            return visitor->visitPort( me );
         }
 
         Port::~Port()
@@ -236,9 +236,9 @@ namespace interpreter
             return EOF_OBJECT;
         }
 
-        void EOFobject::accept( Visitor * visitor, Nodep me)
+        Nodep EOFobject::acceptNodep( Visitor * visitor, Nodep me)
         {
-            visitor->visitEOFobject( me);
+            return visitor->visitEOFobject( me);
         }
 
         EOFobject::~EOFobject()

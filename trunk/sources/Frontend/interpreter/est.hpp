@@ -23,11 +23,12 @@ namespace interpreter
 
         class Visitor;
 
-        class estNode : parser::ast::Node
+        class estNode : public parser::ast::Node
         {
         public:
-            virtual void accept( parser::ast::Visitor * visitor, Nodep me );
-            virtual void accept( Visitor * visitor, Nodep me) = 0;
+            virtual void acceptVoid( parser::ast::Visitor<void> * visitor, Nodep me){}
+            virtual Nodep acceptNodep( parser::ast::Visitor<Nodep> * visitor, Nodep me );
+            virtual Nodep acceptNodep( Visitor * visitor, Nodep me) = 0;
         };
 
         class Function : public estNode
@@ -39,7 +40,7 @@ namespace interpreter
             static int staticType();
 
             Nodep call ( Nodep args);
-            void accept( Visitor * visitor, Nodep me);
+            Nodep acceptNodep( Visitor * visitor, Nodep me);
  
             virtual ~Function();
         };
@@ -53,7 +54,7 @@ namespace interpreter
             static int staticType();
 
             Nodep apply ( Nodep args);
-            void accept( Visitor * visitor, Nodep me);
+            Nodep acceptNodep( Visitor * visitor, Nodep me);
 
             virtual ~Macros();
         };
@@ -67,7 +68,7 @@ namespace interpreter
             static int staticType();
 
             Nodep apply ( Nodep args);
-            void accept( Visitor * visitor, Nodep me);
+            Nodep acceptNodep( Visitor * visitor, Nodep me);
 
             virtual ~SpecialForm();
         };
@@ -92,7 +93,7 @@ namespace interpreter
             void closePort();
             bool eof() const;
 
-            void accept( Visitor * visitor, Nodep me);
+            Nodep acceptNodep( Visitor * visitor, Nodep me);
 
             virtual ~Port();
         };
@@ -105,19 +106,19 @@ namespace interpreter
             virtual int type() const;
             static int staticType();
 
-            void accept( Visitor * visitor, Nodep me);
+            Nodep acceptNodep( Visitor * visitor, Nodep me);
 
             virtual ~EOFobject();
         };
 
-        class Visitor : parser::ast::Visitor
+        class Visitor : parser::ast::Visitor<Nodep>
         {
         public:
-            virtual void visitMacros( Nodep _macros) = 0;
-            virtual void visitFunction( Nodep _function) = 0;
-            virtual void visitSpecialForm( Nodep _specialForm) = 0;
-            virtual void visitPort( Nodep _port) = 0;
-            virtual void visitEOFobject( Nodep _eofObject) = 0;
+            virtual Nodep visitMacros( Nodep _macros) = 0;
+            virtual Nodep visitFunction( Nodep _function) = 0;
+            virtual Nodep visitSpecialForm( Nodep _specialForm) = 0;
+            virtual Nodep visitPort( Nodep _port) = 0;
+            virtual Nodep visitEOFobject( Nodep _eofObject) = 0;
         };
     }
 }

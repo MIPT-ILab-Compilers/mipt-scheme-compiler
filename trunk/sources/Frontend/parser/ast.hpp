@@ -25,6 +25,7 @@ namespace parser
 
         enum Type { NIL, CONS, NUMBER, STRING, CHAR, VECTOR, IDENT, NEXT };
 
+        template <class T>
         class Visitor;
         class Nodep;
 
@@ -33,7 +34,8 @@ namespace parser
         {
         public:
             virtual int type() const = 0;
-            virtual void accept( Visitor *visitor, Nodep me) = 0;
+            virtual void acceptVoid( Visitor<void> *visitor, Nodep me) = 0;
+            virtual Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me) = 0;
         };
 
         class Nodep : public boost::shared_ptr<Node>
@@ -41,7 +43,8 @@ namespace parser
         public:
             Nodep( Node* ptr) : boost::shared_ptr<Node>(ptr) {};
             Nodep() : boost::shared_ptr<Node>() {};
-            void accept( Visitor *visitor);
+            void acceptVoid( Visitor<void> *visitor);
+            Nodep acceptNodep( Visitor<Nodep> *visitor);
         };
 
         class Ident : public Node
@@ -51,8 +54,10 @@ namespace parser
             Ident( IdentIdType id);
             void putId( IdentIdType id);
             IdentIdType getId();
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
             virtual int type() const;
+            static int staticType();
             virtual ~Ident();
         };
 
@@ -60,9 +65,10 @@ namespace parser
         {
         public:
             Nil();
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             virtual ~Nil();
         };
@@ -76,7 +82,7 @@ namespace parser
             Cons( Nodep car_value, Nodep cdr_value);
 
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             /* Getters and setters */
             virtual Nodep car();
@@ -85,7 +91,8 @@ namespace parser
             virtual const Node* cdr() const;
             virtual void setCar( Nodep car_value);
             virtual void setCdr( Nodep cdr_value);
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
             virtual ~Cons();
         };
 
@@ -97,11 +104,12 @@ namespace parser
             Number( long double src);
 
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             virtual long double value() const;
             virtual void setValue( long double number_value);
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
             virtual ~Number();
         };
 
@@ -113,13 +121,14 @@ namespace parser
             String( const std::string& src);
 
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             /* You can change the value by this getter */
             virtual std::string& value();
             virtual const std::string& value() const;
             virtual void setValue( const std::string& string_value);
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
 
             virtual ~String();
         };
@@ -132,11 +141,12 @@ namespace parser
             Char( char src);
 
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             virtual char value() const;
             virtual void setValue( char char_value);
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
             virtual ~Char();
         };
 
@@ -148,29 +158,31 @@ namespace parser
             Vector( const std::vector<Nodep>& vector_value);
 
             virtual int type() const;
-            static int static_type();
+            static int staticType();
 
             virtual std::vector<Nodep>& value();
             virtual const std::vector<Nodep>& value() const;
             virtual void setValue( const std::vector<Nodep>& vector_value);
-            void accept( Visitor *visitor, Nodep me);
+            void acceptVoid( Visitor<void> *visitor, Nodep me);
+            Nodep acceptNodep( Visitor<Nodep> *visitor, Nodep me);
 
             virtual ~Vector();
         };
 
+        template <class T>
         class Visitor
         {
         public:
-            virtual void visitNil( Nodep _nil) = 0;
-            virtual void visitCons( Nodep _cons) = 0;
-            virtual void visitNumber( Nodep _number) = 0;
-            virtual void visitString( Nodep _string) = 0;
-            virtual void visitChar( Nodep _char) = 0;
-            virtual void visitVector( Nodep _vector) = 0;
-            virtual void visitIdent( Nodep _ident) = 0;
+            virtual T visitNil( Nodep _nil) = 0;
+            virtual T visitCons( Nodep _cons) = 0;
+            virtual T visitNumber( Nodep _number) = 0;
+            virtual T visitString( Nodep _string) = 0;
+            virtual T visitChar( Nodep _char) = 0;
+            virtual T visitVector( Nodep _vector) = 0;
+            virtual T visitIdent( Nodep _ident) = 0;
         };
 
-        class DumpVisitor : public Visitor
+        class DumpVisitor : public Visitor<void>
         {
         public:
             virtual void visitNil( Nodep _nil);
@@ -185,7 +197,7 @@ namespace parser
         template <typename T>
         T* as( Nodep ptr) /* Throws exception */
         {
-            if ( ptr->type() == T::static_type())
+            if ( ptr->type() == T::staticType())
                 return dynamic_cast<T*>( ptr.get());
             else
                 throw std::bad_cast();
