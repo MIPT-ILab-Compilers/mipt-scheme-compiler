@@ -16,6 +16,7 @@
 
 namespace interpreter
 {
+
     class Interpreter : public parser::ast::Visitor<Nodep>
     {
     public:
@@ -28,6 +29,10 @@ namespace interpreter
         Nodep visitIdent( Nodep _ident);
         Nodep visitChar( Nodep _char);
         Nodep visitVector( Nodep _vector);
+
+        ActPtr getActPtr();
+        void pushActivation();
+        void popActivation();
    private:
         ActPtr _activation;
     };

@@ -29,7 +29,7 @@ namespace interpreter
             }
         }
 
-        Function::Function ( Nodep ( *ptr) ( Nodep args))
+        Function::Function ( Nodep ( *ptr) ( Nodep args, Interpreter& interp))
         {
             _value = ptr;
         }
@@ -49,9 +49,9 @@ namespace interpreter
             return FUNCTION;
         }
 
-        Nodep Function::call ( Nodep args)
+        Nodep Function::call ( Nodep args, Interpreter& interp)
         {
-            return _value ( args);
+            return _value ( args, interp);
         }
 
         Nodep Function::acceptNodep(Visitor * visitor, Nodep me)
@@ -89,7 +89,7 @@ namespace interpreter
             return visitor->visitMacros( me );
         }
 
-        SpecialForm::SpecialForm ( Nodep ( *ptr) ( Nodep args))
+        SpecialForm::SpecialForm ( Nodep ( *ptr) ( Nodep args, Interpreter& interp))
         {
             _value = ptr;
         }
@@ -109,9 +109,9 @@ namespace interpreter
             return SPECIAL_FORM;
         }
 
-        Nodep SpecialForm::apply ( Nodep args)
+        Nodep SpecialForm::apply ( Nodep args, Interpreter& interp)
         {
-            return _value ( args);
+            return _value ( args, interp);
         }
 
         Nodep SpecialForm::acceptNodep(Visitor * visitor, Nodep me)

@@ -17,6 +17,8 @@ using parser::ast::Nodep;
 
 namespace interpreter
 {
+    class Interpreter;
+
     namespace est
     {
         enum Type { FUNCTION = parser::ast::NEXT, MACROS, SPECIAL_FORM, PORT, EOF_OBJECT };
@@ -33,13 +35,13 @@ namespace interpreter
 
         class Function : public estNode
         {
-            boost::function<Nodep (Nodep args)> _value;
+            boost::function<Nodep (Nodep args, interpreter::Interpreter& interp)> _value;
         public:
-            Function ( Nodep ( *ptr) ( Nodep args));
+            Function ( Nodep ( *ptr) ( Nodep args, Interpreter& interp));
             virtual int type() const;
             static int staticType();
 
-            Nodep call ( Nodep args);
+            Nodep call ( Nodep args, Interpreter& interp);
             Nodep acceptNodep( Visitor * visitor, Nodep me);
  
             virtual ~Function();
@@ -61,13 +63,13 @@ namespace interpreter
 
         class SpecialForm : public estNode
         {
-            boost::function<Nodep ( Nodep args)> _value;
+            boost::function<Nodep ( Nodep args, Interpreter& interp)> _value;
         public:
-            SpecialForm ( Nodep ( *ptr) ( Nodep args));
+            SpecialForm ( Nodep ( *ptr) ( Nodep args, Interpreter& interp));
             virtual int type() const;
             static int staticType();
 
-            Nodep apply ( Nodep args);
+            Nodep apply ( Nodep args, Interpreter& interp);
             Nodep acceptNodep( Visitor * visitor, Nodep me);
 
             virtual ~SpecialForm();

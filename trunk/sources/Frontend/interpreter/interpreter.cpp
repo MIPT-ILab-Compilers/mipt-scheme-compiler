@@ -54,8 +54,18 @@ namespace interpreter
             if ( var->type() == est::FUNCTION)
             {
                 est::Function* f = as<est::Function>( var);
-                Nodep args = cons_ptr->cdr().acceptNodep( this);
-                return f->call( args);
+                this->pushActivation();
+                Nodep result = f->call( cons_ptr->cdr(), *this);
+                this->popActivation();
+                return result;
+            } else if ( var->type() == est::SPECIAL_FORM)
+            {
+                est::SpecialForm* sf = as<est::SpecialForm>( var);
+                return sf->apply( cons_ptr->cdr(), *this);
+            } else
+            {
+                Nodep cdr = cons_ptr->car().acceptNodep( this);
+                return Nodep( new Cons( var, cdr));
             }
         }else
         {
@@ -88,5 +98,23 @@ namespace interpreter
     Nodep Interpreter::visitVector( Nodep _vector)
     {
         throw InterpreterException( "plug");
+    }
+
+    ActPtr Interpreter::getActPtr()
+    {
+        return _activation;
+    }
+
+    void Interpreter::pushActivation()
+    {
+        _activation = ActPtr( new Activation( _activation));
+    }
+
+    void Interpreter::popActivation()
+    {
+        if ( _activation->hasParent())
+        {
+            _activation = _activation->getParentPtr();
+        } else throw InterpreterException( "no parent activation");
     }
 }//namespace interpreter
