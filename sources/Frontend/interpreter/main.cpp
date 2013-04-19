@@ -14,6 +14,9 @@
 #include "../parser/dump_reader.hpp"
 #include "interpreter.hpp"
 #include <fstream>
+#include <sstream>
+#include <string>
+#include "library.hpp"
 
 using namespace interpreter;
 using std::cout;
@@ -22,44 +25,63 @@ using parser::ast::Nodep;
 using parser::ast::as;
 using parser::ast::Cons;
 using parser::ast::Number;
+using parser::ast::Nil;
 
-Nodep add( Nodep terms)
+void fill ( std::string& str)
 {
-    Cons* ptr = as<Cons>( terms);
-    Number* term1 = as<Number>( ptr->car());
-    Cons* ptr2 = as<Cons>( ptr->cdr());
-    Number* term2 = as<Number>( ptr2->car());
-    return Nodep( new Number( term1->value() + term2->value()));
-}
-
-Nodep subtr( Nodep terms)
-{
-    Cons* ptr = as<Cons>( terms);
-    Number* term1 = as<Number>( ptr->car());
-    Cons* ptr2 = as<Cons>( ptr->cdr());
-    Number* term2 = as<Number>( ptr2->car());
-    return Nodep( new Number( term1->value() - term2->value()));
+    char c;
+    std::cin >> std::noskipws >> c;
+    while ( c != '\n')
+    {
+        str += c;
+        std::cin >> std::noskipws >> c;
+    }
 }
 
 int main( int argc, char **argv)
 {
-    if ( argc != 2)
+    if ( argc == 2){
+        std::ifstream expr( argv[1], std::ifstream::in);
+        ActPtr bottom( new Activation());
+        Nodep plus_nodep( new est::Function( plus));
+        Nodep minus_nodep( new est::Function( minus));
+        Nodep def_nodep( new est::SpecialForm( def));
+        (*bottom)["+"] = plus_nodep;
+        (*bottom)["-"] = minus_nodep;
+        parser::DumpReader dump_reader( expr);
+        Nodep root = dump_reader.read();
+        Nodep result = root.acceptNodep( new Interpreter( bottom));
+        cout << "> ";
+        result.acceptVoid( new parser::ast::DumpVisitor());
+        cout << endl;
+    } else if ( argc == 1)
     {
-        cout << "Usage: $./a.out expression_file.txt"
-            << endl;
-        return 0;
+        ActPtr bottom( new Activation());
+        Nodep plus_nodep( new est::Function( plus));
+        Nodep minus_nodep( new est::Function( minus));
+        Nodep def_nodep( new est::SpecialForm( def));
+        (*bottom)["+"] = plus_nodep;
+        (*bottom)["-"] = minus_nodep;
+        (*bottom)["define"] = def_nodep;
+        while ( 1)
+        {
+            std::string str;
+            fill( str);
+            std::istringstream expr( str);
+            parser::DumpReader dump_reader( expr);
+            Nodep root = dump_reader.read();
+            Nodep result = root.acceptNodep( new Interpreter( bottom));
+            cout << "> ";
+            result.acceptVoid( new parser::ast::DumpVisitor());
+            cout << endl;
+        }
+    } else
+    {
+        cout << "Usage:" << endl
+            << "$./a.out expression_file.txt" << endl
+            << "  - reading from a file"<< endl
+            << "$./a.out" << endl
+            << "  - reply mode" << endl;
     }
-    std::ifstream expr( argv[1], std::ifstream::in);
-    ActPtr bottom( new Activation());
-    Nodep add_nodep( new est::Function( add));
-    Nodep subtr_nodep( new est::Function( subtr));
-    (*bottom)["+"] = add_nodep;
-    (*bottom)["-"] = subtr_nodep;
-    parser::DumpReader dump_reader( expr);
-    Nodep root = dump_reader.read();
-    Nodep result = root.acceptNodep( new Interpreter( bottom));
-    cout << "> ";
-    result.acceptVoid( new parser::ast::DumpVisitor());
-    cout << endl;
     return 0;
 }
