@@ -29,9 +29,9 @@ Indentation unit is 4 spaces. Usage of tabs is bad style and should be avoided. 
 Example:
 
 {{{
-if ( cond)
+if ( cond )
 {
-    for ( int i = 0; i < 10; i++)
+    for ( int i = 0; i < 10; i++ )
     {
         some_var+= some_array[ i];  
     }
@@ -47,6 +47,7 @@ Usage of spaces should keep structure of expressions and statements clear. Space
  * Opening bracket '['
  * Binary operators and ternary operator '? : '
  * Postfix unary operators
+Also, it should be placed before closing brace ')' if it is a syntatic part of a language construction, like if, for, while, switch.
 Generally, spaces should separate expressions, operators, statements, function calls. 
 
 Example:
@@ -66,11 +67,11 @@ Example:
 
 {{{
 /* Wrong */
-if ( condition){
+if ( condition ){
     return true;
 }
 /* Correct */
-if ( condition)
+if ( condition )
 {
     return true;
 }
@@ -81,17 +82,17 @@ Huge blocks should have commented curly braces where possible.
 Example:
 
 {{{
-if ( condition == true) /** Common case */
+if ( condition == true ) /** Common case */
 {
-    if ( a || ( b && c))
+    if ( a || ( b && c) )
     {
-        for ( ...)
+        for ( ... )
         {
             ...
         }
-        if ( ...)
+        if ( ... )
         {
-            for ( ...)
+            for ( ... )
             { 
                 ...
             }
