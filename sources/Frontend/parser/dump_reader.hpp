@@ -15,36 +15,36 @@
 
 namespace parser
 {
-    using std::istream;
-    using namespace ast;
+using std::istream;
+using namespace ast;
     
+/**
+ * Dump reader class. Reads AST text dump from input stream.
+ * AST dump must be in following format:
+ *   DUMP -> EXPR
+ *   EXPR -> ( EXPR. EXPR) | ATOM
+ *   ATOM -> n[<value>] | "<string>" | id[<id>] | ()
+ * Example:
+ *   ( id[add]. ( ( n[1]. ( n[2]. ( "abcd". ()))). ()))
+ */
+class DumpReader
+{
+public:
     /**
-     * Dump reader class. Reads AST text dump from input stream.
-     * AST dump must be in following format:
-     *   DUMP -> EXPR
-     *   EXPR -> ( EXPR. EXPR) | ATOM
-     *   ATOM -> n[<value>] | "<string>" | id[<id>] | ()
-     * Example:
-     *   ( id[add]. ( ( n[1]. ( n[2]. ( "abcd". ()))). ()))
+     * Construct reader with given input stream.
+     * @param is - input stream
      */
-    class DumpReader
-    {
-    public:
-        /**
-         * Construct reader with given input stream.
-         * @param is - input stream
-         */
-        DumpReader( istream& is);
+    DumpReader( istream& is);
         
-        /**
-         * Read dump from input stream.
-         * @return pointer to AST root node
-         */
-        Nodep read();
-    private:
-        /**
-         * Stream to read from
-         */
-        istream& inp_stream;
-    };
+    /**
+     * Read dump from input stream.
+     * @return pointer to AST root node
+     */
+    Nodep read();
+private:
+    /**
+     * Stream to read from
+     */
+    istream& inp_stream;
+};
 } // namespace parser

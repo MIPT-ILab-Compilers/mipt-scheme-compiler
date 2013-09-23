@@ -17,23 +17,23 @@
 namespace interpreter
 {
 
-    class Interpreter : public parser::ast::Visitor<Nodep>
-    {
-    public:
-        Interpreter( ActPtr ptr);
+class Interpreter : public parser::ast::Visitor<Nodep>
+{
+public:
+    Interpreter( ActPtr ptr);
 
-        Nodep visitNil( Nodep _nil);
-        Nodep visitCons( Nodep _cons);
-        Nodep visitNumber( Nodep _number);
-        Nodep visitString( Nodep _string);
-        Nodep visitIdent( Nodep _ident);
-        Nodep visitChar( Nodep _char);
-        Nodep visitVector( Nodep _vector);
+    Nodep visitNil( Nodep _nil);
+    Nodep visitCons( Nodep _cons);
+    Nodep visitNumber( Nodep _number);
+    Nodep visitString( Nodep _string);
+    Nodep visitIdent( Nodep _ident);
+    Nodep visitChar( Nodep _char);
+    Nodep visitVector( Nodep _vector);
 
-        ActPtr getActPtr();
-        void pushActivation();
-        void popActivation();
-   private:
-        ActPtr _activation;
-    };
+    ActPtr getActPtr();
+    void pushActivation();
+    void popActivation();
+private:
+    ActPtr _activation;
+};
 }
