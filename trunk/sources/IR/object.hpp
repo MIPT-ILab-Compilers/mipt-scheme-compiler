@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "../Utils/types.h"
+#include "Utils/types.h"
 
 enum TypeOfObject
 {
@@ -38,3 +38,5 @@ private:
     TypeOfObject type;
     UInt64 id_object;
 }; 
+
+#include "object_inline.hpp"

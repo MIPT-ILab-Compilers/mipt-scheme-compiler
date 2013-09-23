@@ -1,11 +1,11 @@
 /**
- * @file: ir_iface.hpp
- * Interface of IR library
+ * @file: utils.cpp
+ * Common small various utilites for IR package.
  * @defgroup IR Intermediate Representation
  */
 
-#pragma once 
-#include "ir_deps.hpp"
+#pragma once
+#include "Utils/asrt.h"
 
 /**
  * Debug assert for IR library
@@ -20,17 +20,3 @@
 #if !defined(IR_ASSERTXD)
 #    define IR_ASSERTXD(cond, what) ASSERT_XD(cond, "IR", what)
 #endif
-
-/**
- * Declaration classes
- */
-
-class Operand;
-class Operation;
-class DataFlowEdge;
-class Object;
-
-#include "operand.hpp"
-#include "operation.hpp"
-#include "dataflowedge.hpp"
-#include "object.hpp"

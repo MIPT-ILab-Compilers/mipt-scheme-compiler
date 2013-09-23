@@ -7,7 +7,7 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "ir_impl.hpp"
+#include "dataflowedge.hpp"
 
 
 DataFlowEdge::DataFlowEdge( Operation *pred_oper,

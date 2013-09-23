@@ -9,6 +9,9 @@
 
 #pragma once
 
+#include "Utils/types.h"
+#include "operand.hpp"
+
 const UInt8 RESULTS_NUM = 1;
 const UInt8 ARGUMENTS_NUM = 2;
 
@@ -50,3 +53,4 @@ private:
     UInt64 id_oper;
 };
 
+#include "operation_inline.hpp"

@@ -2,7 +2,6 @@
  * @file ir/ir_utest.cpp
  * Unit testing of IR
  */
-#include "ir_impl.hpp"
 #include <boost/test/unit_test.hpp>
 
 BOOST_AUTO_TEST_SUITE( IR)

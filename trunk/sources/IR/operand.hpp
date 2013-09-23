@@ -8,6 +8,11 @@
  */
 
 #pragma once
+#include "Utils/types.h"
+
+class DataFlowEdge;
+class Object;
+class Operation;
 
 enum TypeOfOperand
 {
@@ -57,3 +62,5 @@ private:
     
     DataFlowEdge* df;
 };
+
+#include "operand_inline.hpp"

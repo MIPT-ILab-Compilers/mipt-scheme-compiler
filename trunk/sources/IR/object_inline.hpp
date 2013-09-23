@@ -7,8 +7,6 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "ir_impl.hpp"
-
 
 inline UInt64 Object::getId() const
 {
