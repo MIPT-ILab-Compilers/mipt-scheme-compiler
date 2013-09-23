@@ -6,8 +6,7 @@
 /**
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
-
-#include "ir_impl.hpp"
+#include "utils.hpp"
 
 inline bool Operand::isImmediate() const
 {

@@ -9,6 +9,9 @@
 
 #pragma once
 
+class Operation;
+class Operand;
+
 class DataFlowEdge
 {
 
@@ -34,3 +37,5 @@ private:
                            // is contained in succ_oper 
                           
 };
+
+#include "dataflowedge_inline.hpp"

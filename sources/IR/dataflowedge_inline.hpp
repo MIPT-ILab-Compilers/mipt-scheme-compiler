@@ -7,8 +7,6 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "ir_impl.hpp"
-
 
 inline void DataFlowEdge::setPredOper( Operation *pred_oper)
 {

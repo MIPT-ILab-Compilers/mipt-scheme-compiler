@@ -8,7 +8,7 @@
  */
 
 
-#include "ir_impl.hpp"
+#include "object.hpp"
 
 
 Object::Object( UInt64 id_object, TypeOfObject type, bool is_virtual)

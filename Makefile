@@ -45,7 +45,7 @@ FILTER = $(foreach filter,$(1),$(foreach substr,$(2),$(if $(findstring $(filter)
 FILTER_OUT = $(filter-out $(call FILTER,$(1),$(2)),$(2))
 
 #Includes
-DEFAULT_INCLUDE_DIRS := -I. -I.. -I../..
+DEFAULT_INCLUDE_DIRS := -I. -Isources
 RELEASE_INCLUDE_FLAGS = $(DEFAULT_INCLUDE_DIRS)
 DEBUG_INCLUDE_FLAGS = $(DEFAULT_INCLUDE_DIRS)
 
