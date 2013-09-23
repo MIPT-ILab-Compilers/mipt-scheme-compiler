@@ -12,20 +12,20 @@
 
 namespace parser
 {
-    class IdentifiersTable
-    {
-    private :
-        std::map<int, std::string> map_table_priv;
-        int top_priv;
+class IdentifiersTable
+{
+private :
+    std::map<int, std::string> map_table_priv;
+    int top_priv;
 
-    public:
-        IdentifiersTable()
+public:
+    IdentifiersTable()
         : map_table_priv()
         , top_priv( 1)
-        {}
+    {}
 
-        int insert( const std::string& identifier);
+    int insert( const std::string& identifier);
 
-        std::string getIdentifier( int name) const;
-    };
+    std::string getIdentifier( int name) const;
+};
 }

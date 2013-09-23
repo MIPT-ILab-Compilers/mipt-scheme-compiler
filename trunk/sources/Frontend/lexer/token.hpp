@@ -1,4 +1,4 @@
-/**
+\/**
  * @file:tokens.hpp
  * Implementation of tokens-table
  */
@@ -10,22 +10,22 @@
 
 namespace parser
 {
-    namespace tokens
+namespace tokens
+{
+enum Token
     {
-        enum Token
-        {
-            ENDOFFILE,
-            BOOLEAN,
-            IDENTIFIER,
-            STRING,
-            NUMBER,
-            QUOTE,
-            DOT,
-            CHARACTER,
-            OPENVBRACKET,
-            OPENBITVBRACKET,
-            OPENBRACKET,
-            CLOSEBRACKET
-        };
-    }
+        ENDOFFILE,
+        BOOLEAN,
+        IDENTIFIER,
+        STRING,
+        NUMBER,
+        QUOTE,
+        DOT,
+        CHARACTER,
+        OPENVBRACKET,
+        OPENBITVBRACKET,
+        OPENBRACKET,
+        CLOSEBRACKET
+    };
+}
 }

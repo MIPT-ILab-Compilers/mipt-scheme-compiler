@@ -10,12 +10,12 @@
 
 namespace lowering
 {
-    class Exception : public FrontendException
-    {
-    public:
-        Exception(std::string msg) : FrontendException(msg) {}
-        ~Exception() throw() {}
-        std::string prettyMessage();
-    };
+class Exception : public FrontendException
+{
+public:
+    Exception(std::string msg) : FrontendException(msg) {}
+    ~Exception() throw() {}
+    std::string prettyMessage();
+};
 }
 
