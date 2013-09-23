@@ -12,9 +12,11 @@
 #include "Utils/types.h"
 #include "operand.hpp"
 
+namespace ir
+{
+
 const UInt8 RESULTS_NUM = 1;
 const UInt8 ARGUMENTS_NUM = 2;
-
 
 enum OperName
 {
@@ -52,5 +54,7 @@ private:
     Operand result[ RESULTS_NUM];
     UInt64 id_oper;
 };
+
+}//namespace ir
 
 #include "operation_inline.hpp"

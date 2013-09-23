@@ -11,6 +11,9 @@
 
 #include "Utils/types.h"
 
+namespace ir
+{
+
 enum TypeOfObject
 {
     OBJ_REGISTER,
@@ -38,5 +41,7 @@ private:
     TypeOfObject type;
     UInt64 id_object;
 }; 
+
+}//namespace ir
 
 #include "object_inline.hpp"

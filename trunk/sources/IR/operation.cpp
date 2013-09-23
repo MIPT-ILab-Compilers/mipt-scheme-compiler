@@ -9,6 +9,9 @@
 
 #include "operation.hpp"
 
+namespace ir
+{
+
 Operation::Operation( UInt64 id_oper, OperName name,
                       const Operand *arguments, 
                       const Operand *result)
@@ -31,3 +34,5 @@ Operation::Operation( UInt64 id_oper, OperName name,
 Operation::~Operation()
 {
 }
+
+}//namespace ir

@@ -8,6 +8,9 @@
 
 #include "module.hpp"
 
+namespace ir
+{
+
 Function::~Function()
 {
 	std::vector<Object *>::iterator it;
@@ -96,3 +99,5 @@ inline const std::vector<Object *> &Module::getAllGlobalObjects()
 {
 	return all_global_objects;
 }
+
+}//namespace ir

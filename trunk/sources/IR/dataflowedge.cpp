@@ -9,6 +9,8 @@
 
 #include "dataflowedge.hpp"
 
+namespace ir
+{
 
 DataFlowEdge::DataFlowEdge( Operation *pred_oper,
                             Operation *succ_oper,
@@ -17,4 +19,6 @@ DataFlowEdge::DataFlowEdge( Operation *pred_oper,
     this->pred_oper = pred_oper;
     this->succ_oper = succ_oper;
     this->succ_operand = succ_operand;
+}
+
 }

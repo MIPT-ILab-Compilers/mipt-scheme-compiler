@@ -9,6 +9,9 @@
 
 #include "operand.hpp"
 
+namespace ir
+{
+
 Operand::Operand()
 {
     this->current = OPERAND_IMMEDIATE;
@@ -52,3 +55,6 @@ Operand::Operand( Operation& target, DataFlowEdge* df)
     this->current = OPERAND_TARGET;
     this->df = df;
 }
+
+}//namespace ir
+

@@ -7,6 +7,8 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
+namespace ir
+{
 
 inline void DataFlowEdge::setPredOper( Operation *pred_oper)
 {
@@ -38,4 +40,4 @@ inline Operand* DataFlowEdge::getSuccOperand() const
     return this->succ_operand;
 }
 
-
+}

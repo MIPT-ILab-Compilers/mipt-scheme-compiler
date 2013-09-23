@@ -8,6 +8,9 @@
  */
 #include "utils.hpp"
 
+namespace ir
+{
+
 inline bool Operand::isImmediate() const
 {
     return ( this->current == OPERAND_IMMEDIATE);
@@ -73,3 +76,5 @@ inline void Operand::setDF( DataFlowEdge* df)
 {
     this->df = df;
 }
+
+}//namespace ir

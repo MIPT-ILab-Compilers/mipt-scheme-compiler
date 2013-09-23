@@ -9,6 +9,9 @@
 
 #include "Utils/types.h"
 
+namespace ir
+{
+
 class Operand;
 
 inline UInt64 Operation::GetId() const
@@ -54,3 +57,5 @@ inline void Operation::setArgument (const Operand& operand, UInt8 num)
     IR_ASSERTD( num >= 0 && num < ARGUMENTS_NUM);
     this->arguments[ num] = operand;
 }
+
+}//naemspace ir
