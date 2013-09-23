@@ -26,6 +26,7 @@ namespace <nameOfComponent>
 {
 
 nessesary using directives
+//Note there is no indentation inside the namespace
 
 support functions prototypes
 
@@ -35,7 +36,6 @@ public:
     public constructors, destructor and interface methods
 private:
     private members
-
 
 };
 }
