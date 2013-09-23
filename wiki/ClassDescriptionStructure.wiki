@@ -38,7 +38,8 @@ private:
     private members
 
 };
-}
+}//namespace <nameOfComponent>
+
 }}}
 
 = Inline functions =
