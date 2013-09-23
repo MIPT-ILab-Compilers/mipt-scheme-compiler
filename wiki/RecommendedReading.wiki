@@ -2,6 +2,7 @@
 
 = Recommended reading =
  * [http://www.cs.indiana.edu/~dyb/pubs/tr356.pdf Writing hygienic macros in Scheme with syntax-case] -- overview of low level macro facilities in Scheme.
+ * [http://www.shido.info/lisp/idx_scm_e.html Yet Another Scheme Tutorial] reasonable introduction to scheme for newcomers.
 
 = Classical books =
  * [http://books.google.ru/books/about/Compilers.html?id=dIU_AQAAIAAJ&redir_esc=y Dragon book]
