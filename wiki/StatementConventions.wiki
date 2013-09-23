@@ -13,7 +13,7 @@ Examples show recommended style and point out what we'd like to avoid.
 
 {{{
 /* Prefer */
-if ( a == b)
+if ( a == b )
 {
     c++;
 }
@@ -23,17 +23,17 @@ if( a == b) //No space after 'if'
     c++;
 }
 /* Avoid */
-if (a == b) //No space after brace
+if (a == b) //No space after brace ')' and before brace ')'
 {
     c++;
 }
 
 
 /* Prefer */
-if ( condition_one)
+if ( condition_one )
 {
     ...
-} else if ( condition_two)
+} else if ( condition_two )
 {
     ...
 } else
@@ -45,7 +45,7 @@ if ( condition_one)
 {
     ...
 } 
-else if ( condition_two) // redundant line
+else if ( condition_two ) // redundant line
 {
     ...
 } else { // BUT needed newline for this curly brace
@@ -57,9 +57,9 @@ else if ( condition_two) // redundant line
 
 {{{
 /* Prefer */
-for ( i = 0; i < MAX; i++)
+for ( i = 0; i < MAX; i++ )
 {
-    while ( condition)
+    while ( condition )
     {
     
     } 
@@ -67,12 +67,12 @@ for ( i = 0; i < MAX; i++)
 /* Prefer */
 for ( i = getFirstIndex();
       !isTraversalComplete();
-      i = updateIndexByTraversalStep())
+      i = updateIndexByTraversalStep() )
 {
      do
      {
          ...
-     } while ( condition);
+     } while ( condition );
 }
 
 /* Avoid */
@@ -80,7 +80,7 @@ for ( i = 0; i < MAX; i++, a--) // Nested loops - put curly braces to ephasize
     while ( condition) a++; // Need newline here
 
 /* Avoid */
-for ( i = getFirstIndex(); !isTraversalComplete(); i = updateIndexByTraversalStep()) // too long
+for ( i = getFirstIndex(); !isTraversalComplete(); i = updateIndexByTraversalStep()) // too long, No space before ')' brace
 {
      do
      {
@@ -94,13 +94,13 @@ for ( i = getFirstIndex(); !isTraversalComplete(); i = updateIndexByTraversalSte
 
 {{{
 /* Prefer */
-a = ( b > c)? d : e;
+a = ( b > c )? d : e;
 /* Prefer */
-next_element = ( current_element == null)
+next_element = ( current_element == null )
                ? firstElement()
                : current_element->next();
 /* Avoid */
- a = ( b > c)?
+ a = ( b > c)? //No space before ')'
       d : e; // Redundant line
 /* Avoid */
 next_element = (current_element == null)?getFirstElement():current_element->getNext();
@@ -113,9 +113,9 @@ No space between function name and parameter list. Space after opening brace. If
 
 {{{
 /* Prefer */
-newElem( curr_elem, data->temporaryDataP());
+newElem( curr_elem, data->temporaryDataP());//Attention: no space before ')' !
 /* Avoid */
-newElem (curr_elem, data->temporaryDataP( ));
+newElem (curr_elem, data->temporaryDataP( ));//Space before '(', in empty parameter list
 }}}
 
 Indent ending of long parameter list to align with first parameter. Alternatively you can place each parameter on separate line since it encourages commenting them.
