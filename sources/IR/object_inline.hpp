@@ -7,6 +7,8 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
+namespace ir
+{
 
 inline UInt64 Object::getId() const
 {
@@ -31,4 +33,6 @@ inline void Object::setVirtual( bool is_virtual)
 inline TypeOfObject Object::getType( TypeOfObject type) const
 {
     return this->type;
+}
+
 }

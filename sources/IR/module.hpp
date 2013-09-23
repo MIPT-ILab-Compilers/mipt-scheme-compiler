@@ -13,6 +13,9 @@
 #include <map>
 #include "object.hpp"
 
+namespace ir
+{
+
 class Function
 {
 	public:
@@ -65,3 +68,5 @@ class Module
 		std::vector<Object *> all_global_objects;
 		std::vector<Function *> all_functions;
 };
+
+}//namespace ir

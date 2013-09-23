@@ -10,10 +10,14 @@
 
 #include "object.hpp"
 
+namespace ir
+{
 
 Object::Object( UInt64 id_object, TypeOfObject type, bool is_virtual)
 {
     this->id_object = id_object;
     this->type = type;
     this->is_virtual = is_virtual;
+}
+
 }

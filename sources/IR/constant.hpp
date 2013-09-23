@@ -17,6 +17,9 @@
  only this type can be given as a template of method getValue of class Constant. 
 */
 
+namespace ir
+{
+
 class Constant
 {
 	public:
@@ -35,4 +38,6 @@ class Constant
 
 	private:
 		boost::variant<float, double, int, std::string> value;
-};	
+};
+
+}//namespace ir

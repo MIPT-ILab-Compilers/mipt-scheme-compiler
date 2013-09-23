@@ -9,6 +9,9 @@
 #include "constant.hpp"
 #include <string>
 
+namespace ir
+{
+
 bool Constant::isInt()
 {
 	if (value.which() == 2)
@@ -32,3 +35,5 @@ bool Constant::isString()
 	else 
 		return false;
 }
+
+}//namespace ir

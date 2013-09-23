@@ -10,6 +10,9 @@
 #pragma once
 #include "Utils/types.h"
 
+namespace ir
+{
+
 class DataFlowEdge;
 class Object;
 class Operation;
@@ -62,5 +65,7 @@ private:
     
     DataFlowEdge* df;
 };
+
+}//namespace ir
 
 #include "operand_inline.hpp"

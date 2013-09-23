@@ -9,6 +9,9 @@
 
 #pragma once
 
+namespace ir
+{
+
 class Operation;
 class Operand;
 
@@ -37,5 +40,7 @@ private:
                            // is contained in succ_oper 
                           
 };
+
+}//namespace ir
 
 #include "dataflowedge_inline.hpp"
