@@ -1,0 +1,6 @@
+Default log: Log message 0
+Default log: Log message with stream 1
+Default log: Fairly verbose message (verb 4) with formatted print 2
+
+Default log: Fairly verbose message(4) with stream interface 3
+Unit testing: Utest log message 4
