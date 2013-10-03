@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="utils_utest.cpp" />
+    <ClCompile Include="list_utest.cpp">
+      <Filter>raw_list</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="asrt.h" />
+    <ClInclude Include="host.h" />
+    <ClInclude Include="types.h" />
+    <ClInclude Include="misc.h" />
+    <ClInclude Include="singleton.h" />
+    <ClInclude Include="utils_iface.h" />
+    <ClInclude Include="list.h">
+      <Filter>raw_list</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="raw_list">
+      <UniqueIdentifier>{595145e2-e4bf-4158-88d8-9f75b6a0b014}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
