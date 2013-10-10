@@ -9,7 +9,7 @@
 using namespace std;
 
 /* String for build mode identification */
-const string mode 
+static const string MODE 
 #ifdef _DEBUG
 	("debug");
 #else
