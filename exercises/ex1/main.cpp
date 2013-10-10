@@ -10,6 +10,6 @@ int main( int argc, char** argv)
 {
 	testList();
 	testStack();
-	cout << "Exercise 1 test complete in " << MODE << " mode!" << endl;
+	cout << "Exercise 1 test complete in " << BUILD_MODE << " mode!" << endl;
 	return 0;
 }
