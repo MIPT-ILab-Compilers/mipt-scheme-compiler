@@ -6,10 +6,11 @@
 #pragma once
 #include <cstdlib>
 #include <iostream>
+#include <string>
 using namespace std;
 
 /* String for build mode identification */
-static const string MODE 
+static const string BUILD_MODE 
 #ifdef _DEBUG
 	("debug");
 #else
