@@ -50,3 +50,22 @@ All constants should be in UPPER_CASE with underscores substituting spaces.
 
 =Namespaces=
 All namespaces should seek one-word named, and all letters (even in acronyms) must be lowercased.
+
+=Template arguments=
+All template arguments should be styled by the underlining sense. If it is supposed to be a typename, it must be styled like any class name (see the corresponding section), if it is a regular value, it must be styled like a function parameter.
+Example:
+
+{{{
+template< class T > //A single letter is allowed in this 
+...// exceptional case of a parametrisation of a template with only one 
+   // type parameter, because it is a commonly adopted practice.
+
+template< class Allocator, typename Model, int size >
+...
+
+template< typename KeyType, typename ValueType >
+...
+
+template< int number_of_dimensions >
+...
+}}}
