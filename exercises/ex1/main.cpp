@@ -12,7 +12,7 @@ void testStack();
 
 int main( int argc, char** argv)
 {
-	//testList();
+	testList();
 	testStack();
 	cout << "Exercise 1 test complete in " << BUILD_MODE << " mode!" << endl;
 	return 0;
