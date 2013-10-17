@@ -10,5 +10,30 @@
 #pragma once
 #include "misc.h"
 
+
 /** Unit testing of list */
 void testList();
+
+class Elem
+{
+public:
+    int num;
+	Elem *prev;
+	Elem *next;
+
+};
+
+class Dlist 
+{
+	public:
+	Elem *last;
+	Elem *start;
+	Dlist();
+    void add(int a);
+    void del(int b);
+    Elem*find(int);	
+    void print(int);
+};
+void testList();
+
+
