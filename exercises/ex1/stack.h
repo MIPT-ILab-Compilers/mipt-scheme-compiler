@@ -10,56 +10,78 @@
 #pragma once
 #include "misc.h"
 #include<iostream>
-
+#include<iomanip>
 
 using namespace std;
 
-//void testStack();
+const int N = 4;
 
-typedef struct my1_stack
+
+template <class Type> class Stack
 {
-	int value;
-	struct my1_stack * previous;
-} stack;
-
-
-class Stack
-{
-public:
-	Stack()
-	{
-		last = NULL;
-		number_of_elements = 0;
-	}
-	//~Stack();    
-	void push (int);
-	int pop ();
 private:
-	stack * last;
-	int number_of_elements;
+	Type * arr;					 // arbitrary types of data
+	int size, top;               //stack size//// top is index of the last element
+public:
+	Stack();					 // constructor by default
+	Stack(int);					 // constructor with parameters
+	~Stack();					 // destructor
+	void push(Type);			 
+	Type pop();
+/*	Type getarr_i(int i)
+	{
+		return arr[i];
+	}*/
+	template <class T> friend std::ostream& operator << (std::ostream& stream, const Stack <Type> &ob)
+	{
+	for( int i = ob.top; i >= 0; i--)
+		stream << setw(5) << ob.arr[i];
+	return stream;
+	}
 };
 
 
-void Stack::push (int a)
+
+template <class Type> Stack<Type>::Stack()		// makes size of stack equal const N defined at the begining of this file
 {
-	stack * temp = new stack;
-	temp->previous = last;
-	temp->value = a;
-	last = temp;
-	number_of_elements++;
+	size = N;					//stack is empty when top == -1	
+	arr = new Type[size];
+	top = -1;
 }
 
-int Stack::pop ()
+template <class Type> Stack<Type>::Stack(int n)
 {
-	if (last == NULL)
-	{
-		cout << "Empty stack" << endl;
-		return -1;
-	}
-	int a = last->value;
-	stack * temp = last->previous;
-	delete last;
-	last = temp;
-	number_of_elements--;
-	return a;
+	size = n;					// makes size of stack equal n which defines in parameters of new object 
+	arr = new Type[size];
+	top = -1;
 }
+
+template <class Type> Stack<Type>::~Stack()
+{
+	delete[] arr;					// stupidly free the memory
+}
+
+
+
+template <class Type> void Stack<Type>::push(Type data)
+{
+	if ( top == size - 1 )
+	{
+		cout << "Stack is full" << endl;	// no memory for new elements
+		return;
+	}
+	top++;
+	arr[top] = data;
+}
+
+template <class Type> Type Stack<Type>::pop()
+{
+	if ( top == -1 )
+	{	
+		cout << "Empty stack" << endl;
+		return 0;
+	}
+	top--;
+	return arr[top + 1];
+}
+
