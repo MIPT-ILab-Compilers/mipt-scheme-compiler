@@ -5,138 +5,100 @@
  */
 #include "list.h"
 #include <iostream>
- void Dlist::add(int a)
-{
-	 Elem *temp = new Elem;
-	 temp->num = a;
-	 temp->next = start;
-	 if (start == NULL){
-		 temp->prev = temp;
-		 temp->next = temp;
-	     start = temp;
-	     last = start;
-	     
-		  
-	}
-	 else
-	 {   temp->prev = last;	
-		 last->next = temp;
-		 temp->next = start;
-		 last = temp;
-		 start->prev = last;
-	 }
- }
- Dlist::Dlist()
-{
-	last = NULL;
-	start = NULL;
-} 
- void Dlist::print (int a)
- {   Elem *temp;
-	 temp = last ;
-	 int b;
-	 if ((start == NULL) &&(last == NULL))
-	 {
-	 cout<< "empty list"<< endl;
-	 return;}
-	 b = last->num;
-	 while(1)
-	 {
-		 if( last->num == a)
-		 {   do { 
-			 cout << last->num<< endl;
-			 last = last->next;}
-			 while( last->num != a);
-		 last = temp;
-		 return;}
-		  else { last = last->next;
-		            if ( last->num == b)
-		                {cout << "not found" << endl;
-		                 last = temp;
-		                 return;}
-		                   }}
-					   }
+
+
+
+Elem* Dlist::add( int num, Elem *current_elem)            
+{                                                         
+	    Elem *ins_elem = new Elem;                     
+	    if ( current_elem == NULL )                       
+	    {   
+		    ins_elem->prev = ins_elem;
+		    ins_elem->next = ins_elem;
+		    ins_elem->num = num;
+	        cout << "Added" << endl;
+	        return ins_elem;                         
+	    }else                                              
+	    {   
+			(current_elem->next)->prev = ins_elem;
+			ins_elem->next = current_elem->next;
+			current_elem->next = ins_elem;
+			ins_elem->prev = current_elem;
+			ins_elem->num = num;
+			cout << "Added" << endl;
+			return ins_elem;
+	    }
+}
+    
  
-void Dlist::del(int a)
-{ 
-	 Elem *temp;
-	 int b;
-	  if ((start == NULL) &&(last == NULL))
-	 {
-	 cout<< "empty list"<< endl;
-	 return;}
-	 b = last->num;
-	 temp = last;
-	 if (start == last)
-	 {   delete start;
-		 start = NULL;
-         last = start;
-      return;} 
-     while(1)
-	 {
-		 if( last->num == a)
-		 { 
-	        if (last->next == last->prev)
-	        {
-	          delete last;
-	          start->next = start;
-	          start->prev = start;
-	          last = start;
-	          cout << "deleted"<< endl;
-		      return;}
-	          
-	     (last->prev)->next = last->next;
-	     (last->next)->prev  = last->prev;
-		  delete last;
-		  cout << "deleted"<< endl;
-		  return;}
-			else { last = last->next;
-		            if ( last->num == b)
-		                {cout << "not found" << endl;
-		                 last = temp;
-		                 return;}}
-      }
-  }
+ 
+void Dlist::print( Elem *current_elem)
+{   
+	Elem *temp;
+	temp = current_elem; 
+    if ( current_elem == NULL)
+    {
+	    cout << "empty list" << endl;
+	    return;
+	} else 
+    {
+	    do{   	
+     	cout << temp->num << endl;	        
+		temp = temp->next;
+        }
+        while ( temp != current_elem ); 
+    }  
+    return;
+}	
+   	
+ 
+Elem* Dlist::del( Elem *current_elem)
+{   
+	if ( current_elem == NULL )
+	    cout << "Incorrect data" << endl;  
+	else
+	{
+		Elem *temp;
+        (current_elem->prev)->next = current_elem->next;
+        (current_elem->next)->prev = current_elem->prev;
+        temp = current_elem->prev;
+        delete current_elem;	
+        cout << "deleted" << endl;
+        return temp;
+    }      
+}
       
-Elem* Dlist::find(int a)
+Elem* Dlist::find( int num, Elem *current_elem)
 {
-	 Elem *temp = new Elem;
-	 temp = last ;
-	 int b;
-	 if ((start == NULL) &&(last == NULL))
-	 {
-	 cout<< "empty list"<< endl;
-	 return NULL;}
-	 b = last->num;
-	 while(1)
-	 {	 
-		 if( last->num == a)
-		 { last = temp;
-		  cout << "found"<< endl;
-		  return temp;}
-			else { last = last->next;
-		            if ( last->num == b)
-		                {cout << "not found" << endl;
-		                 last = temp;
-		                 return NULL;}}
-   	  }}
+	 Elem *temp;
+	 temp = current_elem;
+     do 
+     {
+		 if ( temp->num == num)
+		{ 
+			cout << "founded" << endl;
+            return temp;
+        } else 
+            temp = temp->next;   
+	}
+    while ( temp != current_elem );
+    cout << "not found" << endl;
+	return current_elem;	 
+}
    
 void testList()
-{    Dlist a;
-	 a.print(1);
-	 a.add(1);
-	 a.print(1);
-	 a.del(1);
-	 a.print(1);
-	 a.add(3);
-	 a.add(5);
-	 a.add(9);
-	 a.print(5);
-	 a.del(5);
-	 a.print(9);
-	 a.del(9);
-	 a.find(9);
-	 a.print(3);
-	 a.del(3);
-	 a.print(3);
+{
+	Dlist l;
+    Elem *current_elem ;
+	current_elem = l.add( 2 , NULL);
+	l.add( 3 , current_elem);
+	l.add( 1 , current_elem);
+    l.add( 5 , current_elem);
+	l.print(current_elem);
+	current_elem = l.del(l.find( 3 , current_elem));
+	l.find( 11 , current_elem);
+	l.print(current_elem);
 }
+
+
+

@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <string>
+#include "list.h"
 using namespace std;
 
 /* String for build mode identification */
