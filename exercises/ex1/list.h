@@ -14,26 +14,20 @@
 /** Unit testing of list */
 void testList();
 
-class Elem
+
+class Elem            
 {
 public:
     int num;
-	Elem *prev;
+    Elem *prev;
 	Elem *next;
-
 };
 
 class Dlist 
 {
 	public:
-	Elem *last;
-	Elem *start;
-	Dlist();
-    void add(int a);
-    void del(int b);
-    Elem*find(int);	
-    void print(int);
+	Elem* add( int num, Elem *current_elem);
+    Elem* del( Elem *del_elem);
+    Elem* find( int num, Elem *current_elem);	
+    void print( Elem *current_elem);
 };
-void testList();
-
-
