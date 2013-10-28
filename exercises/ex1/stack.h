@@ -16,7 +16,15 @@ using namespace std;
 
 const int N = 4;
 
-
+// BORIS: no comments here? Example below (comments in autodoc style):
+/**
+ * Stack representation template. Stores data in internal array. 
+ * The size of internal array must be defined at time of stack construction.
+ * Note: Stored objects are copied into internal array so a valid copy constructotr
+ *       must be provided for the type 'Type'
+ * 
+ * @param Type Type of the stored data
+ */
 template <class Type> class Stack
 {
 private:
@@ -28,19 +36,33 @@ public:
 	~Stack();					 // destructor
 	void push(Type);			 
 	Type pop();
+	void toStream( std::ostream& stream) const; // Print stack to given stream
+
 /*	Type getarr_i(int i)
 	{
 		return arr[i];
 	}*/
-	template <class T> friend std::ostream& operator << (std::ostream& stream, const Stack <Type> &ob)
-	{
-	for( int i = ob.top; i >= 0; i--)
-		stream << setw(5) << ob.arr[i];
-	return stream;
-	}
+	
 };
 
+// BORIS: operator << should not be member function. Operators declared as member
+//        functions are called as a function of its LEFT argument. Here left argument is std::ostream
+template <class Type> 
+std::ostream&
+operator << (std::ostream& stream, const Stack <Type> &ob)
+{
+	ob.toStream( stream);
+	return stream;
+}
 
+template <class Type> 
+void
+Stack<Type>::toStream( std::ostream& stream) const
+{
+	stream << "Stack contents: ";
+	for( int i = top; i >= 0; i--)
+		stream << setw(5) << arr[i];
+}
 
 template <class Type> Stack<Type>::Stack()		// makes size of stack equal const N defined at the begining of this file
 {
