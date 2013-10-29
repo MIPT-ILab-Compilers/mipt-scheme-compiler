@@ -7,7 +7,7 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "operand.hpp"
+#include "ir_iface.hpp"
 
 namespace ir
 {
@@ -21,7 +21,7 @@ Operand::Operand()
 Operand::Operand( const Operand& operand)
 {
     this->current = operand.current;
-    this->df = operand.df;
+//    this->df = operand.df;
     switch ( this->current)
     {
         case OPERAND_IMMEDIATE:
@@ -35,6 +35,7 @@ Operand::Operand( const Operand& operand)
     }
 }
 
+#if 0 /* dasabled DataFlowEdge */
 Operand::Operand( Int64 value, DataFlowEdge* df)
 {
     this->data.immediate = value;
@@ -55,6 +56,7 @@ Operand::Operand( Operation& target, DataFlowEdge* df)
     this->current = OPERAND_TARGET;
     this->df = df;
 }
+#endif 
 
 }//namespace ir
 

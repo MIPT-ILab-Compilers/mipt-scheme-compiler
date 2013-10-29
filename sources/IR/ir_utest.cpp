@@ -3,6 +3,7 @@
  * Unit testing of IR
  */
 #include <boost/test/unit_test.hpp>
+#include "ir_iface.hpp"
 
 BOOST_AUTO_TEST_SUITE( IR)
 

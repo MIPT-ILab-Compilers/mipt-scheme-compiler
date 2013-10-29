@@ -44,4 +44,3 @@ private:
 
 }//namespace ir
 
-#include "object_inline.hpp"

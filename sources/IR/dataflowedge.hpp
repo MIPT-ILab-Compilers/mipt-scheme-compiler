@@ -9,6 +9,8 @@
 
 #pragma once
 
+/* Disabled as temporary component */
+#if 0
 namespace ir
 {
 
@@ -42,5 +44,6 @@ private:
 };
 
 }//namespace ir
+#endif
 
 #include "dataflowedge_inline.hpp"

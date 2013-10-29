@@ -9,6 +9,7 @@
 
 #include "dataflowedge.hpp"
 
+#if 0
 namespace ir
 {
 
@@ -22,3 +23,4 @@ DataFlowEdge::DataFlowEdge( Operation *pred_oper,
 }
 
 }
+#endif

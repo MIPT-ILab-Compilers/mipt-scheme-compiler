@@ -67,6 +67,7 @@ inline void Operand::setTarget( Operation& target)
     this->current = OPERAND_TARGET;
 }
 
+#if 0 /* Disabled DataFlowEdge */
 inline DataFlowEdge* Operand::getDF() const
 {
     return this->df;
@@ -76,5 +77,6 @@ inline void Operand::setDF( DataFlowEdge* df)
 {
     this->df = df;
 }
+#endif
 
 }//namespace ir
