@@ -11,7 +11,6 @@
 #include <vector>
 #include <string> 
 #include <map>
-#include "object.hpp"
 
 namespace ir
 {

@@ -13,10 +13,6 @@
 namespace ir
 {
 
-class DataFlowEdge;
-class Object;
-class Operation;
-
 enum TypeOfOperand
 {
     OPERAND_IMMEDIATE,
@@ -32,9 +28,12 @@ class Operand
 public:
     Operand(); // default constructor
     Operand( const Operand&); // copy constructor
+
+#if 0 /* disabled DataFlowEdge*/
     Operand( Int64 value, DataFlowEdge* df);
     Operand( Object& obj, DataFlowEdge* df);
     Operand( Operation& target, DataFlowEdge* df);
+#endif
     
     inline bool isImmediate() const;
     inline bool isObject() const;
@@ -50,9 +49,10 @@ public:
     inline void setObject( Object& obj);
     inline void setTarget( Operation& target);
 
+#if 0 /* disabled DataFlowEdge*/
     inline DataFlowEdge* getDF() const;
     inline void setDF( DataFlowEdge* df);
-
+#endif
 private:
     union OperandData
     {
@@ -63,9 +63,10 @@ private:
 
     TypeOfOperand current;
     
+#if 0 /* disabled DataFlowEdge*/
     DataFlowEdge* df;
+#endif
 };
 
 }//namespace ir
 
-#include "operand_inline.hpp"

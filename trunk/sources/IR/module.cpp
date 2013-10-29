@@ -6,7 +6,7 @@
 * Copyright 2012 MIPT-COMPILER team
 */
 
-#include "module.hpp"
+#include "ir_iface.hpp"
 
 namespace ir
 {

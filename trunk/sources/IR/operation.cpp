@@ -7,7 +7,7 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "operation.hpp"
+#include "ir_iface.hpp"
 
 namespace ir
 {

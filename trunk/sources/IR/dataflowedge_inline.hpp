@@ -7,6 +7,7 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
+#if 0
 namespace ir
 {
 
@@ -41,3 +42,5 @@ inline Operand* DataFlowEdge::getSuccOperand() const
 }
 
 }
+
+#endif

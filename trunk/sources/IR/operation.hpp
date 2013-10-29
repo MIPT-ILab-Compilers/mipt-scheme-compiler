@@ -10,7 +10,6 @@
 #pragma once
 
 #include "Utils/types.h"
-#include "operand.hpp"
 
 namespace ir
 {
@@ -57,4 +56,3 @@ private:
 
 }//namespace ir
 
-#include "operation_inline.hpp"
