@@ -11,72 +11,45 @@
 namespace ir
 {
 
-inline bool Operand::isImmediate() const
+inline const OperandType& Operand::type() const
 {
-    return ( this->current == OPERAND_IMMEDIATE);
+    return this->type_;
 }
 
-inline bool Operand::isObject() const
+inline Int64 Operand::constValue() const
 {
-    return ( this->current == OPERAND_OBJECT);
+    IR_ASSERTD( type() == OP_TYPE_IMM);
+    return this->data.imm;
 }
 
-inline bool Operand::isTarget() const
+inline Object* Operand::object() const
 {
-    return (this->current == OPERAND_TARGET);
-}
-
-inline TypeOfOperand Operand::getType() const
-{
-    return this->current;
-}
-
-inline Int64 Operand::getImmediate() const
-{
-    IR_ASSERTD( this->current == OPERAND_IMMEDIATE);
-    return this->data.immediate;
-}
-
-inline Object* Operand::getObject() const
-{
-    IR_ASSERTD( this->current == OPERAND_OBJECT);
+    IR_ASSERTD( type() == OP_TYPE_OBJ);
     return this->data.obj;
 }
 
-inline Operation* Operand::getOperation() const
+inline Operation* Operand::target() const
 {
-    IR_ASSERTD( this->current == OPERAND_TARGET);
+    IR_ASSERTD( type() == OP_TYPE_TRG);
     return this->data.target;
 }
 
-inline void Operand::setImmediate( Int64 immediate)
+inline void Operand::setConstValue( Int64 immediate)
 {
-    this->data.immediate = immediate;
-    this->current = OPERAND_IMMEDIATE;
+    IR_ASSERTD( type() == OP_TYPE_IMM);
+    this->data.imm = immediate;
 }
 
 inline void Operand::setObject( Object& obj)
 {
+    IR_ASSERTD( type() == OP_TYPE_OBJ);
     this->data.obj = &obj;
-    this->current = OPERAND_OBJECT;
 }
 
 inline void Operand::setTarget( Operation& target)
 {
+    IR_ASSERTD( type() == OP_TYPE_TRG);
     this->data.target = &target;
-    this->current = OPERAND_TARGET;
 }
-
-#if 0 /* Disabled DataFlowEdge */
-inline DataFlowEdge* Operand::getDF() const
-{
-    return this->df;
-}
-
-inline void Operand::setDF( DataFlowEdge* df)
-{
-    this->df = df;
-}
-#endif
 
 }//namespace ir
