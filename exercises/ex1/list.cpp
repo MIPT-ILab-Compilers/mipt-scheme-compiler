@@ -6,17 +6,59 @@
 #include "list.h"
 #include <iostream>
 
+#ifdef MY_LOGS
+#  define LOG(S) (S)
+#else
+#  define LOG(S)
+#endif
 
 
-Elem* Dlist::add( int num, Elem *current_elem)            
-{                                                         
-	    Elem *ins_elem = new Elem;                     
+
+template <class T> Dlist<T>::Dlist()
+{
+	next = this;
+	prev = this;
+}
+
+
+
+template <class T> Dlist<T>::Dlist( T value)
+{
+	data = value;
+	next = this;
+	prev = this;
+}
+
+
+
+template <class T> Dlist<T>::Dlist( T value, Dlist<T>* current_elem)   
+{   
+	next = current_elem->next;
+	prev = current_elem;
+	(current_elem->next)->prev = this;
+	current_elem->next = this;
+	this->data = value;
+}	
+
+
+
+template <class T> Dlist<T>::~Dlist()
+{
+	next->prev = prev;
+	prev->next = next;
+}	
+
+
+
+template <class T> Dlist<T>* Dlist<T>::add( T value, Dlist<T> *current_elem)   //Added object after "*current_elem" with data          
+{                                                                              // data with the value "value"
+	    Dlist<T> *ins_elem = new Dlist<T>;                     
 	    if ( current_elem == NULL )                       
 	    {   
+		    ins_elem->data = value;
 		    ins_elem->prev = ins_elem;
 		    ins_elem->next = ins_elem;
-		    ins_elem->num = num;
-	        cout << "Added" << endl;
+	        LOG(cout << "Added" << endl);
 	        return ins_elem;                         
 	    }else                                              
 	    {   
@@ -24,81 +66,91 @@ Elem* Dlist::add( int num, Elem *current_elem)
 			ins_elem->next = current_elem->next;
 			current_elem->next = ins_elem;
 			ins_elem->prev = current_elem;
-			ins_elem->num = num;
-			cout << "Added" << endl;
+			ins_elem->data = value;
+			LOG(cout << "Added" << endl);
 			return ins_elem;
 	    }
 }
+
+
     
- 
- 
-void Dlist::print( Elem *current_elem)
+template <class T> Dlist<T>* Dlist<T>::add( Dlist<T> *ins_elem , Dlist<T> *current_elem) //Added "ins_elem" after "*current_elem"
+{
+	if ( current_elem == NULL )                       
+	{   
+		ins_elem->prev = ins_elem;
+		ins_elem->next = ins_elem;
+    	LOG(cout << "Added" << endl);
+	    return ins_elem;
+    }else 
+	{
+		(current_elem->next)->prev = ins_elem;
+		ins_elem->next = current_elem->next;
+		current_elem->next = ins_elem;
+		ins_elem->prev = current_elem;
+		return ins_elem;
+	}
+}		
+			     
+
+
+template <class T> void Dlist<T>::print( Dlist<T> *current_elem)
 {   
-	Elem *temp;
+	Dlist<T> *temp;
 	temp = current_elem; 
     if ( current_elem == NULL)
     {
-	    cout << "empty list" << endl;
+	    LOG(cout << "empty list" << endl);
 	    return;
 	} else 
     {
 	    do{   	
-     	cout << temp->num << endl;	        
+     	cout << temp->data << endl;	        
 		temp = temp->next;
         }
         while ( temp != current_elem ); 
     }  
     return;
 }	
+
    	
  
-Elem* Dlist::del( Elem *current_elem)
-{   
-	if ( current_elem == NULL )
-	    cout << "Incorrect data" << endl;  
-	else
-	{
-		Elem *temp;
-        (current_elem->prev)->next = current_elem->next;
-        (current_elem->next)->prev = current_elem->prev;
-        temp = current_elem->prev;
-        delete current_elem;	
-        cout << "deleted" << endl;
-        return temp;
-    }      
-}
-      
-Elem* Dlist::find( int num, Elem *current_elem)
+template <class T> Dlist<T>* Dlist<T>::find( T value, Dlist<T> *current_elem)
 {
-	 Elem *temp;
+	 Dlist<T> *temp;
 	 temp = current_elem;
      do 
      {
-		 if ( temp->num == num)
+		 if ( temp->data == value)
 		{ 
-			cout << "founded" << endl;
+			LOG(cout << "founded" << endl);
             return temp;
         } else 
             temp = temp->next;   
 	}
     while ( temp != current_elem );
-    cout << "not found" << endl;
+    LOG(cout << "not found" << endl);
 	return current_elem;	 
 }
-   
+
+
+
 void testList()
 {
-	Dlist l;
-    Elem *current_elem ;
-	current_elem = l.add( 2 , NULL);
-	l.add( 3 , current_elem);
-	l.add( 1 , current_elem);
-    l.add( 5 , current_elem);
-	l.print(current_elem);
-	current_elem = l.del(l.find( 3 , current_elem));
-	l.find( 11 , current_elem);
-	l.print(current_elem);
-}
-
-
-
+	Dlist<int> dlist1(5),dlist2(7);
+    Dlist<int> *current_elem;
+	current_elem = dlist1.add( 1 , &dlist1);
+    dlist1.print(&dlist1);
+    delete current_elem;
+	current_elem = dlist1.add( &dlist2 , &dlist1);
+    dlist1.add( 3 , current_elem);
+    dlist1.print(&dlist1);
+    Dlist<double> Dlist_d1(3.14);
+    Dlist<double>  *Dlist_d2;
+    Dlist_d2 = &Dlist_d1;
+    Dlist_d2->add(2.73, Dlist_d2);
+    Dlist_d2->add(1.38, Dlist_d2);
+    Dlist_d2->print(Dlist_d2);
+    
+   
+}    
