@@ -14,44 +14,65 @@
 namespace ir
 {
 
-const UInt8 RESULTS_NUM = 1;
-const UInt8 ARGUMENTS_NUM = 2;
-
-enum OperName
-{
-    OPER_ADD, OPER_SUB,
-    OPER_DIV, OPER_MUL,
-    OPER_NUM
-};
-
-
+/**
+ * @class Operation
+ * Representation of Operation
+ */
 class Operation
 {
 
 public:
-    Operation( UInt64 id_oper, OperName name, 
-               const Operand *arguments, 
-               const Operand *result);
+
+    /** Constructor */
+    Operation( OperUid id);
+
+    /** Destructor */
     virtual ~Operation();
-    
-    inline UInt64 GetId() const;
+   
+    /** Return oper unique id */
+    inline const OperUid& id() const;
 
-    inline OperName GetName() const;
+    /** Return oper name */
+    inline const OperName& name() const;
 
-    inline const Operand& getResult() const; // returns result[ 0]
-    inline const Operand& getResult( UInt8 num) const; // returns result[ num]
-    inline void setResult( const Operand& operand); // result[ 0] = operand 
-    inline void setResult( const Operand& operand, UInt8 num); // result[ num] = operand
-    
-    inline const Operand& getArgument( UInt8 num) const;
-    inline void setArgument(const Operand& operand, UInt8 num);
+    /** Get number of arguments */
+    inline UInt8 numArgs() const;
 
+    /** Get number of results */
+    inline UInt8 numRess() const;
+
+    /** Get argument */
+    inline const Operand& arg( UInt8 arg_num) const;
+
+    /** Get result */
+    inline const Operand& res( UInt8 res_num) const;
+
+    /** Set name of operation */
+    inline void setName( OperName name);
+
+    /* 
+     * TODO: Add functions-setters for arguments and operands:
+     * - setArgObj - set argument object
+     * - setArgImm - set argument immediate.
+     * - ...
+     *
+     * It is prohibitted neither to give access to Operand (non-const) nor set entire operand, like 
+     * - Operand& arg();
+     * - void setArg( Operand& op);
+     */
 
 private:
-    OperName name;
-    Operand arguments[ ARGUMENTS_NUM];
-    Operand result[ RESULTS_NUM];
-    UInt64 id_oper;
+
+    /** Operation unique id */
+    OperUid id_;
+
+    /** Operation name */
+    OperName name_;
+
+    /** Arrays of operands */
+    Operand args[ MAX_ARGS_NUM];
+    Operand ress[ MAX_RESS_NUM];
+
 };
 
 }//namespace ir

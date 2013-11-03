@@ -13,59 +13,53 @@
 namespace ir
 {
 
-enum TypeOfOperand
-{
-    OPERAND_IMMEDIATE,
-    OPERAND_OBJECT,
-    OPERAND_TARGET,
-    TYPE_OPERAND_NUM
-};
-
-
+/**
+ * @class Operand
+ * Representation of Operand
+ */
 class Operand
 {
 
 public:
-    Operand(); // default constructor
-    Operand( const Operand&); // copy constructor
 
-#if 0 /* disabled DataFlowEdge*/
-    Operand( Int64 value, DataFlowEdge* df);
-    Operand( Object& obj, DataFlowEdge* df);
-    Operand( Operation& target, DataFlowEdge* df);
-#endif
+    /** Constructor */
+    Operand();
+
+    /** Destructor */
+    ~Operand();
+
+    /** Return operand type */
+    inline const OperandType& type() const;
+
+    /** Set operand type */
+    inline void setType( const OperandType& type);
     
-    inline bool isImmediate() const;
-    inline bool isObject() const;
-    inline bool isTarget() const;
+    /** Return constant value */
+    inline Int64 constValue() const;
+    /** Return object */
+    inline Object* object() const;
+    /** Return target */
+    inline Operation* target() const;
     
-    inline TypeOfOperand getType() const;
-    
-    inline Int64 getImmediate() const;
-    inline Object* getObject() const;
-    inline Operation* getOperation() const;
-    
-    inline void setImmediate( Int64 immediate);
+    /** Set constant value */
+    inline void setConstValue( Int64 immediate);
+    /** Set object */
     inline void setObject( Object& obj);
+    /** Set target */
     inline void setTarget( Operation& target);
 
-#if 0 /* disabled DataFlowEdge*/
-    inline DataFlowEdge* getDF() const;
-    inline void setDF( DataFlowEdge* df);
-#endif
 private:
+
+    OperandType type_;
+
     union OperandData
     {
-    Int64 immediate;
-    Object *obj;
-    Operation *target;
+        Int64 imm;
+        Object *obj;
+        Operation *target;
     } data;
 
-    TypeOfOperand current;
     
-#if 0 /* disabled DataFlowEdge*/
-    DataFlowEdge* df;
-#endif
 };
 
 }//namespace ir

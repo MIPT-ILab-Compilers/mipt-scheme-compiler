@@ -8,9 +8,24 @@
 
 #pragma once
 
+#include "../Utils/utils_iface.h"
 #include "utils.hpp"
 
 namespace ir
 {
-    class Operation;
+
+/** Operand type */
+enum OperandType
+{
+    OP_TYPE_OBJ,
+    OP_TYPE_IMM,
+    OP_TYPE_TRG,
+    OP_TYPES_NUM
+};
+
+/** Oper ID type */
+typedef UInt32 OperUid;
+
+class Operation;
+
 }

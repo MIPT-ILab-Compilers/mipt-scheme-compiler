@@ -12,50 +12,51 @@
 namespace ir
 {
 
-class Operand;
-
-inline UInt64 Operation::GetId() const
+/** se */    
+inline const OperUid& Operation::id() const
 {
-    return this->id_oper;
+    return this->id_;
 }
 
-inline OperName Operation::GetName() const
+/** se */
+inline const OperName& Operation::name() const
 {
-    return this->name;
+    return this->name_;
 }
 
-inline const Operand& Operation::getResult() const
+/** Get number of arguments */
+inline UInt8 Operation::numArgs() const
 {
-    return this->result[ 0];
+    IR_ASSERTXD( false, "Not implemented!");
+    return 0;
 }
 
-inline const Operand& Operation::getResult( UInt8 num) const
+/** Get number of results */
+inline UInt8 Operation::numRess() const
 {
-    IR_ASSERTD( num < RESULTS_NUM && num >= 0);
-    return this->result[ num];
+    IR_ASSERTXD( false, "Not implemented!");
+    return 0;
 }
 
-inline void Operation::setResult( const Operand& operand)
+/** se */
+inline const Operand& Operation::arg( UInt8 arg_num) const
 {
-    result[ 0] = operand;
+    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
+    return this->args[ arg_num];
 }
 
-inline void Operation::setResult( const Operand& operand, UInt8 num)
-{   
-    IR_ASSERTD( num >= 0 && num < RESULTS_NUM);
-    result[ 0] = operand;
-}
-
-inline const Operand& Operation::getArgument( UInt8 num) const
+/** se */
+inline const Operand& Operation::res( UInt8 res_num) const
 {
-    IR_ASSERTD( num >= 0 && num < ARGUMENTS_NUM);
-    return this->arguments[ num];
+    IR_ASSERTD( res_num < MAX_RESS_NUM);
+    return this->ress[ res_num];
 }
 
-inline void Operation::setArgument (const Operand& operand, UInt8 num)
+
+/** Set name of operation */
+inline void setName( OperName name)
 {
-    IR_ASSERTD( num >= 0 && num < ARGUMENTS_NUM);
-    this->arguments[ num] = operand;
+    IR_ASSERTXD( false, "Not implemented!");
 }
 
-}//naemspace ir
+}//namespace ir

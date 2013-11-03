@@ -10,6 +10,7 @@
 
 #include "predecls.hpp"
 
+#include "mdes_dummy.hpp"
 #include "constant.hpp"
 #include "object.hpp"
 #include "operand.hpp"
