@@ -9,7 +9,20 @@
 #pragma once
 
 #include "../Utils/utils_iface.h"
-#include "utils.hpp"
+
+/**
+ * Debug assert for IR library
+ **/
+#if !defined(IR_ASSERTD)
+#    define IR_ASSERTD(cond) ASSERT_XD(cond, "IR", "")
+#endif
+
+/**
+ * Debug assert for IR library
+ **/
+#if !defined(IR_ASSERTXD)
+#    define IR_ASSERTXD(cond, what) ASSERT_XD(cond, "IR", what)
+#endif
 
 namespace ir
 {
@@ -25,6 +38,9 @@ enum OperandType
 
 /** Oper ID type */
 typedef UInt32 OperUid;
+
+/** Oper ID type */
+typedef UInt32 ObjId;
 
 class Operation;
 

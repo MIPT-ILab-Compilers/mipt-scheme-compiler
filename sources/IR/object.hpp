@@ -9,37 +9,50 @@
 
 #pragma once
 
-#include "Utils/types.h"
-
 namespace ir
 {
 
-enum TypeOfObject
-{
-    OBJ_REGISTER,
-    OBJ_TYPE_NUM
-};
-
+/**
+ * @class Object
+ * Representation of object 
+ */
 class Object
 {
 
 public:
-    Object( UInt64 id_object, TypeOfObject type, bool is_virtual);
-    
-    inline UInt64 getId() const;
-    
-    inline void setId( UInt64 id_object);
 
+    /** Constructor */
+    Object();
+
+    /** Destructor */
+    ~Object();
+   
+    /** Return id */
+    inline ObjId id() const;
+   
+    /** Set id */ 
+    inline void setId( ObjId id);
+
+    /** Return whether object is virtual */
     inline bool isVirtual() const;
-    
+   
+    /** Set virtual flag */ 
     inline void setVirtual( bool is_virtual);
     
-    inline TypeOfObject getType( TypeOfObject type) const;
+    /** Return type of object */
+    inline ObjName type() const;
+
+    /** Set object type */
+    inline void setType( ObjName type);
     
 private:
+
+    /** Object id */
+    ObjId id_;
+    /** Object type */
+    ObjName type_;
+    /** Whether object is virtual */
     bool is_virtual;
-    TypeOfObject type;
-    UInt64 id_object;
 }; 
 
 }//namespace ir

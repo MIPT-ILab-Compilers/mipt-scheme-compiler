@@ -10,29 +10,34 @@
 namespace ir
 {
 
-inline UInt64 Object::getId() const
+/** Return object id */
+inline ObjId Object::id() const
 {
-    return this->id_object;
+    return this->id_;
 }
 
-inline void Object::setId( UInt64 id_object)
+/** Set object id */
+inline void Object::setId( ObjId id)
 {
-    this->id_object = id_object;
+    this->id_ = id;
 }
 
+/** Return whether object is virtual */
 inline bool Object::isVirtual() const
 {
     return this->is_virtual;
 }
 
+/** Set virtual flag */
 inline void Object::setVirtual( bool is_virtual)
 {
     this->is_virtual = is_virtual;
 }
 
-inline TypeOfObject Object::getType( TypeOfObject type) const
+/** Return object type */
+inline ObjName Object::type() const
 {
-    return this->type;
+    return this->type_;
 }
 
 }

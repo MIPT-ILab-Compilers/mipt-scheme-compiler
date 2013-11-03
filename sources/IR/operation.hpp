@@ -9,8 +9,6 @@
 
 #pragma once
 
-#include "Utils/types.h"
-
 namespace ir
 {
 
@@ -30,10 +28,10 @@ public:
     virtual ~Operation();
    
     /** Return oper unique id */
-    inline const OperUid& id() const;
+    inline OperUid id() const;
 
     /** Return oper name */
-    inline const OperName& name() const;
+    inline OperName name() const;
 
     /** Get number of arguments */
     inline UInt8 numArgs() const;

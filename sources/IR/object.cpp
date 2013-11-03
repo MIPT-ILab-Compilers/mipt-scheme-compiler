@@ -8,16 +8,19 @@
  */
 
 
-#include "object.hpp"
+#include "ir_iface.hpp"
 
 namespace ir
 {
 
-Object::Object( UInt64 id_object, TypeOfObject type, bool is_virtual)
+/** Constructor */
+Object::Object() : id_( (ObjId) -1), type_( OBJ_NAMES_NUM), is_virtual( true) 
 {
-    this->id_object = id_object;
-    this->type = type;
-    this->is_virtual = is_virtual;
+}
+
+/** Destructor */
+Object::~Object()
+{
 }
 
 }
