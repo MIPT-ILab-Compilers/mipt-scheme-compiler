@@ -11,7 +11,14 @@
 const UInt8 MAX_RESS_NUM = 1;
 const UInt8 MAX_ARGS_NUM = 2;
 
+/** Object type */
+enum ObjName
+{
+    OBJ_NAME_REG,
+    OBJ_NAMES_NUM
+};
 
+/** Operation name */
 enum OperName
 {
     OPER_MOV,

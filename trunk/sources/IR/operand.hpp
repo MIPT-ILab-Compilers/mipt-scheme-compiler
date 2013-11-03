@@ -8,7 +8,6 @@
  */
 
 #pragma once
-#include "Utils/types.h"
 
 namespace ir
 {
@@ -50,15 +49,16 @@ public:
 
 private:
 
+    /** Operand type */
     OperandType type_;
 
+    /** Operand data */
     union OperandData
     {
         Int64 imm;
         Object *obj;
         Operation *target;
     } data;
-
     
 };
 

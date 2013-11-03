@@ -6,46 +6,52 @@
 /**
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
-#include "utils.hpp"
 
 namespace ir
 {
 
+/** Return Operand type */
 inline const OperandType& Operand::type() const
 {
     return this->type_;
 }
 
+/** Return constant value */
 inline Int64 Operand::constValue() const
 {
     IR_ASSERTD( type() == OP_TYPE_IMM);
     return this->data.imm;
 }
 
+/** Return object */
 inline Object* Operand::object() const
 {
     IR_ASSERTD( type() == OP_TYPE_OBJ);
     return this->data.obj;
 }
 
+/** Return target operation */
 inline Operation* Operand::target() const
 {
     IR_ASSERTD( type() == OP_TYPE_TRG);
     return this->data.target;
 }
 
+/** Set constant value */
 inline void Operand::setConstValue( Int64 immediate)
 {
     IR_ASSERTD( type() == OP_TYPE_IMM);
     this->data.imm = immediate;
 }
 
+/** Set object */
 inline void Operand::setObject( Object& obj)
 {
     IR_ASSERTD( type() == OP_TYPE_OBJ);
     this->data.obj = &obj;
 }
 
+/** Set target operation */
 inline void Operand::setTarget( Operation& target)
 {
     IR_ASSERTD( type() == OP_TYPE_TRG);

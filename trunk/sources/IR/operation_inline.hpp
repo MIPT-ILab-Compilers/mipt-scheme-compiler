@@ -7,19 +7,17 @@
  * Copyright (C) 2012 MIPT Scheme Compiler team
  */
 
-#include "Utils/types.h"
-
 namespace ir
 {
 
 /** se */    
-inline const OperUid& Operation::id() const
+inline OperUid Operation::id() const
 {
     return this->id_;
 }
 
 /** se */
-inline const OperName& Operation::name() const
+inline OperName Operation::name() const
 {
     return this->name_;
 }
