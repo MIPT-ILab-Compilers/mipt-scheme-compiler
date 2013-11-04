@@ -48,6 +48,15 @@ public:
     /** Set name of operation */
     inline void setName( OperName name);
 
+    /** Set argument object */
+    inline void setArgObj( UInt8 obj_numb, const Operand& obj);
+    
+    /** Set argument immediate */
+    inline void setArgImm( UInt8 imm_numb, const Operand& imm);
+
+    /** Set argument target */
+    inline void setArgTrg( UInt8 trg_numb, const Operand& trg);
+
     /* 
      * TODO: Add functions-setters for arguments and operands:
      * - setArgObj - set argument object

@@ -25,15 +25,13 @@ inline OperName Operation::name() const
 /** Get number of arguments */
 inline UInt8 Operation::numArgs() const
 {
-    IR_ASSERTXD( false, "Not implemented!");
-    return 0;
+    return numbArgsInOp( name_);
 }
 
 /** Get number of results */
 inline UInt8 Operation::numRess() const
 {
-    IR_ASSERTXD( false, "Not implemented!");
-    return 0;
+    return numbRessInOp( name_);
 }
 
 /** se */
@@ -52,9 +50,34 @@ inline const Operand& Operation::res( UInt8 res_num) const
 
 
 /** Set name of operation */
-inline void setName( OperName name)
+inline void Operation::setName( OperName name)
 {
-    IR_ASSERTXD( false, "Not implemented!");
+    IR_ASSERTD( name < OPERS_NUM);
+    name_ = name;
+}
+
+/** Set argument object */
+inline void Operation::setArgObj( UInt8 obj_numb, const Operand& obj)
+{
+    IR_ASSERTD( obj.type() == OP_TYPE_OBJ);
+    IR_ASSERTD( obj_numb < numArgs());
+    args[ obj_numb] = obj;
+}
+
+/** Set argument immediate */
+inline void Operation::setArgImm( UInt8 imm_numb, const Operand& imm)
+{
+    IR_ASSERTD( imm.type() == OP_TYPE_IMM);
+    IR_ASSERTD( imm_numb < numArgs());
+    args[ imm_numb] = imm;
+}
+
+/** Set argument target */
+inline void Operation::setArgTrg( UInt8 trg_numb, const Operand& trg)
+{
+    IR_ASSERTD( trg.type() == OP_TYPE_TRG);
+    IR_ASSERTD( trg_numb < numArgs());
+    args[ trg_numb] = trg;
 }
 
 }//namespace ir
