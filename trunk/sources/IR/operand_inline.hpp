@@ -40,22 +40,30 @@ inline Operation* Operand::target() const
 /** Set constant value */
 inline void Operand::setConstValue( Int64 immediate)
 {
-    IR_ASSERTD( type() == OP_TYPE_IMM);
+    setType( OP_TYPE_IMM);
     this->data.imm = immediate;
 }
 
 /** Set object */
 inline void Operand::setObject( Object& obj)
 {
-    IR_ASSERTD( type() == OP_TYPE_OBJ);
+    
+    setType( OP_TYPE_OBJ);
     this->data.obj = &obj;
 }
 
 /** Set target operation */
 inline void Operand::setTarget( Operation& target)
 {
-    IR_ASSERTD( type() == OP_TYPE_TRG);
+    setType( OP_TYPE_TRG);
     this->data.target = &target;
+}
+
+/** Set operand type */
+inline void Operand::setType( const OperandType& type)
+{
+    IR_ASSERTD( type < OP_TYPES_NUM);
+    type_ = type;
 }
 
 }//namespace ir

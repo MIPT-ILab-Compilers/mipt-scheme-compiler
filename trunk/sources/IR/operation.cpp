@@ -20,4 +20,26 @@ Operation::~Operation()
 {
 }
 
+ostream& operator << (ostream& s, const Operation& op)
+{
+    s << "[" << op.id() << "] " << op.getNameOpInString() << " ";
+    for ( UInt8 i = 0; i < op.numArgs(); i++ )
+    {
+        if ( i == 0 )
+            s << op.arg( i);
+        else
+            s << ", " << op.arg( i);
+    }
+    s << " -> ";
+    for ( UInt8 i = 0; i < op.numRess(); i++ )
+    {
+        if ( i == 0 )
+            s << op.res( i);
+        else
+            s << ", " << op.res( i);
+    }
+    s << endl;
+    return s;
+}
+
 }//namespace ir

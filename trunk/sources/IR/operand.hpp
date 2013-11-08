@@ -46,6 +46,8 @@ public:
     inline void setObject( Object& obj);
     /** Set target */
     inline void setTarget( Operation& target);
+    
+    friend ostream& operator << (ostream& s, const Operand& opnd);
 
 private:
 

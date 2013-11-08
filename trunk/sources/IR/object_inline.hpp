@@ -22,6 +22,13 @@ inline void Object::setId( ObjId id)
     this->id_ = id;
 }
 
+/** Set type */
+inline void Object::setType( ObjName type)
+{
+    IR_ASSERTD( type < OBJ_NAMES_NUM);
+    type_ = type;
+}
+
 /** Return whether object is virtual */
 inline bool Object::isVirtual() const
 {

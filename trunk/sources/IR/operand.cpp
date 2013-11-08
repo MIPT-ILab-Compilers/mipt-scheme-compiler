@@ -20,5 +20,24 @@ Operand::~Operand()
 {
 }
 
+ostream& operator << (ostream& s, const Operand& opnd)
+{
+    switch( opnd.type() )
+    {
+        case OP_TYPE_IMM:
+            s << opnd.constValue();
+            break;
+        case OP_TYPE_OBJ:
+            s << opnd.object();
+            break;
+        case OP_TYPE_TRG:
+            s << opnd.target();
+            break;
+        default:
+            IR_ASSERTD( 0);
+    }
+    return s;
+}
+
 }//namespace ir
 
