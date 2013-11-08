@@ -34,6 +34,11 @@ inline UInt8 Operation::numRess() const
     return numbRessInOp( name_);
 }
 
+inline string Operation::getNameOpInString() const
+{
+    return getOperNameString( name_);
+}
+
 /** se */
 inline const Operand& Operation::arg( UInt8 arg_num) const
 {
@@ -57,27 +62,38 @@ inline void Operation::setName( OperName name)
 }
 
 /** Set argument object */
-inline void Operation::setArgObj( UInt8 obj_numb, const Operand& obj)
+inline void Operation::setArgObj( UInt8 arg_num, Object& obj)
 {
-    IR_ASSERTD( obj.type() == OP_TYPE_OBJ);
-    IR_ASSERTD( obj_numb < numArgs());
-    args[ obj_numb] = obj;
+    IR_ASSERTD( arg_num < numArgs());
+    args[ arg_num].setObject( obj);
 }
 
 /** Set argument immediate */
-inline void Operation::setArgImm( UInt8 imm_numb, const Operand& imm)
+inline void Operation::setArgImm( UInt8 arg_num, Int64 imm)
 {
-    IR_ASSERTD( imm.type() == OP_TYPE_IMM);
-    IR_ASSERTD( imm_numb < numArgs());
-    args[ imm_numb] = imm;
+    IR_ASSERTD( arg_num < numArgs());
+    args[ arg_num].setConstValue( imm);
 }
 
 /** Set argument target */
-inline void Operation::setArgTrg( UInt8 trg_numb, const Operand& trg)
+inline void Operation::setArgTrg( UInt8 arg_num, Operation& trg)
 {
-    IR_ASSERTD( trg.type() == OP_TYPE_TRG);
-    IR_ASSERTD( trg_numb < numArgs());
-    args[ trg_numb] = trg;
+    IR_ASSERTD( arg_num < numArgs());
+    args[ arg_num].setTarget( trg);
+}
+
+/** Set result object */
+inline void Operation::setResObj( UInt8 arg_num, Object& obj)
+{
+    IR_ASSERTD( arg_num < numRess());
+    ress[ arg_num].setObject( obj);
+}
+
+/** Set result target */
+inline void Operation::setResTrg( UInt8 arg_num, Operation& trg)
+{
+   IR_ASSERTD( arg_num < numRess());
+   ress[ arg_num].setTarget( trg);
 }
 
 }//namespace ir

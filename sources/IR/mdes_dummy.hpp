@@ -11,18 +11,6 @@
 const UInt8 MAX_RESS_NUM = 1;
 const UInt8 MAX_ARGS_NUM = 2;
 
-/** The number of arguments (depends on operation) */
-const UInt8 ARGS_NUM_MOV = 1;
-const UInt8 ARGS_NUM_ADD = 2;
-const UInt8 ARGS_NUM_SUB = 2;
-const UInt8 ARGS_NUM_MUL = 2;
-
-/** The number of results (depends on operation) */
-const UInt8 RESS_NUM_MOV = 1;
-const UInt8 RESS_NUM_ADD = 1;
-const UInt8 RESS_NUM_SUB = 1;
-const UInt8 RESS_NUM_MUL = 1;
-
 /** Object type */
 enum ObjName
 {
@@ -46,47 +34,47 @@ inline UInt8 numbArgsInOp(OperName name)
     switch ( name )
     {
         case OPER_MOV:
-            return ARGS_NUM_MOV;
+            return 1;
             break;
         case OPER_ADD:
-            return ARGS_NUM_ADD;
+            return 2;
             break;
         case OPER_SUB:
-            return ARGS_NUM_SUB;
+            return 2;
             break;
         case OPER_MUL:
-            return ARGS_NUM_MUL;
+            return 2;
             break;
         default:
-            exit(1);
+            IR_ASSERTD( 0);
     }
 }
 
 /** Return the number of results */
 inline UInt8 numbRessInOp(OperName name)
 {
-    switch( name )
+    switch ( name )
     {
         case OPER_MOV:
-            return RESS_NUM_MOV;
+            return 1;
             break;
         case OPER_ADD:
-            return RESS_NUM_ADD;
+            return 1;
             break;
         case OPER_SUB:
-            return RESS_NUM_SUB;
+            return 1;
             break;
         case OPER_MUL:
-            return RESS_NUM_MUL;
+            return 1;
             break;
         default:
-            exit(2);
+            IR_ASSERTD( 0);
     }
 }
 
 inline string getOperNameString(OperName name)
 {
-    switch( name )
+    switch ( name )
     {
         case OPER_MOV:
             return "MOV";
@@ -101,6 +89,6 @@ inline string getOperNameString(OperName name)
             return "MUL";
             break;
         default:
-            exit(3);
+            IR_ASSERTD( 0);
     }
 }

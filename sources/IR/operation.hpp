@@ -45,18 +45,28 @@ public:
     /** Get result */
     inline const Operand& res( UInt8 res_num) const;
 
+    /** Get name of operation in string */
+    inline string getNameOpInString() const;
+
     /** Set name of operation */
     inline void setName( OperName name);
 
     /** Set argument object */
-    inline void setArgObj( UInt8 obj_numb, const Operand& obj);
+    inline void setArgObj( UInt8 arg_num, Object& obj);
     
     /** Set argument immediate */
-    inline void setArgImm( UInt8 imm_numb, const Operand& imm);
+    inline void setArgImm( UInt8 arg_num, Int64 imm);
 
     /** Set argument target */
-    inline void setArgTrg( UInt8 trg_numb, const Operand& trg);
+    inline void setArgTrg( UInt8 arg_num, Operation& trg);
+    
+    /** Set result object */
+    inline void setResObj( UInt8 arg_num, Object& obj);
 
+    /** Set result target */
+    inline void setResTrg( UInt8 arg_num, Operation& trg);
+
+    friend ostream& operator << (ostream& s, const Operation& op);
     /* 
      * TODO: Add functions-setters for arguments and operands:
      * - setArgObj - set argument object
