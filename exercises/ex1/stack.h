@@ -9,39 +9,33 @@
  */
 #pragma once
 #include "misc.h"
-#include<iostream>
-#include<iomanip>
+#include <iostream>
+#include <iomanip>
+#include <vector>
 
 using namespace std;
 
-const int N = 4;
-
-// BORIS: no comments here? Example below (comments in autodoc style):
 /**
- * Stack representation template. Stores data in internal array. 
- * The size of internal array must be defined at time of stack construction.
- * Note: Stored objects are copied into internal array so a valid copy constructotr
- *       must be provided for the type 'Type'
+ * Stack representation template. Stores data in internal array (vector). 
+ * The size of internal array increases automatically as needed.
  * 
  * @param Type Type of the stored data
  */
+
+
+
 template <class Type> class Stack
 {
 private:
-	Type * arr;					 // arbitrary types of data
-	int size, top;               //stack size//// top is index of the last element
+	vector<Type> arr;					 // arbitrary types of data
+	int top;
 public:
 	Stack();					 // constructor by default
-	Stack(int);					 // constructor with parameters
 	~Stack();					 // destructor
-	void push(Type);			 
+	void push( Type);			 
 	Type pop();
 	void toStream( std::ostream& stream) const; // Print stack to given stream
-
-/*	Type getarr_i(int i)
-	{
-		return arr[i];
-	}*/
+	Type get( int);					// iterator
 	
 };
 
@@ -64,46 +58,52 @@ Stack<Type>::toStream( std::ostream& stream) const
 		stream << setw(5) << arr[i];
 }
 
-template <class Type> Stack<Type>::Stack()		// makes size of stack equal const N defined at the begining of this file
+template <class Type>
+Stack<Type>::Stack()		
 {
-	size = N;					//stack is empty when top == -1	
-	arr = new Type[size];
 	top = -1;
 }
 
-template <class Type> Stack<Type>::Stack(int n)
-{
-	size = n;					// makes size of stack equal n which defines in parameters of new object 
-	arr = new Type[size];
-	top = -1;
-}
 
-template <class Type> Stack<Type>::~Stack()
+template <class Type>
+Stack<Type>::~Stack()
 {
-	delete[] arr;					// stupidly free the memory
+	arr.resize( 0);
 }
 
 
 
-template <class Type> void Stack<Type>::push(Type data)
+template <class Type>
+void
+Stack<Type>::push( Type data)
 {
-	if ( top == size - 1 )
-	{
-		cout << "Stack is full" << endl;	// no memory for new elements
-		return;
-	}
+	int size = arr.max_size();
+	if ( top + 1 == size )
+		arr.resize( size + 1); 
 	top++;
-	arr[top] = data;
+	arr.push_back( data);
 }
 
-template <class Type> Type Stack<Type>::pop()
+template
+<class Type>
+Type Stack<Type>::pop()
 {
 	if ( top == -1 )
 	{	
 		cout << "Empty stack" << endl;
 		return 0;
 	}
+	Type data = arr[top];
 	top--;
-	return arr[top + 1];
+	arr.pop_back();
+	return data;
 }
 
+template
+<class Type>
+Type Stack<Type>::get( int i)
+{
+	if ( i > top )
+		return 0;
+	return arr[i];
+}

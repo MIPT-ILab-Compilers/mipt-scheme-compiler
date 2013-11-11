@@ -108,7 +108,6 @@ clean_objs:
 
 # Debug targets
 debug: ex1d
-
 # Release targets
 release: ex1
 
@@ -156,7 +155,7 @@ $(DEBUG_OBJECTS_DIR)/%.o: $(SOURCES)/%.cpp
 
 #Objects generation for release mode
 $(RELEASE_OBJECTS_DIR)/%.o: $(SOURCES)/%.cpp
-	@echo [compiling] $*.cpp to $@
+	@echo [compiling] $*.cpp  to $@ $(FILTER)
 	@$(MKDIR) -p $(dir $@)
 	@$(CXX) -c $(RELEASE_CPPFLAGS) $< -o $@	
 	@$(TOUCH) $@
