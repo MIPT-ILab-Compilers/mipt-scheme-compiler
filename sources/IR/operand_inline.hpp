@@ -40,7 +40,6 @@ inline Operation* Operand::target() const
 /** Set constant value */
 inline void Operand::setConstValue( Int64 immediate)
 {
-    setType( OP_TYPE_IMM);
     this->data.imm = immediate;
 }
 
@@ -48,14 +47,12 @@ inline void Operand::setConstValue( Int64 immediate)
 inline void Operand::setObject( Object& obj)
 {
     
-    setType( OP_TYPE_OBJ);
     this->data.obj = &obj;
 }
 
 /** Set target operation */
 inline void Operand::setTarget( Operation& target)
 {
-    setType( OP_TYPE_TRG);
     this->data.target = &target;
 }
 
@@ -64,6 +61,12 @@ inline void Operand::setType( const OperandType& type)
 {
     IR_ASSERTD( type < OP_TYPES_NUM);
     type_ = type;
+}
+
+inline ostream& operator<<( ostream& s, const Operand& opnd)
+{
+    opnd.opndToStream( s);
+    return s;
 }
 
 }//namespace ir

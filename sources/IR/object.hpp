@@ -44,6 +44,9 @@ public:
 
     /** Set object type */
     inline void setType( ObjName type);
+
+    /** Print name of object */
+    inline string objPrintName() const;
     
 private:
 

@@ -47,7 +47,8 @@ public:
     /** Set target */
     inline void setTarget( Operation& target);
     
-    friend ostream& operator << (ostream& s, const Operand& opnd);
+    /** Function to output */
+    void opndToStream( ostream& s) const;
 
 private:
 

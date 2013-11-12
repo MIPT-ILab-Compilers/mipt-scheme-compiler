@@ -47,4 +47,18 @@ inline ObjName Object::type() const
     return this->type_;
 }
 
+/** Print name of object */
+inline string Object::objPrintName() const
+{
+    string name;
+    ostringstream number;
+    number << id();
+    if ( ( type() == OBJ_NAME_REG) && ( !isVirtual()) )
+        name = "r";
+    else if ( ( type() == OBJ_NAME_REG) && ( isVirtual()) )
+        name = "v";
+    name += number.str();
+    return name;
+}
+
 }
