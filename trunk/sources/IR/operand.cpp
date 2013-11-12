@@ -20,23 +20,22 @@ Operand::~Operand()
 {
 }
 
-ostream& operator << (ostream& s, const Operand& opnd)
+void Operand::opndToStream( ostream &s) const
 {
-    switch( opnd.type() )
+    switch( type() )
     {
         case OP_TYPE_IMM:
-            s << opnd.constValue();
+            s << constValue();
             break;
         case OP_TYPE_OBJ:
-            s << opnd.object();
+            s << object()->objPrintName();
             break;
         case OP_TYPE_TRG:
-            s << opnd.target();
+            s << '[' << target()->id() << ']';
             break;
         default:
             IR_ASSERTD( 0);
     }
-    return s;
 }
 
 }//namespace ir

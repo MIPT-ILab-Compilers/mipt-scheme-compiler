@@ -9,6 +9,9 @@
 
 #pragma once
 
+
+#include <iostream>
+
 namespace ir
 {
 
@@ -45,9 +48,6 @@ public:
     /** Get result */
     inline const Operand& res( UInt8 res_num) const;
 
-    /** Get name of operation in string */
-    inline string getNameOpInString() const;
-
     /** Set name of operation */
     inline void setName( OperName name);
 
@@ -62,22 +62,10 @@ public:
     
     /** Set result object */
     inline void setResObj( UInt8 arg_num, Object& obj);
-
-    /** Set result target */
-    inline void setResTrg( UInt8 arg_num, Operation& trg);
-
-    friend ostream& operator << (ostream& s, const Operation& op);
-    /* 
-     * TODO: Add functions-setters for arguments and operands:
-     * - setArgObj - set argument object
-     * - setArgImm - set argument immediate.
-     * - ...
-     *
-     * It is prohibitted neither to give access to Operand (non-const) nor set entire operand, like 
-     * - Operand& arg();
-     * - void setArg( Operand& op);
-     */
-
+   
+    /** Function to output */
+    void opToStream(ostream& s) const;
+    
 private:
 
     /** Operation unique id */
@@ -89,8 +77,7 @@ private:
     /** Arrays of operands */
     Operand args[ MAX_ARGS_NUM];
     Operand ress[ MAX_RESS_NUM];
-
+    
 };
 
 }//namespace ir
-

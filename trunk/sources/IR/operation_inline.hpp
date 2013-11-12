@@ -34,11 +34,6 @@ inline UInt8 Operation::numRess() const
     return numbRessInOp( name_);
 }
 
-inline string Operation::getNameOpInString() const
-{
-    return getOperNameString( name_);
-}
-
 /** se */
 inline const Operand& Operation::arg( UInt8 arg_num) const
 {
@@ -66,6 +61,7 @@ inline void Operation::setArgObj( UInt8 arg_num, Object& obj)
 {
     IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setObject( obj);
+    args[ arg_num].setType( OP_TYPE_OBJ);
 }
 
 /** Set argument immediate */
@@ -73,6 +69,7 @@ inline void Operation::setArgImm( UInt8 arg_num, Int64 imm)
 {
     IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setConstValue( imm);
+    args[ arg_num].setType( OP_TYPE_IMM);
 }
 
 /** Set argument target */
@@ -80,20 +77,21 @@ inline void Operation::setArgTrg( UInt8 arg_num, Operation& trg)
 {
     IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setTarget( trg);
+    args[ arg_num].setType( OP_TYPE_TRG);
 }
 
 /** Set result object */
-inline void Operation::setResObj( UInt8 arg_num, Object& obj)
+inline void Operation::setResObj( UInt8 res_num, Object& obj)
 {
-    IR_ASSERTD( arg_num < numRess());
-    ress[ arg_num].setObject( obj);
+    IR_ASSERTD( res_num < numRess());
+    ress[ res_num].setObject( obj);
+    ress[ res_num].setType( OP_TYPE_OBJ);
 }
 
-/** Set result target */
-inline void Operation::setResTrg( UInt8 arg_num, Operation& trg)
+inline ostream& operator<<( ostream& s, const Operation& op)
 {
-   IR_ASSERTD( arg_num < numRess());
-   ress[ arg_num].setTarget( trg);
+    op.opToStream( s);
+    return s;
 }
 
 }//namespace ir
