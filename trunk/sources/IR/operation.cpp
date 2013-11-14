@@ -20,24 +20,4 @@ Operation::~Operation()
 {
 }
 
-void Operation::opToStream( ostream& s) const
-{
-    s << "[" << id() << "] " << getOperNameString( name()) << " ";
-    for ( UInt8 i = 0; i < numArgs(); i++ )
-    {   
-        if ( i == 0 )
-            s << arg( i); 
-        else
-            s << ", " << arg( i);
-    }
-    s << " -> ";
-    for ( UInt8 i = 0; i < numRess(); i++ )
-    {   
-        if ( i == 0 )
-            s << res( i);
-        else
-            s << ", " << res( i);
-    }
-}
-
 }//namespace ir

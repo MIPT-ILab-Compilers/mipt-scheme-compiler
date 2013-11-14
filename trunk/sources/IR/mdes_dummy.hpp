@@ -29,7 +29,7 @@ enum OperName
 };
 
 /** Return the number of arguments */
-inline UInt8 numbArgsInOp(OperName name)
+inline UInt8 numArgsInOperName( OperName name)
 {
     switch ( name )
     {
@@ -51,7 +51,7 @@ inline UInt8 numbArgsInOp(OperName name)
 }
 
 /** Return the number of results */
-inline UInt8 numbRessInOp(OperName name)
+inline UInt8 numRessInOperName( OperName name)
 {
     switch ( name )
     {
@@ -72,7 +72,7 @@ inline UInt8 numbRessInOp(OperName name)
     }
 }
 
-inline string getOperNameString(OperName name)
+inline string getOperNameString( OperName name)
 {
     switch ( name )
     {
@@ -87,6 +87,9 @@ inline string getOperNameString(OperName name)
             break;
         case OPER_MUL:
             return "MUL";
+            break;
+        case OPERS_NUM:
+            return "none";
             break;
         default:
             IR_ASSERTD( 0);

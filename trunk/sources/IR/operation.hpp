@@ -62,10 +62,16 @@ public:
     
     /** Set result object */
     inline void setResObj( UInt8 arg_num, Object& obj);
+
+    /** Set type of argument */
+    inline void setArgType( UInt8 arg_num, const OperandType& argt);
+
+    /** Set type of result */
+    inline void setResType( UInt8 arg_num, const OperandType& rest);
    
-    /** Function to output */
-    void opToStream(ostream& s) const;
-    
+    /** Add the operation in the output stream s */
+    inline void toStream(ostream& s) const;
+ 
 private:
 
     /** Operation unique id */
@@ -77,7 +83,10 @@ private:
     /** Arrays of operands */
     Operand args[ MAX_ARGS_NUM];
     Operand ress[ MAX_RESS_NUM];
+
     
 };
+
+inline ostream& operator<<( ostream& s, const Operation& op);
 
 }//namespace ir

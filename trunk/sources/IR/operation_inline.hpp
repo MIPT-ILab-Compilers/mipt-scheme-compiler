@@ -1,5 +1,5 @@
 /**
- * @file:operation_inline.cpp
+ * @file:operation_inline.hpp
  * Implementation of operation
  * Temporary component of Operations and Objects
  */
@@ -25,13 +25,13 @@ inline OperName Operation::name() const
 /** Get number of arguments */
 inline UInt8 Operation::numArgs() const
 {
-    return numbArgsInOp( name_);
+    return numArgsInOperName( name_);
 }
 
 /** Get number of results */
 inline UInt8 Operation::numRess() const
 {
-    return numbRessInOp( name_);
+    return numRessInOperName( name_);
 }
 
 /** se */
@@ -59,38 +59,72 @@ inline void Operation::setName( OperName name)
 /** Set argument object */
 inline void Operation::setArgObj( UInt8 arg_num, Object& obj)
 {
-    IR_ASSERTD( arg_num < numArgs());
+    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
     args[ arg_num].setObject( obj);
-    args[ arg_num].setType( OP_TYPE_OBJ);
 }
 
 /** Set argument immediate */
 inline void Operation::setArgImm( UInt8 arg_num, Int64 imm)
 {
-    IR_ASSERTD( arg_num < numArgs());
+    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
     args[ arg_num].setConstValue( imm);
-    args[ arg_num].setType( OP_TYPE_IMM);
 }
 
 /** Set argument target */
 inline void Operation::setArgTrg( UInt8 arg_num, Operation& trg)
 {
-    IR_ASSERTD( arg_num < numArgs());
+    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
     args[ arg_num].setTarget( trg);
-    args[ arg_num].setType( OP_TYPE_TRG);
 }
 
 /** Set result object */
 inline void Operation::setResObj( UInt8 res_num, Object& obj)
 {
-    IR_ASSERTD( res_num < numRess());
+    IR_ASSERTD( res_num < MAX_RESS_NUM);
     ress[ res_num].setObject( obj);
-    ress[ res_num].setType( OP_TYPE_OBJ);
+}
+
+/** Set type of argument */
+inline void Operation::setArgType( UInt8 arg_num, const OperandType& argt)
+{
+    IR_ASSERTD( arg_num < numArgs());
+    IR_ASSERTD( argt <= OP_TYPES_NUM);
+    args[ arg_num].setType( argt);
+}
+
+/** Set type of result */
+inline void Operation::setResType( UInt8 res_num, const OperandType& rest)
+{
+    IR_ASSERTD( res_num < numRess());
+    IR_ASSERTD( rest <= OP_TYPES_NUM);
+    ress[ res_num].setType( rest);
+}
+
+/** Add the operation in the output stream s */
+inline void Operation::toStream( ostream& s) const
+{
+    s << "[" << id() << "] " << getOperNameString( name()) << " ";
+    for ( UInt8 i = 0; i < numArgs(); i++ )
+    {
+        if ( i == 0 ) 
+            s << arg( i); 
+        else
+            s << ", " << arg( i); 
+    }   
+    s << " -> ";
+    for ( UInt8 i = 0; i < numRess(); i++ )
+    {   
+        if ( i == 0 ) 
+            s << res( i); 
+        else
+            s << ", " << res( i); 
+    } 
+    s << endl;
 }
 
 inline ostream& operator<<( ostream& s, const Operation& op)
 {
-    op.opToStream( s);
+    op.toStream( s);
     return s;
 }
 

@@ -47,18 +47,14 @@ inline ObjName Object::type() const
     return this->type_;
 }
 
-/** Print name of object */
-inline string Object::objPrintName() const
+/** Add the object in the output stream s */
+inline void Object::toStream( ostream& s) const
 {
-    string name;
-    ostringstream number;
-    number << id();
     if ( ( type() == OBJ_NAME_REG) && ( !isVirtual()) )
-        name = "r";
+        s << "r";
     else if ( ( type() == OBJ_NAME_REG) && ( isVirtual()) )
-        name = "v";
-    name += number.str();
-    return name;
+        s << "v";
+    s << id();
 }
 
 }
