@@ -7,7 +7,7 @@
 #include <iostream>
 #include "misc.h"
 using namespace std;
-//void testStack();
+void testStack();
 
 
 
