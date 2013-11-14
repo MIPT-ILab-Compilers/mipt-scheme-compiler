@@ -47,8 +47,8 @@ public:
     /** Set target */
     inline void setTarget( Operation& target);
     
-    /** Function to output */
-    void opndToStream( ostream& s) const;
+    /** Add the operation in the output stream s */
+    inline void toStream( ostream& s) const;
 
 private:
 
@@ -64,6 +64,8 @@ private:
     } data;
     
 };
+
+inline ostream& operator<<( ostream& s, const Operand& opnd);
 
 }//namespace ir
 

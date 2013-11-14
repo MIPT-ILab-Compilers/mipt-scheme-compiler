@@ -45,8 +45,8 @@ public:
     /** Set object type */
     inline void setType( ObjName type);
 
-    /** Print name of object */
-    inline string objPrintName() const;
+    /** Add the object in the output stream s */
+    inline void toStream(ostream& s) const;
     
 private:
 
