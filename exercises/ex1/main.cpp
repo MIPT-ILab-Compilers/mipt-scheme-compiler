@@ -4,10 +4,10 @@
  * Test cpp file for the exercise 1
  * @author Boris Shurygin
  */
-#include<iostream>
+#include <iostream>
 #include "misc.h"
 using namespace std;
-void testStack();
+//void testStack();
 
 
 
