@@ -32,11 +32,11 @@ BOOST_AUTO_TEST_CASE( ir_basic)
     /** Set Operation (MOV) */
     op1.setName( OPER_MOV);
     BOOST_CHECK_EQUAL( op1.name(), OPER_MOV);
-    op1.setArgImm( 0, 10);
     op1.setArgType( 0, OP_TYPE_IMM);
+    op1.setArgImm( 0, 10);
     BOOST_CHECK_EQUAL( op1.arg( 0).constValue(), 10);
-    op1.setResObj( 0, t1);
     op1.setResType( 0, OP_TYPE_OBJ);
+    op1.setResObj( 0, t1);
     /** Print Operation (MOV) */
     cout << "Operation MOV:" << endl;
     cout << op1;
@@ -46,8 +46,10 @@ BOOST_AUTO_TEST_CASE( ir_basic)
     BOOST_CHECK_EQUAL( op2.name(), OPER_ADD);
     cout << "Without arguments and results" << endl;
     cout << op2;
-    op2.setArgTrg( 0, op1);
-    BOOST_CHECK_EQUAL( op2.arg( 0).target(), &op1);
+    op2.setArgType( 0, OP_TYPE_OBJ);
+    op2.setArgObj( 0, t1);
+    BOOST_CHECK_EQUAL( op2.arg( 0).object(), &t1);
+    op2.setArgType( 1, OP_TYPE_IMM);
     op2.setArgImm( 1, 20);
     BOOST_CHECK_EQUAL( op2.arg( 1).constValue(), 20);
     Object t2;
@@ -55,10 +57,8 @@ BOOST_AUTO_TEST_CASE( ir_basic)
     t2.setVirtual( 0);
     BOOST_CHECK_EQUAL( t2.isVirtual(), false);
     t2.setType( OBJ_NAME_REG);
-    op2.setResObj( 0, t2);
-    op2.setArgType( 0, OP_TYPE_TRG);
-    op2.setArgType( 1, OP_TYPE_IMM);
     op2.setResType( 0, OP_TYPE_OBJ);
+    op2.setResObj( 0, t2);
     cout << "Operation ADD:" << endl;
     cout << op2;
 }

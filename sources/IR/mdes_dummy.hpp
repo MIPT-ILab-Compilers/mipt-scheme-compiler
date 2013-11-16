@@ -45,6 +45,9 @@ inline UInt8 numArgsInOperName( OperName name)
         case OPER_MUL:
             return 2;
             break;
+        case OPERS_NUM:
+            return 0;
+            break;
         default:
             IR_ASSERTD( 0);
     }
@@ -66,6 +69,9 @@ inline UInt8 numRessInOperName( OperName name)
             break;
         case OPER_MUL:
             return 1;
+            break;
+        case OPERS_NUM:
+            return 0;
             break;
         default:
             IR_ASSERTD( 0);

@@ -59,28 +59,28 @@ inline void Operation::setName( OperName name)
 /** Set argument object */
 inline void Operation::setArgObj( UInt8 arg_num, Object& obj)
 {
-    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
+    IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setObject( obj);
 }
 
 /** Set argument immediate */
 inline void Operation::setArgImm( UInt8 arg_num, Int64 imm)
 {
-    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
+    IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setConstValue( imm);
 }
 
 /** Set argument target */
 inline void Operation::setArgTrg( UInt8 arg_num, Operation& trg)
 {
-    IR_ASSERTD( arg_num < MAX_ARGS_NUM);
+    IR_ASSERTD( arg_num < numArgs());
     args[ arg_num].setTarget( trg);
 }
 
 /** Set result object */
 inline void Operation::setResObj( UInt8 res_num, Object& obj)
 {
-    IR_ASSERTD( res_num < MAX_RESS_NUM);
+    IR_ASSERTD( res_num < numRess());
     ress[ res_num].setObject( obj);
 }
 
