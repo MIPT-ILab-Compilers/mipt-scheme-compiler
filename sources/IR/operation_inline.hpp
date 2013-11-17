@@ -110,8 +110,9 @@ inline void Operation::toStream( ostream& s) const
             s << arg( i); 
         else
             s << ", " << arg( i); 
-    }   
-    s << " -> ";
+    }
+    if ( name() != OPERS_NUM)
+        s << " -> ";
     for ( UInt8 i = 0; i < numRess(); i++ )
     {   
         if ( i == 0 ) 
