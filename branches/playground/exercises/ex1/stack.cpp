@@ -11,9 +11,16 @@
 void testStack()
 {
 	Stack <int> my_stack;
+	Iterator <int> iter( &my_stack);
 	for ( int i = 0; i < 5; i++ )
 		my_stack.push( i);
+	
 	cout << my_stack << endl;
+	cout << endl;
+	Iterator <int> iter2(NULL);
+	for ( iter = iter.begin(), iter2 = iter.end();
+		 iter <= iter2; ++iter )
+		cout << *iter << endl;
 	for ( int i = 0; i < 4; i++ )
 	{	
 		int x = my_stack.pop();

@@ -22,7 +22,7 @@ using namespace std;
  * @param Type Type of the stored data
  */
 
-
+template <class T> class Iterator;
 
 template <class Type> class Stack
 {
@@ -35,9 +35,80 @@ public:
 	void push( Type);			 
 	Type pop();
 	void toStream( std::ostream& stream) const; // Print stack to given stream
-	Type get( int);					// iterator
-	
+	int get_top()					// iterator
+	{
+		return top;
+	}
+	Type get( int);	
+	template <typename T> friend class Iterator;
 };
+
+
+
+template
+<class T>
+class Iterator
+{
+	Stack<T> * ptr;
+	int i;
+public:
+	Iterator( Stack<T> * ob_ptr)
+	{
+		i = 0;
+		ptr = ob_ptr;
+	}	
+	T operator * ()
+	{
+		return ptr->get( i);
+	}
+	void make_i( int a)
+	{
+		i = a;
+	}
+	int get_i()
+	{
+		return i;
+	}
+	void * get_ptr()
+	{
+		return ptr;
+	}
+	void operator ++()
+	{
+		i++;
+	};
+	void operator --()
+	{
+		i--;
+	}
+	bool operator <= (Iterator& iter)
+	{
+		if ( i <= iter.get_i() )
+			return true;
+		return false;
+	}
+	bool operator ==(Iterator& iter)
+	{
+		if ( ( i == iter.get_i ) && ( ptr == iter.get_ptr ) )
+			return true;
+		return false;
+	}
+	Iterator begin()
+	{
+		Iterator iter(ptr);
+		return iter;
+	}
+	Iterator end()
+	{
+		Iterator iter( ptr);
+		int top = ptr->get_top();
+		iter.make_i( top);
+		return iter;
+	}
+};
+
+
+
 
 // BORIS: operator << should not be member function. Operators declared as member
 //        functions are called as a function of its LEFT argument. Here left argument is std::ostream
@@ -98,12 +169,11 @@ Type Stack<Type>::pop()
 	arr.pop_back();
 	return data;
 }
-
 template
 <class Type>
 Type Stack<Type>::get( int i)
 {
-	if ( i > top )
-		return 0;
-	return arr[i];
+	if ( i <= top )
+		return arr[i];
+	return 0;
 }
