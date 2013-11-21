@@ -40,7 +40,7 @@ class DlistIter
 {
 	Dlist<T> *current;
 public:
-    friend Dlist<T>;
+    friend class Dlist<T>;
     DlistIter<T> operator++ ();                                         //++it
 	DlistIter<T> operator++ ( int);                                     //it++
     DlistIter<T> operator-- ();                                         //--it
