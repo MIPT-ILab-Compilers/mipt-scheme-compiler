@@ -21,15 +21,47 @@ using namespace std;
  * 
  * @param Type Type of the stored data
  */
-
+/*
 template <class T> class Iterator;
-
+*/
 template <class Type> class Stack
 {
 private:
 	vector<Type> arr;					 // arbitrary types of data
 	int top;
 public:
+	class Iterator
+	{
+		Stack<Type> * ptr;
+		int i;
+	public:
+		Iterator(){ i = 0; ptr = 0; }
+		Iterator(Stack<Type> * ptrr){ i = 0; ptr = ptrr; }
+		void operator ++(){    i++; }
+		void operator --(){    i--; }
+		Type operator * (){ return ptr->get( i); }
+		bool operator <= (Iterator& iter)
+		{
+			if( (iter.ptr == ptr ) && ( iter.get_i() >= i ) )
+				return true;
+			return false;
+		}
+		Iterator begin()
+		{
+			Iterator iter( ptr);
+			return iter;
+		}
+		Iterator end()
+		{
+			Iterator iter( ptr);
+			iter.make_i( ptr->get_top());
+			return iter;
+		}
+	private:
+		void make_i( int a){ i = a; }
+		int get_i(){ return i; }
+		Stack * get_ptr();
+	};
 	Stack();					 // constructor by default
 	~Stack();					 // destructor
 	void push( Type);			 
@@ -40,73 +72,14 @@ public:
 		return top;
 	}
 	Type get( int);	
-	template <typename T> friend class Iterator;
 };
 
-
-
-template
-<class T>
-class Iterator
+template 
+<class Type>
+Stack<Type>* Stack<Type>::Iterator::get_ptr()
 {
-	Stack<T> * ptr;
-	int i;
-public:
-	Iterator( Stack<T> * ob_ptr)
-	{
-		i = 0;
-		ptr = ob_ptr;
-	}	
-	T operator * ()
-	{
-		return ptr->get( i);
-	}
-	void make_i( int a)
-	{
-		i = a;
-	}
-	int get_i()
-	{
-		return i;
-	}
-	void * get_ptr()
-	{
-		return ptr;
-	}
-	void operator ++()
-	{
-		i++;
-	};
-	void operator --()
-	{
-		i--;
-	}
-	bool operator <= (Iterator& iter)
-	{
-		if ( i <= iter.get_i() )
-			return true;
-		return false;
-	}
-	bool operator ==(Iterator& iter)
-	{
-		if ( ( i == iter.get_i ) && ( ptr == iter.get_ptr ) )
-			return true;
-		return false;
-	}
-	Iterator begin()
-	{
-		Iterator iter(ptr);
-		return iter;
-	}
-	Iterator end()
-	{
-		Iterator iter( ptr);
-		int top = ptr->get_top();
-		iter.make_i( top);
-		return iter;
-	}
-};
-
+	return ptr;
+}
 
 
 
