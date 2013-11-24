@@ -21,10 +21,9 @@ class Dlist
     Dlist<T> *next;
     T data;
 public:
-    friend class DlistIter<T>;
-    DlistIter<T> myIter();                                        
     Dlist<T>* add( T value, Dlist<T> *current_elem);
     Dlist<T>* add( Dlist<T> *ins_elem);
+    Dlist<T>* add( T value);
     Dlist<T>* del( Dlist<T> *del_elem);
     Dlist<T>* find( T value, Dlist<T> *current_elem);	
     void print( Dlist<T> *current_elem);
@@ -32,20 +31,19 @@ public:
     Dlist();
     Dlist( T value);
     Dlist( T value, Dlist<T> *current_elem);
-    
-};
-
-template <class T> 
-class DlistIter
-{
-	Dlist<T> *current;
-public:
-    friend class Dlist<T>;
-    DlistIter<T> operator++ ();                                         //++it
-	DlistIter<T> operator++ ( int);                                     //it++
-    DlistIter<T> operator-- ();                                         //--it
-    DlistIter<T> operator-- ( int);                                     //it--
-    T operator*();
-    void operator= ( DlistIter<T> iter); 
-	bool operator== ( DlistIter<T> iter);
+    Dlist<T> begin();
+    class Iterator
+    {
+	    Dlist<T> *current;
+    public:
+        Iterator operator++ ();                                         //++it
+		Iterator operator++ ( int);                                     //it++
+		Iterator operator-- ();                                         //--it
+		Iterator operator-- ( int);                                     //it--
+		T operator*();
+		void operator= ( Iterator iter);
+		void operator= ( Dlist<T> elem);  
+		bool operator== ( Iterator iter);
+		bool operator== ( Dlist<T> elem);
+	};
 };

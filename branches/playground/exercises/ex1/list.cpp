@@ -42,8 +42,9 @@ template <class T> Dlist<T>::~Dlist()
 	prev->next = next;
 }	
 
-template <class T> Dlist<T>* Dlist<T>::add( T value, Dlist<T> *current_elem)   //Added object after "*current_elem" with data          
-{                                                                              // data with the value "value"
+template <class T> 
+Dlist<T>* Dlist<T>::add( T value, Dlist<T> *current_elem)               //Added object after "*current_elem" with data          
+{                                                                       // data with the value "value"
 	    Dlist<T> *ins_elem = new Dlist<T>;                     
 	    if ( current_elem == NULL )                       
 	    {   
@@ -64,7 +65,8 @@ template <class T> Dlist<T>* Dlist<T>::add( T value, Dlist<T> *current_elem)   /
 	    }
 }
 
-template <class T> Dlist<T>* Dlist<T>::add( Dlist<T> *ins_elem) 
+template <class T> 
+Dlist<T>* Dlist<T>::add( Dlist<T> *ins_elem) 
 {
 	if ( this == NULL )                       
 	{   
@@ -78,10 +80,34 @@ template <class T> Dlist<T>* Dlist<T>::add( Dlist<T> *ins_elem)
 		ins_elem->next = this->next;
 		this->next = ins_elem;
 		ins_elem->prev = this;
+		LOG(cout << "Added" << endl);
 		return ins_elem;
 	}
 }		
-			     
+
+template <class T> 
+Dlist<T>* Dlist<T>::add( T value) 
+{
+	Dlist<T> *ins_elem = new Dlist<T>;
+	if ( this == NULL )                       
+	{   
+		ins_elem->data = value;
+		ins_elem->prev = ins_elem;
+		ins_elem->next = ins_elem;
+    	LOG(cout << "Added" << endl);
+    	return ins_elem;
+	}else 
+	{
+		(this->next)->prev = ins_elem;
+		ins_elem->next = this->next;
+		this->next = ins_elem;
+		ins_elem->prev = this;
+		ins_elem->data = value;
+		LOG(cout << "Added" << endl);
+		return ins_elem;
+	}
+}
+				     
 template <class T> void Dlist<T>::print( Dlist<T> *current_elem)
 {   
 	Dlist<T> *temp;
@@ -119,77 +145,83 @@ template <class T> Dlist<T>* Dlist<T>::find( T value, Dlist<T> *current_elem)
 	return current_elem;	 
 }
 
-template <class T> DlistIter<T> Dlist<T>::myIter()
-{   
-	DlistIter<T> *iter = new DlistIter<T>;
-	iter->current = this;
-	return *iter;
-}
-
-template <class T> DlistIter<T> DlistIter<T>::operator++ ()             //++it
+template <class T> 
+typename Dlist<T>::Iterator Dlist<T>::Iterator::operator++ ()           //++it
 {   
 	this->current = (this->current)->next;
 	return *this;
 }
 	
-template <class T> DlistIter<T> DlistIter<T>::operator++ ( int)         //it++
+template <class T> 
+typename Dlist<T>::Iterator Dlist<T>::Iterator::operator++ ( int)       //it++
 {   
-	DlistIter temp = *this;
+	Dlist<T>::Iterator temp = *this;
 	++(*this);
 	return temp;
 }	
 
-template <class T> DlistIter<T> DlistIter<T>::operator-- ()             //--it
+template <class T> 
+typename Dlist<T>::Iterator Dlist<T>::Iterator::operator-- ()           //--it
 {   
 	this->current = (this->current)->prev;
 	return *this;
 }
 
-template <class T> DlistIter<T> DlistIter<T>::operator-- ( int)         //it--
+template <class T> 
+typename Dlist<T>::Iterator Dlist<T>::Iterator::operator-- ( int)       //it--
 {   
-	DlistIter  temp = *this;
+	Dlist<T>::Iterator temp = *this;
 	--(*this);
 	return temp;
 }	
     
-template <class T> T DlistIter<T> ::operator*()
+template <class T> 
+T Dlist<T>::Iterator::operator* ()
 {
 	return (this->current)->data;
 }
 
-template <class T> void DlistIter<T>::operator= ( DlistIter<T> iter) 
+template <class T> 
+bool Dlist<T>::Iterator::operator== ( Iterator iter)
+{
+	return ( this->current == iter.current);
+}
+
+template <class T> 
+bool Dlist<T>::Iterator::operator== ( Dlist<T> elem)
+{
+	return ( this->current == elem);
+}
+
+template <class T> 
+void Dlist<T>::Iterator::operator= ( Iterator iter) 
 {   
 	if ( this == &iter)
 	    return;
 	this->current = new Dlist<T>;   
 	this->current = iter.current;
-}	
-
-template <class T> bool DlistIter<T>::operator== ( DlistIter<T> iter)
-{
-	return ( this->current == iter.current);
 }
 	
+template <class T> 
+void Dlist<T>::Iterator::operator= ( Dlist<T> elem)
+{   
+	if ( this->current == &elem)
+	    return;
+	this->current = new Dlist<T>;   
+	this->current = &elem;
+}	
+
 void testList()
 {   
-	DlistIter<int> iter1, iter2;
-	Dlist<int> dlist1(5),dlist(7);
-	iter1 = dlist1.myIter();
-	dlist1.add( 1 , &dlist1);      // 5 1 7 5 7 5
-	dlist1.add(&dlist);
-	iter2 = iter1;
-	if ( iter1 == iter2 ) 
-	    cout << "iter 1 is equal to iter 2" << endl;
-	else
-	    cout << "iter 1 is not equal to iter 2" << endl; 
-	iter1++;
-	if ( iter1 == iter2 ) 
-	    cout << "iter 1 is equal to iter 2" << endl;
-	else
-	    cout << "iter 1 is not equal to iter 2" << endl;
-	iter1 = iter2++;    
-	cout << "iter 1 is " << *iter1 << endl;
-    cout << "iter 2 is " << *iter2 << endl;
-    ++iter2;
-    cout << "iter 2 is "<< *iter2 << endl;
+	int i;
+	Dlist<int>::Iterator iter1, iter2;
+	Dlist<int> dlist1(1);
+	iter1 = dlist1;
+	for ( i = 2; i <= 5; i++)
+	    dlist1.add(i);
+	iter1++;     
+	cout << *iter1 << endl;
+	iter2 = iter1++;
+	cout << *iter1 << endl;
+	cout << *iter2 << endl;
 }    
