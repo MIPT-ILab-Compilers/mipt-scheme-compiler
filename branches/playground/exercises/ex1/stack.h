@@ -36,7 +36,6 @@ public:
 		int i;
 	public:
 		Iterator(){ i = 0; ptr = 0; }
-		Iterator(Stack<Type> * ptrr){ i = 0; ptr = ptrr; }
 		void operator ++(){    i++; }
 		void operator --(){    i--; }
 		Type operator * (){ return ptr->get( i); }
@@ -46,22 +45,24 @@ public:
 				return true;
 			return false;
 		}
-		Iterator begin()
-		{
-			Iterator iter( ptr);
-			return iter;
-		}
-		Iterator end()
-		{
-			Iterator iter( ptr);
-			iter.make_i( ptr->get_top());
-			return iter;
-		}
 	private:
+		Iterator(Stack<Type> * ptrr){ i = 0; ptr = ptrr; }
 		void make_i( int a){ i = a; }
 		int get_i(){ return i; }
 		Stack * get_ptr();
+		friend class Stack<Type>;
 	};
+	Iterator begin()
+	{
+		Iterator iter( this);
+		return iter;
+	}
+	Iterator end()
+	{
+		Iterator iter( this);
+		iter.make_i( this->get_top());
+		return iter;
+	}
 	Stack();					 // constructor by default
 	~Stack();					 // destructor
 	void push( Type);			 
