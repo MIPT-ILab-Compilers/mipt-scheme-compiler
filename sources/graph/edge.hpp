@@ -1,4 +1,4 @@
-#include "predicl.hpp"
+#include "graph_iface.hpp"
 
 class Edge
 {
