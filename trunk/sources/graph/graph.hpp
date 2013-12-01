@@ -1,6 +1,6 @@
-#include "predicl.hpp"
-#include "node.hpp"
-#include "edge.hpp"
+
+#pragma once
+#include "graph_iface.hpp"
 
 class Graph
 {
