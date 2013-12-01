@@ -9,7 +9,6 @@
 
 #pragma once
 
-
 #include <iostream>
 
 namespace ir
@@ -70,7 +69,7 @@ public:
     inline void setResType( UInt8 arg_num, const OperandType& rest);
    
     /** Add the operation in the output stream s */
-    inline void toStream(ostream& s) const;
+    inline void toStream( ostream& s) const;
  
 private:
 
@@ -83,8 +82,10 @@ private:
     /** Arrays of operands */
     Operand args[ MAX_ARGS_NUM];
     Operand ress[ MAX_RESS_NUM];
-
     
+    // Not implemented yet
+    /** Pointer to parent Basic Block */
+    // BasicBlock* parentBasicBlock;
 };
 
 inline ostream& operator<<( ostream& s, const Operation& op);

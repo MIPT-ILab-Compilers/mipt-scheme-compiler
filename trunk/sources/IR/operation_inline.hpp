@@ -119,8 +119,7 @@ inline void Operation::toStream( ostream& s) const
             s << res( i); 
         else
             s << ", " << res( i); 
-    } 
-    s << endl;
+    }
 }
 
 inline ostream& operator<<( ostream& s, const Operation& op)
