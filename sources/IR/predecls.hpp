@@ -42,6 +42,9 @@ typedef UInt32 OperUid;
 /** Oper ID type */
 typedef UInt32 ObjId;
 
+/** Basic block ID type */
+typedef UInt32 BasicBlockUid;
+
 class Operation;
 
 }

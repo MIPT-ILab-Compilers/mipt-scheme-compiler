@@ -16,8 +16,10 @@
 #include "operand.hpp"
 #include "operation.hpp"
 #include "module.hpp"
+#include "basic_block.hpp"
 
 /* Implementation of inline functionality */
 #include "object_inline.hpp"
 #include "operand_inline.hpp"
 #include "operation_inline.hpp"
+#include "basic_block_inline.hpp"
