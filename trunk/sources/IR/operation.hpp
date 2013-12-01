@@ -11,9 +11,11 @@
 
 #include <iostream>
 
+
 namespace ir
 {
 
+class BasicBlock;
 /**
  * @class Operation
  * Representation of Operation
@@ -47,6 +49,9 @@ public:
     /** Get result */
     inline const Operand& res( UInt8 res_num) const;
 
+    /** Get parent Basic Block */
+    inline const BasicBlock* getBasicBlock() const;
+
     /** Set name of operation */
     inline void setName( OperName name);
 
@@ -67,6 +72,9 @@ public:
 
     /** Set type of result */
     inline void setResType( UInt8 arg_num, const OperandType& rest);
+
+    /** Set parent Basic Block */
+    inline void setBasicBlock( BasicBlock& pBB);
    
     /** Add the operation in the output stream s */
     inline void toStream( ostream& s) const;
@@ -83,9 +91,8 @@ private:
     Operand args[ MAX_ARGS_NUM];
     Operand ress[ MAX_RESS_NUM];
     
-    // Not implemented yet
     /** Pointer to parent Basic Block */
-    // BasicBlock* parentBasicBlock;
+    BasicBlock* basicBlock_;
 };
 
 inline ostream& operator<<( ostream& s, const Operation& op);

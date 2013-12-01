@@ -10,6 +10,7 @@
 
 namespace ir
 {
+
 BasicBlock::BasicBlock( BasicBlockUid id): id_( id), prev_( NULL), next_( NULL)
 {
 }
