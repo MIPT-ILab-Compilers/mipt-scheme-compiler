@@ -48,6 +48,11 @@ inline const Operand& Operation::res( UInt8 res_num) const
     return this->ress[ res_num];
 }
 
+/** Get parent Basic Block */
+inline const BasicBlock* Operation::getBasicBlock() const
+{
+    return this->basicBlock_;
+}
 
 /** Set name of operation */
 inline void Operation::setName( OperName name)
@@ -98,6 +103,12 @@ inline void Operation::setResType( UInt8 res_num, const OperandType& rest)
     IR_ASSERTD( res_num < numRess());
     IR_ASSERTD( rest <= OP_TYPES_NUM);
     ress[ res_num].setType( rest);
+}
+
+/** Set parent Basic Block */
+inline void Operation::setBasicBlock( BasicBlock& pBB)
+{
+    basicBlock_ = &pBB;
 }
 
 /** Add the operation in the output stream s */

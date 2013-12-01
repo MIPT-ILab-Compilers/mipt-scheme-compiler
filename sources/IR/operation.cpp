@@ -12,10 +12,13 @@
 namespace ir
 {
 
-Operation::Operation( OperUid id): id_( id), name_( OPERS_NUM)
+/** Constructor */
+Operation::Operation( OperUid id): id_( id), name_( OPERS_NUM), 
+                                   basicBlock_( NULL)
 {
 }
 
+/** Destructor */
 Operation::~Operation()
 {
 }
