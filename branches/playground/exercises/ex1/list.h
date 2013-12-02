@@ -31,12 +31,12 @@ public:
     Dlist();
     Dlist( T value);
     Dlist( T value, Dlist<T> *current_elem);
-    Dlist<T> begin();
     class Iterator
     {
+    public:	
 	    Dlist<T> *current;
-    public:
-        Iterator operator++ ();                                         //++it
+	    bool first;
+	    Iterator operator++ ();                                         //++it
 		Iterator operator++ ( int);                                     //it++
 		Iterator operator-- ();                                         //--it
 		Iterator operator-- ( int);                                     //it--
@@ -44,6 +44,9 @@ public:
 		void operator= ( Iterator iter);
 		void operator= ( Dlist<T> elem);  
 		bool operator== ( Iterator iter);
+		bool operator!= ( Iterator iter);
 		bool operator== ( Dlist<T> elem);
 	};
+	Iterator begin();
+	Iterator end();
 };
