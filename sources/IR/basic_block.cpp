@@ -1,7 +1,7 @@
 /**
-  * @file:basic_block.cpp
-  * Implementation of basic block
-  */
+ * @file:basic_block.cpp
+ * Implementation of basic block
+ */
 /**
  * Copyright (C) 2013 MIPT Scheme Compiler team
  */

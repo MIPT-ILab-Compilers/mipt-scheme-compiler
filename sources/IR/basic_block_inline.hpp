@@ -54,18 +54,7 @@ inline void BasicBlock::addOperation( const Operation& op)
 /** Add the basic block in the output stream s */
 inline void BasicBlock::toStream( ostream& s) const
 {
-    s << "Basic Block [" << id() << "]" << endl;
-    s << "prev Block: [";
-    if ( prev_ != NULL )
-        s << prev_->id();
-    else
-        s << "none";
-    s << "]; next Block: [";
-    if ( next_ != NULL )
-        s << next_->id();
-    else
-        s << "none";
-    s << "];";
+    s << "Basic Block [" << id() << "]";
     for ( list<Operation>::const_iterator i = operations_.begin(); i != operations_.end(); ++i )
     {
         s << endl << *i;
