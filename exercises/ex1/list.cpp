@@ -125,7 +125,25 @@ template <class T> void Dlist<T>::print( Dlist<T> *current_elem)
         while ( temp != current_elem ); 
     }  
     return;
-}	
+}
+
+template <class T> typename Dlist<T>::Iterator Dlist<T>::begin()
+{
+	Iterator iter;
+	iter.current = this;
+	iter.first = true;
+	return iter;
+}
+
+template <class T> typename Dlist<T>::Iterator Dlist<T>::end()
+{
+	Iterator iter;
+	iter.current = this;
+	iter.first = false;
+	return iter;
+}
+	
+	
 
 template <class T> Dlist<T>* Dlist<T>::find( T value, Dlist<T> *current_elem)
 {
@@ -149,6 +167,8 @@ template <class T>
 typename Dlist<T>::Iterator Dlist<T>::Iterator::operator++ ()           //++it
 {   
 	this->current = (this->current)->next;
+	if ( this->first ) 
+	    this->first = false; 
 	return *this;
 }
 	
@@ -164,6 +184,8 @@ template <class T>
 typename Dlist<T>::Iterator Dlist<T>::Iterator::operator-- ()           //--it
 {   
 	this->current = (this->current)->prev;
+	if ( this->first ) 
+	    this->first = false;
 	return *this;
 }
 
@@ -184,7 +206,13 @@ T Dlist<T>::Iterator::operator* ()
 template <class T> 
 bool Dlist<T>::Iterator::operator== ( Iterator iter)
 {
-	return ( this->current == iter.current);
+	return ( (this->current == iter.current) && (this->first == iter.first));
+}
+
+template <class T> 
+bool Dlist<T>::Iterator::operator!= ( Iterator iter)
+{
+	return ( !((this->current == iter.current) && (this->first == iter.first)));
 }
 
 template <class T> 
@@ -200,6 +228,7 @@ void Dlist<T>::Iterator::operator= ( Iterator iter)
 	    return;
 	this->current = new Dlist<T>;   
 	this->current = iter.current;
+	this->first = iter.first;
 }
 	
 template <class T> 
@@ -216,12 +245,8 @@ void testList()
 	int i;
 	Dlist<int>::Iterator iter1, iter2;
 	Dlist<int> dlist1(1);
-	iter1 = dlist1;
 	for ( i = 2; i <= 5; i++)
 	    dlist1.add(i);
-	iter1++;     
-	cout << *iter1 << endl;
-	iter2 = iter1++;
-	cout << *iter1 << endl;
-	cout << *iter2 << endl;
+	for ( iter1 = dlist1.begin(), iter2 = dlist1.end(); iter1 != iter2; --iter1)
+	    cout << *iter1 << endl;
 }    
