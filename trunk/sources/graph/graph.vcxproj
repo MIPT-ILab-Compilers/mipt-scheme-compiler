@@ -10,37 +10,13 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="basic_block.cpp" />
-    <ClCompile Include="constant.cpp" />
-    <ClCompile Include="ir_utest.cpp" />
-    <ClCompile Include="module.cpp" />
-    <ClCompile Include="object.cpp" />
-    <ClCompile Include="operand.cpp" />
-    <ClCompile Include="operation.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="basic_block.hpp" />
-    <ClInclude Include="basic_block_inline.hpp" />
-    <ClInclude Include="constant.hpp" />
-    <ClInclude Include="ir_iface.hpp" />
-    <ClInclude Include="mdes_dummy.hpp" />
-    <ClInclude Include="module.hpp" />
-    <ClInclude Include="object.hpp" />
-    <ClInclude Include="object_inline.hpp" />
-    <ClInclude Include="operand.hpp" />
-    <ClInclude Include="operand_inline.hpp" />
-    <ClInclude Include="operation.hpp" />
-    <ClInclude Include="operation_inline.hpp" />
-    <ClInclude Include="predecls.hpp" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{8179E74B-685D-450D-871B-32BA3D2E796B}</ProjectGuid>
-    <RootNamespace>ir</RootNamespace>
+    <ProjectGuid>{04A8BD3B-837F-4D82-A1E8-E63DB9A73DB3}</ProjectGuid>
+    <RootNamespace>graph</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
@@ -60,18 +36,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)\objects\$(Configuration)\$(ProjectName)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IntDir>$(SolutionDir)\objects\$(Configuration)\$(ProjectName)\</IntDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)\objects\$(Configuration)\$(ProjectName)\</OutDir>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IntDir>$(SolutionDir)\objects\$(Configuration)\$(ProjectName)\</IntDir>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -94,6 +59,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

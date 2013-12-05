@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "autodoc", "autodoc\autodoc.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utils", "sources\Utils\Utils.vcxproj", "{21E81E7E-0E8B-4CBB-BBFB-9319CCA98EC4}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ir", "sources\ir\ir.vcxproj", "{8179E74B-685D-450D-871B-32BA3D2E796B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ir", "sources\IR\ir.vcxproj", "{8179E74B-685D-450D-871B-32BA3D2E796B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
