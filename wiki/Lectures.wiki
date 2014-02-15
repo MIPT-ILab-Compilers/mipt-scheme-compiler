@@ -1,3 +1,5 @@
 #summary A link for a list of lectures, read during the course.
 
 See all lectures slides here: https://drive.google.com/folderview?id=0B0EaHjTGi1VpSW91UEtZSlVsZWs&usp=drive_web
+
+Please do not use the Downloads tab in this repo. It's deprecated and contains outdated versions.
