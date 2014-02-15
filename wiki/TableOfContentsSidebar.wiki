@@ -1,6 +1,7 @@
 #summary Default Sidebar
 
  * [About About]
+ * [Lectures Lectures]
  * [SchemeLanguage Scheme Features]
  * [CodingGuidelines Coding Guidelines]
   * [SourceBaseStructure Source Base Structure]
