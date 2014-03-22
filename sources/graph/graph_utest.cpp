@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE( graph_basic)
 	void* null = NULL;
 
 	g1.addNode( 1 );
-	BOOST_CHECK_EQUAL( g1.first_node->data, 1);
+/*	BOOST_CHECK_EQUAL( g1.first_node->data, 1);
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
 	BOOST_CHECK_EQUAL( g1.first_node, g1.last_node);
 	BOOST_CHECK_EQUAL( g1.first_edge, null);
@@ -41,7 +41,7 @@ BOOST_AUTO_TEST_CASE( graph_basic)
 	BOOST_CHECK_EQUAL( g1.last_node->pred_edge, null);
 	BOOST_CHECK_EQUAL( g1.last_node->succ_edge, null);
 
-/*
+
 	g1.addEdge( g1.first_node, g1.last_node );
 	BOOST_CHECK_EQUAL( g1.first_node->data, 2);
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
@@ -56,8 +56,9 @@ BOOST_AUTO_TEST_CASE( graph_basic)
 	BOOST_CHECK_EQUAL( g1.first_edge, g1.last_edge);
 	BOOST_CHECK_EQUAL( g1.first_edge->next, null);
 	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
-/*
+
 	g1.addEdge( g1.last_node, g1.last_node );
+//	std::cout << "I'm alive!\n";
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
 	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
 	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
@@ -72,23 +73,24 @@ BOOST_AUTO_TEST_CASE( graph_basic)
 
 /*
 	g1.rmEdge( g1.first_edge );
+//	std::cout << "I'm alive!\n";
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
 	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
 	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
 	BOOST_CHECK_EQUAL( g1.last_node->next, null);
 	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->prededge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->succedge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->prededge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->succedge, null);
+	BOOST_CHECK_EQUAL( g1.first_node->pred_edge, null);
+	BOOST_CHECK_EQUAL( g1.first_node->succ_edge, g1.first_edge);
+	BOOST_CHECK_EQUAL( g1.last_node->pred_edge, g1.first_edge);
+	BOOST_CHECK_EQUAL( g1.last_node->succ_edge, null);
 	BOOST_CHECK_EQUAL( g1.first_edge, g1.last_edge);
 	BOOST_CHECK_EQUAL( g1.first_edge->next, null);
 	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
-/*
+
 	g1.addEdge( g1.last_node, g1.first_node );
 	BOOST_CHECK_EQUAL( g1.first_node->data, 2);
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-
+/*
 	g1.rmEdge( g1.last_edge );
 	BOOST_CHECK_EQUAL( g1.first_node->data, 2);
 	BOOST_CHECK_EQUAL( g1.last_node->data, 1);

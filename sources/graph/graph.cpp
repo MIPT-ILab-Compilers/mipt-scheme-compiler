@@ -19,7 +19,7 @@ void Graph::addNode ( int data)
 			std::cout << "some error in graph structure in addNode\n";
 	else
 		Graph::first_node->prev = new_node;
-	new_node->next = Graph::first_node;
+	new_node->next = first_node;
 	Graph::first_node = new_node;
 
 };
@@ -66,6 +66,8 @@ void Graph::addEdge ( Node *prednode, Node *succnode)
  				Graph::last_edge = new_edge;
 			else
 				std::cout << "some error in graph structure in addEdge\n";
+		else
+			Graph::first_edge->prev = new_edge;
 		new_edge->next = Graph::first_edge;
 		Graph::first_edge = new_edge;
 	}
@@ -92,13 +94,13 @@ void Graph::rmEdge ( Edge *edge)
 				Graph::last_edge = edge->prev;
 			else std::cout << "some error in graph structure\n";
 
-		if ( edge->prev_pred_edge > 0 )
+		if ( edge->prev_pred_edge > 0 )  //see from here
 			edge->prev_pred_edge->next_pred_edge = edge->next_pred_edge;
 		else
 			if ( edge->next_pred_edge > 0 )
 				edge->next_pred_edge->prev_pred_edge = edge->prev_pred_edge;
 			else
-				edge->succ_node->pred_edge = NULL;
+				edge->pred_node->pred_edge = NULL;
 
 
 		if ( edge->prev_succ_edge > 0 )
@@ -107,7 +109,7 @@ void Graph::rmEdge ( Edge *edge)
 			if ( edge->next_succ_edge > 0 )
 				edge->next_succ_edge->prev_succ_edge = edge->prev_succ_edge;
 			else
-				edge->pred_node->succ_edge = NULL;
+				edge->succ_node->succ_edge = NULL;
 
 		delete edge;
 	}
