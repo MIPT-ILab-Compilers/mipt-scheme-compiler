@@ -12,10 +12,10 @@
 
 class Graph
 {
-public:
+public:							//to be private
 	Node *first_node, *last_node;
 	Edge *first_edge, *last_edge;
-
+public:
 	void addNode ( int data);
 	void rmNode ( Node *node);
 	void addEdge ( Node *prednode, Node *succnode);
@@ -23,4 +23,17 @@ public:
 
 	Graph ();
 	~Graph ();
+
+	Node *getFirstNode() {
+		return first_node;
+	};
+	Node *getLastNode() {
+		return last_node;
+	};
+	Edge *getFirstEdge() {
+		return first_edge;
+	};
+	Edge *getLastEdge() {
+		return last_edge;
+	};
 };
