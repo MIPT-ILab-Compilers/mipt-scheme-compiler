@@ -97,19 +97,16 @@ void Graph::rmEdge ( Edge *edge)
 		if ( edge->prev_pred_edge > 0 )  //see from here
 			edge->prev_pred_edge->next_pred_edge = edge->next_pred_edge;
 		else
-			if ( edge->next_pred_edge > 0 )
-				edge->next_pred_edge->prev_pred_edge = edge->prev_pred_edge;
-			else
-				edge->pred_node->pred_edge = NULL;
-
+			edge->succ_node->pred_edge = edge->next_pred_edge;
+		if ( edge->next_pred_edge > 0 )
+			edge->next_pred_edge->prev_pred_edge = edge->prev_pred_edge;
 
 		if ( edge->prev_succ_edge > 0 )
 			edge->prev_succ_edge->next_succ_edge = edge->next_succ_edge;
 		else
-			if ( edge->next_succ_edge > 0 )
-				edge->next_succ_edge->prev_succ_edge = edge->prev_succ_edge;
-			else
-				edge->succ_node->succ_edge = NULL;
+			edge->pred_node->succ_edge = edge->next_succ_edge;
+		if ( edge->next_succ_edge > 0 )
+			edge->next_succ_edge->prev_succ_edge = edge->prev_succ_edge;
 
 		delete edge;
 	}
@@ -126,8 +123,8 @@ Graph::Graph ()
 
 Graph::~Graph ()
 {
-	while ( Graph::first_node != NULL )
-		Graph::rmNode( Graph::first_node);
 	while ( Graph::first_edge != NULL )
 		Graph::rmEdge( Graph::first_edge);
+	while ( Graph::first_node != NULL )
+		Graph::rmNode( Graph::first_node);
 };
