@@ -13,6 +13,6 @@ Node::Node(int data)
 	Node::data = data;
 	Node::next = NULL;
 	Node::prev = NULL;
-	Node::succ_edge = NULL;
-	Node::pred_edge = NULL;
+	Node::first_succ_edge = NULL;
+	Node::first_pred_edge = NULL;
 }

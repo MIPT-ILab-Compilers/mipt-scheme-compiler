@@ -15,23 +15,23 @@ class Edge
 {
 public:										//to be private
 	Edge *next, *prev;
-	Edge *next_succ_edge, *prev_succ_edge, //для списка в вершине, из которого выходит дуга
-		 *next_pred_edge, *prev_pred_edge; //для списка в вершине, в который входит дуга
+	Edge *next_succ_edge, *prev_succ_edge, //for the list in the node where the edge begins
+		 *next_pred_edge, *prev_pred_edge; //for the list in the node where the edge ends
 
 	Node *pred_node, *succ_node;
 public:
 	Edge ( Node *pred_node, Node *succ_node);
 	~Edge () {};
-	Edge* incSuccEdge(){
+	Edge* nextSuccEdge(){
 		return next_succ_edge;
 	};
-	Edge* decSuccEdge(){
+	Edge* prevSuccEdge(){
 		return prev_succ_edge;
 	};
-	Edge* incPredEdge(){
+	Edge* nextPredEdge(){
 		return next_pred_edge;
 	};
-	Edge* decPredEdge(){
+	Edge* prevPredEdge(){
 		return prev_pred_edge;
 	};
 
