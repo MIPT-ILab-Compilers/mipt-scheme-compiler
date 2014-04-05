@@ -14,13 +14,13 @@ Node* Graph::addNode ()
 	Node* new_node = new Node( node_id );
 	if ( Graph::first_node == NULL )
 		if ( Graph::last_node == NULL )
-			Graph::last_node = new_node;
+			Graph::first_node = new_node;
 		else
 			std::cout << "some error in graph structure in addNode\n";
 	else
-		Graph::first_node->prev = new_node;
-	new_node->next = first_node;
-	Graph::first_node = new_node;
+		Graph::last_node->next = new_node;
+	new_node->prev = last_node;
+	Graph::last_node = new_node;
 	node_id++;
 	return new_node;
 
@@ -65,13 +65,13 @@ Edge* Graph::addEdge ( Node *prednode, Node *succnode)
 		Edge *new_edge = new Edge (prednode, succnode);
 		if ( Graph::first_edge == NULL )
 			if ( Graph::last_edge == NULL )
- 				Graph::last_edge = new_edge;
+ 				Graph::first_edge = new_edge;
 			else
 				std::cout << "some error in graph structure in addEdge\n";
 		else
-			Graph::first_edge->prev = new_edge;
-		new_edge->next = Graph::first_edge;
-		Graph::first_edge = new_edge;
+			Graph::last_edge->next = new_edge;
+		new_edge->prev = Graph::last_edge;
+		Graph::last_edge = new_edge;
 		return new_edge;
 	}
 	return 0;
