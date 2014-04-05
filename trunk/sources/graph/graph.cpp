@@ -9,9 +9,9 @@
 #include "graph.hpp"
 
 
-void Graph::addNode ( int data)
+Node* Graph::addNode ()
 {
-	Node* new_node = new Node( data);
+	Node* new_node = new Node( node_id );
 	if ( Graph::first_node == NULL )
 		if ( Graph::last_node == NULL )
 			Graph::last_node = new_node;
@@ -21,6 +21,8 @@ void Graph::addNode ( int data)
 		Graph::first_node->prev = new_node;
 	new_node->next = first_node;
 	Graph::first_node = new_node;
+	node_id++;
+	return new_node;
 
 };
 
@@ -45,16 +47,16 @@ void Graph::rmNode ( Node *node)
 			else std::cout << "some error in graph structure in rmNode\n";
 
 
-		while ( node->pred_edge != NULL )
-			Graph::rmEdge( node->pred_edge);
-		while ( node->succ_edge != NULL )
-			Graph::rmEdge( node->succ_edge);
+		while ( node->first_pred_edge != NULL )
+			Graph::rmEdge( node->first_pred_edge);
+		while ( node->first_succ_edge != NULL )
+			Graph::rmEdge( node->first_succ_edge);
 
 		delete node;
 	}
 };
 
-void Graph::addEdge ( Node *prednode, Node *succnode)
+Edge* Graph::addEdge ( Node *prednode, Node *succnode)
 {
 	if ( (prednode <= 0)||(succnode <= 0))
 		std::cout << "Wrong arguments of addEdge\n";
@@ -70,7 +72,9 @@ void Graph::addEdge ( Node *prednode, Node *succnode)
 			Graph::first_edge->prev = new_edge;
 		new_edge->next = Graph::first_edge;
 		Graph::first_edge = new_edge;
+		return new_edge;
 	}
+	return 0;
 
 };
 
@@ -97,14 +101,14 @@ void Graph::rmEdge ( Edge *edge)
 		if ( edge->prev_pred_edge > 0 )  //see from here
 			edge->prev_pred_edge->next_pred_edge = edge->next_pred_edge;
 		else
-			edge->succ_node->pred_edge = edge->next_pred_edge;
+			edge->succ_node->first_pred_edge = edge->next_pred_edge;
 		if ( edge->next_pred_edge > 0 )
 			edge->next_pred_edge->prev_pred_edge = edge->prev_pred_edge;
 
 		if ( edge->prev_succ_edge > 0 )
 			edge->prev_succ_edge->next_succ_edge = edge->next_succ_edge;
 		else
-			edge->pred_node->succ_edge = edge->next_succ_edge;
+			edge->pred_node->first_succ_edge = edge->next_succ_edge;
 		if ( edge->next_succ_edge > 0 )
 			edge->next_succ_edge->prev_succ_edge = edge->prev_succ_edge;
 
@@ -119,6 +123,8 @@ Graph::Graph ()
 
 	Graph::first_node = NULL;
 	Graph::last_node = NULL;
+
+	Graph::node_id = 0;
 };
 
 Graph::~Graph ()

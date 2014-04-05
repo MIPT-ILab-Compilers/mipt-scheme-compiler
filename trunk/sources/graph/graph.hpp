@@ -15,10 +15,11 @@ class Graph
 public:							//to be private
 	Node *first_node, *last_node;
 	Edge *first_edge, *last_edge;
+	int node_id;
 public:
-	void addNode ( int data);
+	Node* addNode ();
 	void rmNode ( Node *node);
-	void addEdge ( Node *prednode, Node *succnode);
+	Edge* addEdge ( Node *prednode, Node *succnode);
 	void rmEdge ( Edge *edge);
 
 	Graph ();

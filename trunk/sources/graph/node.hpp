@@ -15,16 +15,16 @@ class Node
 public:									//to be private
 	int data;
 	Node *next, *prev;
-	Edge *pred_edge, *succ_edge;		// Predecessors - edges "to" here
+	Edge *first_pred_edge, *first_succ_edge;		// Predecessors - edges "to" here
 										// Successors - edges "from" here
 public:
 	Node ( int data);
 	~Node () {};
 	Edge* getPred()
 	{
-		return pred_edge;
+		return first_pred_edge;
 	};
 	Edge* getSucc(){
-		return succ_edge;
+		return first_succ_edge;
 	}
 };
