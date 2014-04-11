@@ -13,26 +13,63 @@
 
 class Edge
 {
-public:										//to be private
+private:
 	Edge *next, *prev;
 	Edge *next_succ_edge, *prev_succ_edge, //for the list in the node where the edge begins
 		 *next_pred_edge, *prev_pred_edge; //for the list in the node where the edge ends
 
 	Node *pred_node, *succ_node;
+public:										//to be private
+	void setNextSuccEdge( Edge* edge ){
+		Edge::next_succ_edge = edge;
+	};
+	void setPrevSuccEdge( Edge* edge ){
+		Edge::prev_succ_edge = edge;
+	};
+	void setNextPredEdge( Edge* edge ){
+		Edge::next_pred_edge = edge;
+	};
+	void setPrevPredEdge( Edge* edge ){
+		Edge::prev_pred_edge = edge;
+	};
+	void setNext( Edge* edge ){
+		Edge::next = edge;
+	}
+	void setPrev( Edge* edge ){
+		Edge::prev = edge;
+	}
+	void setPredNode( Node* node ){
+		Edge::pred_node = node;
+	}
+	void setSuccNode( Node* node ){
+		Edge::succ_node = node;
+	}
 public:
-	Edge ( Node *pred_node, Node *succ_node);
+	Edge ( Node *pred_node, Node *succ_node);		//friend to Node::setSucc(), Node::setPred() needed here
 	~Edge () {};
-	Edge* nextSuccEdge(){
+	Edge* getNextSuccEdge(){
 		return next_succ_edge;
 	};
-	Edge* prevSuccEdge(){
+	Edge* getPrevSuccEdge(){
 		return prev_succ_edge;
 	};
-	Edge* nextPredEdge(){
+	Edge* getNextPredEdge(){
 		return next_pred_edge;
 	};
-	Edge* prevPredEdge(){
+	Edge* getPrevPredEdge(){
 		return prev_pred_edge;
 	};
+	Edge* getNext(){
+		return next;
+	}
+	Edge* getPrev(){
+		return prev;
+	}
+	Node* getPredNode(){
+		return pred_node;
+	}
+	Node* getSuccNode(){
+		return succ_node;
+	}
 
 };

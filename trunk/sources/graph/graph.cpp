@@ -18,8 +18,8 @@ Node* Graph::addNode ()
 		else
 			std::cout << "some error in graph structure in addNode\n";
 	else
-		Graph::last_node->next = new_node;
-	new_node->prev = last_node;
+		Graph::last_node->setNext( new_node );
+	new_node->setPrev( last_node );
 	Graph::last_node = new_node;
 	node_id++;
 	return new_node;
@@ -32,25 +32,25 @@ void Graph::rmNode ( Node *node)
 		std::cout << "Wrong arguments of rmNode\n";
 	else
 	{
-		if ( node->prev > 0 )
-			node->prev->next = node->next;
+		if ( node->getPrev() > 0 )
+			node->getPrev()->setNext( node->getNext() );
 		else
 			if ( Graph::first_node == node )
-				Graph::first_node = node->next;
+				Graph::first_node = node->getNext();
 			else std::cout << "some error in graph structure in rmNode\n";
 
-		if ( node->next > 0 )
-			node->next->prev = node->prev;
+		if ( node->getNext() > 0 )
+			node->getNext()->setPrev( node->getPrev() );
 		else
 			if ( Graph::last_node == node )
-				Graph::last_node = node->prev;
+				Graph::last_node = node->getPrev();
 			else std::cout << "some error in graph structure in rmNode\n";
 
 
-		while ( node->first_pred_edge != NULL )
-			Graph::rmEdge( node->first_pred_edge);
-		while ( node->first_succ_edge != NULL )
-			Graph::rmEdge( node->first_succ_edge);
+		while ( node->getPred() != NULL )
+			Graph::rmEdge( node->getPred() );
+		while ( node->getSucc() != NULL )
+			Graph::rmEdge( node->getSucc() );
 
 		delete node;
 	}
@@ -58,7 +58,7 @@ void Graph::rmNode ( Node *node)
 
 Edge* Graph::addEdge ( Node *prednode, Node *succnode)
 {
-	if ( (prednode <= 0)||(succnode <= 0))
+	if ( (prednode <= 0)||(succnode <= 0) )
 		std::cout << "Wrong arguments of addEdge\n";
 	else
 	{
@@ -69,8 +69,8 @@ Edge* Graph::addEdge ( Node *prednode, Node *succnode)
 			else
 				std::cout << "some error in graph structure in addEdge\n";
 		else
-			Graph::last_edge->next = new_edge;
-		new_edge->prev = Graph::last_edge;
+			Graph::last_edge->setNext( new_edge );
+		new_edge->setPrev( Graph::last_edge );
 		Graph::last_edge = new_edge;
 		return new_edge;
 	}
@@ -84,33 +84,33 @@ void Graph::rmEdge ( Edge *edge)
 		std::cout << "Wrong arguments of rmEdge\n";
 	else
 	{
-		if ( edge->prev > 0 )
-			edge->prev->next = edge->next;
+		if ( edge->getPrev() > 0 )
+			edge->getPrev()->setNext( edge->getNext() );
 		else
 			if ( Graph::first_edge == edge )
-				Graph::first_edge = edge->next;
+				Graph::first_edge = edge->getNext();
 			else std::cout << "some error in graph structure\n";
 
-		if ( edge->next > 0 )
-			edge->next->prev = edge->prev;
+		if ( edge->getNext() > 0 )
+			edge->getNext()->setPrev( edge->getPrev() );
 		else
 			if ( Graph::last_edge == edge )
-				Graph::last_edge = edge->prev;
+				Graph::last_edge = edge->getPrev();
 			else std::cout << "some error in graph structure\n";
 
-		if ( edge->prev_pred_edge > 0 )  //see from here
-			edge->prev_pred_edge->next_pred_edge = edge->next_pred_edge;
+		if ( edge->getPrevPredEdge() > 0 )  //see from here
+			edge->getPrevPredEdge()->setNextPredEdge( edge->getNextPredEdge() );
 		else
-			edge->succ_node->first_pred_edge = edge->next_pred_edge;
-		if ( edge->next_pred_edge > 0 )
-			edge->next_pred_edge->prev_pred_edge = edge->prev_pred_edge;
+			edge->getSuccNode()->setPred( edge->getNextPredEdge() );
+		if ( edge->getNextPredEdge() > 0 )
+			edge->getNextPredEdge()->setPrevPredEdge( edge->getPrevPredEdge() );
 
-		if ( edge->prev_succ_edge > 0 )
-			edge->prev_succ_edge->next_succ_edge = edge->next_succ_edge;
+		if ( edge->getPrevSuccEdge() > 0 )
+			edge->getPrevSuccEdge()->setNextSuccEdge( edge->getNextSuccEdge() );
 		else
-			edge->pred_node->first_succ_edge = edge->next_succ_edge;
-		if ( edge->next_succ_edge > 0 )
-			edge->next_succ_edge->prev_succ_edge = edge->prev_succ_edge;
+			edge->getPredNode()->setSucc( edge->getNextSuccEdge() );
+		if ( edge->getNextSuccEdge() > 0 )
+			edge->getNextSuccEdge()->setPrevSuccEdge( edge->getPrevSuccEdge() );
 
 		delete edge;
 	}

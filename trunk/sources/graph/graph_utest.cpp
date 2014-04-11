@@ -16,106 +16,84 @@ BOOST_AUTO_TEST_CASE( graph_basic)
 	void* null = NULL;
 
 	g1.addNode();
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.last_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.first_edge, null);
-	BOOST_CHECK_EQUAL( g1.last_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, null);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getData(), 0);
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getData(), 0);
+	BOOST_CHECK_EQUAL( g1.getFirstNode(), g1.getFirstNode());
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getNext(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPrev(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), null);
 
 	g1.addNode();
-	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_edge, null);
-	BOOST_CHECK_EQUAL( g1.last_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, null);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, null);
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getData(), 1);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getData(), 0);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPrev(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getNext(), g1.getLastNode());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getNext(), null);
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPrev(), g1.getFirstNode());
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), null);
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getSucc(), null);
 
 
-	g1.addEdge( g1.first_node, g1.last_node );
-	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->next, null);
-	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
+	g1.addEdge( g1.getFirstNode(), g1.getLastNode() );
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getSucc(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getNext(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getPrev(), null);
 
-	g1.addEdge( g1.last_node, g1.last_node );
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->next, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_edge->prev, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
+	g1.addEdge( g1.getLastNode(), g1.getLastNode() );
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getSucc(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getNext(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastEdge()->getPrev(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getPrev(), null);
 
 
-	g1.rmEdge( g1.last_edge );
-	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->next, null);
-	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
+	g1.rmEdge( g1.getLastEdge() );
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getSucc(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getNext(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getPrev(), null);
 
-	g1.addEdge( g1.last_node, g1.first_node );
-	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->next, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_edge->prev, g1.first_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
+	g1.addEdge( g1.getLastNode(), g1.getFirstNode() );
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getSucc(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getNext(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastEdge()->getPrev(), g1.getFirstEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getPrev(), null);
 
-	g1.rmEdge( g1.first_edge );
-	BOOST_CHECK_EQUAL( g1.last_node->data, 1);
-	BOOST_CHECK_EQUAL( g1.first_node->data, 0);
-	BOOST_CHECK_EQUAL( g1.first_node->prev, null);
-	BOOST_CHECK_EQUAL( g1.first_node->next, g1.last_node);
-	BOOST_CHECK_EQUAL( g1.last_node->next, null);
-	BOOST_CHECK_EQUAL( g1.last_node->prev, g1.first_node);
-	BOOST_CHECK_EQUAL( g1.first_node->first_succ_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_node->first_pred_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_succ_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.last_node->first_pred_edge, null);
-	BOOST_CHECK_EQUAL( g1.first_edge, g1.last_edge);
-	BOOST_CHECK_EQUAL( g1.first_edge->next, null);
-	BOOST_CHECK_EQUAL( g1.first_edge->prev, null);
 
+	for ( int i = 0; i < 10; i++ )
+		g1.addNode();
+	int count = 0;
+	for ( Node* N = g1.getFirstNode(); N!= 0; N = N->getNext())
+	{
+		BOOST_CHECK_EQUAL( N->getData(), count);
+		count ++;
+	}
+
+	BOOST_CHECK_EQUAL( count, 12 );
+
+	g1.rmEdge( g1.getFirstEdge() );
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getSucc(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getPred(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstNode()->getNext()->getSucc(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getLastNode()->getPred(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge(), g1.getLastEdge());
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getNext(), null);
+	BOOST_CHECK_EQUAL( g1.getFirstEdge()->getPrev(), null);
 }
 
 
