@@ -13,13 +13,14 @@
 
 class Edge
 {
+
+
 private:
 	Edge *next, *prev;
 	Edge *next_succ_edge, *prev_succ_edge, //for the list in the node where the edge begins
 		 *next_pred_edge, *prev_pred_edge; //for the list in the node where the edge ends
 
 	Node *pred_node, *succ_node;
-public:										//to be private
 	void setNextSuccEdge( Edge* edge ){
 		Edge::next_succ_edge = edge;
 	};
@@ -44,6 +45,9 @@ public:										//to be private
 	void setSuccNode( Node* node ){
 		Edge::succ_node = node;
 	}
+	friend class Graph;
+	//friend Edge* Graph::addEdge ( Node *prednode, Node *succnode);
+	//friend void Graph::rmEdge ( Edge *edge);
 public:
 	Edge ( Node *pred_node, Node *succ_node);		//friend to Node::setSucc(), Node::setPred() needed here
 	~Edge () {};
@@ -71,5 +75,4 @@ public:
 	Node* getSuccNode(){
 		return succ_node;
 	}
-
 };
