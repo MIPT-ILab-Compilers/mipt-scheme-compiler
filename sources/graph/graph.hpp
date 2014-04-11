@@ -12,15 +12,15 @@
 
 class Graph
 {
-public:							//to be private
+private:
 	Node *first_node, *last_node;
 	Edge *first_edge, *last_edge;
 	int node_id;
 public:
-	Node* addNode ();
-	void rmNode ( Node *node);
-	Edge* addEdge ( Node *prednode, Node *succnode);
-	void rmEdge ( Edge *edge);
+	Node* addNode ();									//friend to Node::setNext(), Node::setPrev() needed here
+	void rmNode ( Node *node);							//friend to Node::setNext(), Node::setPrev() needed here
+	Edge* addEdge ( Node *prednode, Node *succnode);	//friend to Edge::setNext(), Edge::setPrev() needed here
+	void rmEdge ( Edge *edge);							//friend to Node::setNext(), Node::setPrev(), Edge::set*() needed here
 
 	Graph ();
 	~Graph ();
