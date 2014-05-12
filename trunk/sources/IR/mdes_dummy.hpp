@@ -7,6 +7,7 @@
  */
 
 #pragma once
+#include <string.h>
 
 const UInt8 MAX_RESS_NUM = 1;
 const UInt8 MAX_ARGS_NUM = 2;
@@ -28,76 +29,64 @@ enum OperName
     OPERS_NUM
 };
 
-/** Return the number of arguments */
-inline UInt8 numArgsInOperName( OperName name)
+class OperDes
 {
-    switch ( name )
-    {
-        case OPER_MOV:
-            return 1;
-            break;
-        case OPER_ADD:
-            return 2;
-            break;
-        case OPER_SUB:
-            return 2;
-            break;
-        case OPER_MUL:
-            return 2;
-            break;
-        case OPERS_NUM:
-            return 0;
-            break;
-        default:
-            IR_ASSERTD( 0);
-    }
-}
+public:	
+	char *name;
+	int num_args;
+	int num_res; 
+	//type arg_type[MAX];
+	OperDes( const char *, int, int);
+};
+	
+class MDES
+{
+private:
+	static OperDes des[OPERS_NUM];
+public:
+	static OperDes* getOperDes( OperName);
+	static int getOperArgs( OperName);
+	static int getOperRes( OperName);
+	static char* getOperName( OperName);
+		// ....//
+};
+
+/** Initialization of the object **/
+OperDes::OperDes( const char *name, int num_args, int num_res)
+{
+	int length;
+	length = strlen( name) + 1;
+	this->name = new char[length];
+	strcpy( this->name, name);
+	this->num_args = num_args;
+	this->num_res = num_res;
+};
+ 
+OperDes* MDES::getOperDes( OperName name)
+{
+	return &des[name];
+};
+
+/** Return the number of arguments */
+int MDES::getOperArgs( OperName op)
+{
+	OperDes *des = MDES::getOperDes( op);
+	return des->num_args;
+};
 
 /** Return the number of results */
-inline UInt8 numRessInOperName( OperName name)
+int MDES::getOperRes( OperName op)
 {
-    switch ( name )
-    {
-        case OPER_MOV:
-            return 1;
-            break;
-        case OPER_ADD:
-            return 1;
-            break;
-        case OPER_SUB:
-            return 1;
-            break;
-        case OPER_MUL:
-            return 1;
-            break;
-        case OPERS_NUM:
-            return 0;
-            break;
-        default:
-            IR_ASSERTD( 0);
-    }
-}
+	OperDes *des = MDES::getOperDes( op);
+	return des->num_res;
+};
 
-inline string getOperNameString( OperName name)
+/** Return the name of function */
+char* MDES::getOperName( OperName op)
 {
-    switch ( name )
-    {
-        case OPER_MOV:
-            return "MOV";
-            break;
-        case OPER_ADD:
-            return "ADD";
-            break;
-        case OPER_SUB:
-            return "SUB";
-            break;
-        case OPER_MUL:
-            return "MUL";
-            break;
-        case OPERS_NUM:
-            return "none";
-            break;
-        default:
-            IR_ASSERTD( 0);
-    }
-}
+	OperDes *des = MDES::getOperDes( op);
+	return des->name;
+};
+	
+/** Initialization the array of objects **/
+OperDes MDES::des[OPERS_NUM] = { OperDes( "MOV", 2 , 1), OperDes( "ADD", 2, 1), OperDes( "SUB", 2, 1), OperDes( "MUL", 2, 1)}; 
