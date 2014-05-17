@@ -25,13 +25,13 @@ inline OperName Operation::name() const
 /** Get number of arguments */
 inline UInt8 Operation::numArgs() const
 {
-    return numArgsInOperName( name_);
+    return MDES::numArgsInOperName( name_);
 }
 
 /** Get number of results */
 inline UInt8 Operation::numRess() const
 {
-    return numRessInOperName( name_);
+    return MDES::numRessInOperName( name_);
 }
 
 /** se */
@@ -114,7 +114,7 @@ inline void Operation::setBasicBlock( BasicBlock& pBB)
 /** Add the operation in the output stream s */
 inline void Operation::toStream( ostream& s) const
 {
-    s << "[" << id() << "] " << getOperNameString( name()) << " ";
+    s << "[" << id() << "] " << MDES::getOperNameString( name()) << " ";
     for ( UInt8 i = 0; i < numArgs(); i++ )
     {
         if ( i == 0 ) 
