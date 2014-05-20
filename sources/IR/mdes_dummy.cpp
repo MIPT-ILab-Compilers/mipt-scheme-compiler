@@ -38,4 +38,4 @@ char* MDES::getOperNameString( OperName op)
 };
 
 /** Initialization the array of objects **/
-OperDes MDES::des[OPERS_NUM] = { OperDes( "MOV", 2 , 1), OperDes( "ADD", 2, 1), OperDes( "SUB", 2, 1), OperDes( "MUL", 2, 1)}; 
+OperDes MDES::des[OPERS_NUM] = { OperDes( "MOV", 1 , 1), OperDes( "ADD", 2, 1), OperDes( "SUB", 2, 1), OperDes( "MUL", 2, 1)}; 

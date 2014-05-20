@@ -27,8 +27,8 @@ BOOST_AUTO_TEST_CASE( ir_basic)
     /** Constructor of Operation */
     Operation op1( 1);
     /** Print empty operation */
-    /*cout << "Empty Operation" << endl;
-    cout << op1 << endl;
+    //cout << "Empty Operation" << endl;
+    //cout << op1 << endl;
     BOOST_CHECK_EQUAL( op1.id(), 1);
     BOOST_CHECK_EQUAL( op1.name(), OPERS_NUM);
     /** Set Operation (MOV) */

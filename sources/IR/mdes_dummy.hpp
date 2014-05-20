@@ -35,7 +35,6 @@ public:
 	char *name;
 	int num_args;
 	int num_res; 
-	//type arg_type[MAX];
 	OperDes( const char *, int, int);
 };
 	
@@ -48,6 +47,5 @@ public:
 	static int numArgsInOperName( OperName);
 	static int numRessInOperName( OperName);
 	static char* getOperNameString( OperName);
-		// ....//
 };
 
